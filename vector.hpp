@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Iterators/RandomIt.hpp"
+#include <memory>
 
 namespace ft 
 {
 
-    template<class T, class Alloc = std::alocator<T>>
+    template<class T, class Alloc = std::allocator<T>>
     class vector 
     {
         public:
@@ -21,6 +22,5 @@ namespace ft
             typedef RandomIt<T, const T*, const T&>     const_iterator;
             typedef RevRandomIt<T, T*, T&>              reverse_iterator;
             typedef RevRandomIt<T, const T*, const T&>  const_reverse_iterator;
-        
     };
 }
