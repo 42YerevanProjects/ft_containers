@@ -17,7 +17,7 @@ namespace ft
             typedef T*                      pointer;
             typedef const T*                const_pointer;
             
-            /* To Be implemented... */
+            /* Iterators of Vector */
             typedef RandomIt<T, T*, T&>                 iterator;
             typedef RandomIt<T, const T*, const T&>     const_iterator;
             typedef RevRandomIt<T, T*, T&>              reverse_iterator;
