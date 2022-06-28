@@ -29,16 +29,16 @@ class RandomIt
         
         RandIter&   operator=(const iterator& other);
 
-        RandIter&   operator++(int);
+        RandIter    operator++(int);
         RandIter&   operator++();
 
-        RandIter&   operator+(size_t n) const;
+        RandIter    operator+(size_t n) const;
         RandIter&   operator+=(size_t n);
 
-        RandIter&   operator--(int);
+        RandIter    operator--(int);
         RandIter&   operator--();
 
-        RandIter&   operator-(size_t n) const;
+        RandIter    operator-(size_t n) const;
         size_t      operator-(RandIter it) const;
 
         RandIter&   operator-=(size_t n);
@@ -51,3 +51,5 @@ class RandomIt
         bool operator==(const RandIter &other) const;
         bool operator!=(const RandIter &other) const;
 };
+
+#include "RandomIt.tpp"
