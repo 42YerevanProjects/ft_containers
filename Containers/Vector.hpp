@@ -48,14 +48,30 @@ namespace ft
             /* Iterator functions */
             iterator                begin();
             iterator                end();
-
-            const_iterator          begin() const;
-            const_iterator          end() const;
-
             reverse_iterator        rbegin();
             reverse_iterator        rend();
 
+            const_iterator          begin() const;
+            const_iterator          end() const;
             const_reverse_iterator  rbegin() const;
             const_reverse_iterator  rend() const;
+
+            /* Capacity functions */
+            size_type               size(); const;
+            size_type               max_size(); const;
+            size_type               capacity() const;
+            bool                    empty() const;
+            void                    reserve(size_type n);
+            void                    resize(size_type n, value_type val = value_type());
+
     };
 }
+
+
+
+
+
+
+
+
+
