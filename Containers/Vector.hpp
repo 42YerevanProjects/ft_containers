@@ -45,7 +45,7 @@ namespace ft
 
             ~vector();
 
-            /* Iterator functions */
+            /* Iterator Functions */
             iterator                begin();
             iterator                end();
             reverse_iterator        rbegin();
@@ -56,22 +56,29 @@ namespace ft
             const_reverse_iterator  rbegin() const;
             const_reverse_iterator  rend() const;
 
-            /* Capacity functions */
-            size_type               size(); const;
-            size_type               max_size(); const;
+            /* Capacity Functions */
+            size_type               size() const;
+            size_type               max_size() const;
             size_type               capacity() const;
             bool                    empty() const;
             void                    reserve(size_type n);
             void                    resize(size_type n, value_type val = value_type());
 
+            /* Element Access Functions */
+            reference               operator[](size_type n);
+            const_reference         operator[](size_type n) const;
+
+            reference               at(size_type n);
+            const_reference         at(size_type n) const;
+
+            reference               front();
+            reference               back();
+            const_reference         front() const;
+            const_reference         back() const;
+
+
+
+
     };
 }
-
-
-
-
-
-
-
-
 
