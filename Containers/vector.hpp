@@ -78,7 +78,7 @@ namespace ft
 
             /* Modifier Functions */
             void                    assign(iterator first, iterator last);
-			void                    assign(const_iterator first, const_iterator last);
+            void                    assign(const_iterator first, const_iterator last);
             void                    assign(size_type n, const value_type& val);
             void                    push_back(const value_type& val);
             void                    pop_back();
@@ -86,7 +86,7 @@ namespace ft
             void                    insert(iterator position, iterator first, iterator last);
             void                    insert(iterator position, const_iterator first, const_iterator last);
             void                    swap(vector& x);
-			void                    clear();
+            void                    clear();
             iterator                erase (iterator position);
             iterator                erase (iterator first, iterator last);
 
