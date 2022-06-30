@@ -77,18 +77,21 @@ namespace ft
             const_reference         back() const;
 
             /* Modifier Functions */
-            void		            assign(iterator first, iterator last);
-			void		            assign(const_iterator first, const_iterator last);
-            void		            assign(size_type n, const value_type& val);
+            void                    assign(iterator first, iterator last);
+			void                    assign(const_iterator first, const_iterator last);
+            void                    assign(size_type n, const value_type& val);
             void                    push_back(const value_type& val);
             void                    pop_back();
             void                    insert(iterator position, size_type n, const value_type& val);
             void                    insert(iterator position, iterator first, iterator last);
             void                    insert(iterator position, const_iterator first, const_iterator last);
-            void 		            swap(vector& x);
-			void		            clear();
+            void                    swap(vector& x);
+			void                    clear();
             iterator                erase (iterator position);
             iterator                erase (iterator first, iterator last);
+
+            /* Allocator Object Copy */
+            allocator_type          get_allocator() const;
     };
 }
 
