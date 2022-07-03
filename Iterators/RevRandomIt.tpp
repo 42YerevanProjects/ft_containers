@@ -2,118 +2,142 @@
 
 #include <cstdlib>
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>::RevRandomIt() : data_ptr(NULL) {}
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>::RevRandomIt() : data_ptr(NULL) {}
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>::RevRandomIt(const Pointer ptr) : data_ptr(ptr) {}
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>::RevRandomIt(const pointer ptr) : data_ptr(ptr) {}
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>::RevRandomIt(const iterator &other) { *this = other; }
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>::RevRandomIt(const RevRandomIt<T, isConst>& other) { *this = other; }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>::~RevRandomIt() {}
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>::~RevRandomIt() {}
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>&   RevRandomIt<T, Pointer, Reference>::operator=(const iterator& other)
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>&   RevRandomIt<T, isConst>::operator=(const RevRandomIt<T, isConst>& other)
 {
     this->data_ptr = other.data_ptr;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>   RevRandomIt<T, Pointer, Reference>::operator++(int)
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>   RevRandomIt<T, isConst>::operator++(int)
 {
-    RevRandomIt<T, Pointer, Reference> temp = *this;
+    RevRandomIt<T, isConst> temp = *this;
     this->data_ptr--;
     return temp;
 }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>&   RevRandomIt<T, Pointer, Reference>::operator++()
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>&   RevRandomIt<T, isConst>::operator++()
 {
     --this->data_ptr;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>   RevRandomIt<T, Pointer, Reference>::operator+(size_t n) const
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>   RevRandomIt<T, isConst>::operator+(size_t n) const
 {
-    RevRandomIt<T, Pointer, Reference> temp = *this;
+    RevRandomIt<T, isConst> temp = *this;
     temp.data_ptr -= n;
     return temp;
 }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>&   RevRandomIt<T, Pointer, Reference>::operator+=(size_t n)
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>&   RevRandomIt<T, isConst>::operator+=(size_t n)
 {
     this->data_ptr -= n;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>   RevRandomIt<T, Pointer, Reference>::operator--(int)
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>   RevRandomIt<T, isConst>::operator--(int)
 {
-    RevRandomIt<T, Pointer, Reference> temp = *this;
+    RevRandomIt<T, isConst> temp = *this;
     temp.data_ptr++;
     return temp;
 }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>&   RevRandomIt<T, Pointer, Reference>::operator--()
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>&   RevRandomIt<T, isConst>::operator--()
 {
     ++this->data_ptr;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>   RevRandomIt<T, Pointer, Reference>::operator-(size_t n) const
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>   RevRandomIt<T, isConst>::operator-(size_t n) const
 {
-    RevRandomIt<T, Pointer, Reference> temp = *this;
+    RevRandomIt<T, isConst> temp = *this;
     temp.data_ptr -= n;
     return temp;
 }
 
-template<typename T, typename Pointer, typename Reference>
-size_t   RevRandomIt<T, Pointer, Reference>::operator-(RevRandomIt<T, Pointer, Reference> it) const
+template<typename T, bool isConst>
+typename RevRandomIt<T, isConst>::difference_type   RevRandomIt<T, isConst>::operator-(RevRandomIt<T, isConst> it) const
 {
     return (this->data_ptr - it.data_ptr);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RevRandomIt<T, Pointer, Reference>&   RevRandomIt<T, Pointer, Reference>::operator-=(size_t n)
+template<typename T, bool isConst>
+RevRandomIt<T, isConst>&   RevRandomIt<T, isConst>::operator-=(size_t n)
 {
     this->data_ptr -= n;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-Reference   RevRandomIt<T, Pointer, Reference>::operator*()
+template<typename T, bool isConst>
+typename RevRandomIt<T, isConst>::reference   RevRandomIt<T, isConst>::operator*()
 {
     return (*this->data_ptr);
 }
 
-template<typename T, typename Pointer, typename Reference>
-Pointer   RevRandomIt<T, Pointer, Reference>::operator->()
+template<typename T, bool isConst>
+typename RevRandomIt<T, isConst>::pointer   RevRandomIt<T, isConst>::operator->()
 {
     return (this->data_ptr);
 }
 
-template<typename T, typename Pointer, typename Reference>
-Reference   RevRandomIt<T, Pointer, Reference>::operator[](size_t n)
+template<typename T, bool isConst>
+typename RevRandomIt<T, isConst>::reference   RevRandomIt<T, isConst>::operator[](size_t n)
 {
     return (*(this->data_ptr - n));
 }
 
-template<typename T, typename Pointer, typename Reference>
-bool    RevRandomIt<T, Pointer, Reference>::operator==(const RevRandomIt<T, Pointer, Reference> &other) const
+template<typename T, bool isConst>
+bool    RevRandomIt<T, isConst>::operator==(const RevRandomIt<T, isConst> &other) const
 {
     return (this->data_ptr == other.data_ptr);
 }
 
-template<typename T, typename Pointer, typename Reference>
-bool    RevRandomIt<T, Pointer, Reference>::operator!=(const RevRandomIt<T, Pointer, Reference> &other) const
+template<typename T, bool isConst>
+bool    RevRandomIt<T, isConst>::operator!=(const RevRandomIt<T, isConst> &other) const
 {
     return (this->data_ptr != other.data_ptr);
+}
+
+template<typename T, bool isConst>
+bool    RevRandomIt<T, isConst>::operator>=(const RevRandomIt<T, isConst> &other) const
+{
+    return (this->data_ptr >= other.data_ptr);
+}
+
+template<typename T, bool isConst>
+bool    RevRandomIt<T, isConst>::operator<=(const RevRandomIt<T, isConst> &other) const
+{
+    return (this->data_ptr <= other.data_ptr);
+}
+
+template<typename T, bool isConst>
+bool    RevRandomIt<T, isConst>::operator>(const RevRandomIt<T, isConst> &other) const
+{
+    return (this->data_ptr > other.data_ptr);
+}
+
+template<typename T, bool isConst>
+bool    RevRandomIt<T, isConst>::operator<(const RevRandomIt<T, isConst> &other) const
+{
+    return (this->data_ptr < other.data_ptr);
 }
 
