@@ -29,8 +29,8 @@ namespace ft
         private:
             allocator_type  alloc;
             pointer         data;
-            size_type       cap;
             size_type       len;
+            size_type       cap;
 
         public:
             /* Constructers and Destructer */
@@ -95,3 +95,4 @@ namespace ft
     };
 }
 
+#include "vector.tpp"
