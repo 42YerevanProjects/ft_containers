@@ -1,8 +1,6 @@
 #pragma once
 
-#include "../Iterators/RandomIt.hpp"
-#include "../Iterators/RevRandomIt.hpp"
-#include <cstdint>
+#include "../Iterators/Iterator.hpp"
 #include <memory>
 
 namespace ft 
@@ -21,8 +19,8 @@ namespace ft
             typedef size_t                  size_type;
             
             /* Iterators of Vector */
-            typedef RandomIt<T, T*, T&>                 iterator;
-            typedef RandomIt<T, const T*, const T&>     const_iterator;
+            typedef RandomIt<T>                         iterator;
+            typedef RandomIt<T, true>                   const_iterator;
             typedef RevRandomIt<T, T*, T&>              reverse_iterator;
             typedef RevRandomIt<T, const T*, const T&>  const_reverse_iterator;
 
