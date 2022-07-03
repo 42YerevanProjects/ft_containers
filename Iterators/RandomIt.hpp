@@ -1,6 +1,7 @@
 #pragma once
 
-#include <cstdlib>
+#include <cstddef>
+#include "Traits.hpp"
 
 /*
 ==============================
@@ -8,48 +9,57 @@
 ==============================
 */
 
-
-template<typename T, typename Pointer, typename Reference>
+template<typename T, bool isConst = false>
 class RandomIt
 {
     public:
-        typedef RandomIt<T, Pointer, Reference> RandIter;
-        typedef RandomIt<T, T*, T&>             iterator;
+        typedef typename ft::conditional<isConst, T, const T>::type value_type;
+        typedef value_type*                                         pointer;
+        typedef value_type&                                         reference;
+        typedef std::ptrdiff_t                                      difference_type;
+        typedef typename ft::random_access_iterator_tag             iterator_category;
 
-        Pointer data_ptr;
+    private:
+        pointer data_ptr;
 
+    public:
         /* Constructors and Destructor */
 
         RandomIt();
-        RandomIt(const Pointer ptr);
-        RandomIt(const iterator& other);
+        RandomIt(const pointer ptr);
+        RandomIt(const RandomIt<T, isConst>& other);
         ~RandomIt();
 
         /* Operator Overloads */
         
-        RandIter&   operator=(const iterator& other);
+        RandomIt<T, isConst>&   operator=(const RandomIt<T, isConst>& other);
 
-        RandIter    operator++(int);
-        RandIter&   operator++();
+        RandomIt<T, isConst>    operator++(int);
+        RandomIt<T, isConst>&   operator++();
 
-        RandIter    operator+(size_t n) const;
-        RandIter&   operator+=(size_t n);
+        RandomIt<T, isConst>    operator+(size_t n) const;
+        RandomIt<T, isConst>&   operator+=(size_t n);
 
-        RandIter    operator--(int);
-        RandIter&   operator--();
+        RandomIt<T, isConst>    operator--(int);
+        RandomIt<T, isConst>&   operator--();
 
-        RandIter    operator-(size_t n) const;
-        size_t      operator-(RandIter it) const;
+        RandomIt<T, isConst>    operator-(size_t n) const;
+        difference_type         operator-(RandomIt<T, isConst> it) const;
 
-        RandIter&   operator-=(size_t n);
+        RandomIt<T, isConst>&   operator-=(size_t n);
 
-        Reference   operator*();
-        Pointer     operator->();
-        Reference   operator[](size_t n);
+        reference               operator*();
+        pointer                 operator->();
+        reference               operator[](size_t n);
 
         /* Equality Checks */
-        bool operator==(const RandIter &other) const;
-        bool operator!=(const RandIter &other) const;
+
+        bool                    operator==(const RandomIt<T, isConst> &other) const;
+        bool                    operator!=(const RandomIt<T, isConst> &other) const;
+        bool                    operator>=(const RandomIt<T, isConst> &other) const;
+        bool                    operator<=(const RandomIt<T, isConst> &other) const;
+        bool                    operator>(const RandomIt<T, isConst> &other) const;
+        bool                    operator<(const RandomIt<T, isConst> &other) const;
 };
 
 #include "RandomIt.tpp"
