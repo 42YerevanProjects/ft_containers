@@ -2,117 +2,142 @@
 
 #include <cstdlib>
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>::RandomIt() : data_ptr(NULL) {}
+template<typename T, bool isConst>
+RandomIt<T, isConst>::RandomIt() : data_ptr(NULL) {}
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>::RandomIt(const Pointer ptr) : data_ptr(ptr) {}
+template<typename T, bool isConst>
+RandomIt<T, isConst>::RandomIt(const pointer ptr) : data_ptr(ptr) {}
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>::RandomIt(const iterator &other) { *this = other; }
+template<typename T, bool isConst>
+RandomIt<T, isConst>::RandomIt(const RandomIt<T, isConst> &other) { *this = other; }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>::~RandomIt() {}
+template<typename T, bool isConst>
+RandomIt<T, isConst>::~RandomIt() {}
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>&   RandomIt<T, Pointer, Reference>::operator=(const iterator& other)
+template<typename T, bool isConst>
+RandomIt<T, isConst>&   RandomIt<T, isConst>::operator=(const RandomIt<T, isConst>& other)
 {
     this->data_ptr = other.data_ptr;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>   RandomIt<T, Pointer, Reference>::operator++(int)
+template<typename T, bool isConst>
+RandomIt<T, isConst>   RandomIt<T, isConst>::operator++(int)
 {
-    RandomIt<T, Pointer, Reference> temp = *this;
+    RandomIt<T, isConst> temp = *this;
     this->data_ptr++;
     return temp;
 }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>&   RandomIt<T, Pointer, Reference>::operator++()
+template<typename T, bool isConst>
+RandomIt<T, isConst>&   RandomIt<T, isConst>::operator++()
 {
     ++this->data_ptr;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>   RandomIt<T, Pointer, Reference>::operator+(size_t n) const
+template<typename T, bool isConst>
+RandomIt<T, isConst>   RandomIt<T, isConst>::operator+(size_t n) const
 {
-    RandomIt<T, Pointer, Reference> temp = *this;
+    RandomIt<T, isConst> temp = *this;
     temp.data_ptr += n;
     return temp;
 }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>&   RandomIt<T, Pointer, Reference>::operator+=(size_t n)
+template<typename T, bool isConst>
+RandomIt<T, isConst>&   RandomIt<T, isConst>::operator+=(size_t n)
 {
     this->data_ptr += n;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>   RandomIt<T, Pointer, Reference>::operator--(int)
+template<typename T, bool isConst>
+RandomIt<T, isConst>   RandomIt<T, isConst>::operator--(int)
 {
-    RandomIt<T, Pointer, Reference> temp = *this;
+    RandomIt<T, isConst> temp = *this;
     temp.data_ptr--;
     return temp;
 }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>&   RandomIt<T, Pointer, Reference>::operator--()
+template<typename T, bool isConst>
+RandomIt<T, isConst>&   RandomIt<T, isConst>::operator--()
 {
     --this->data_ptr;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>   RandomIt<T, Pointer, Reference>::operator-(size_t n) const
+template<typename T, bool isConst>
+RandomIt<T, isConst>   RandomIt<T, isConst>::operator-(size_t n) const
 {
-    RandomIt<T, Pointer, Reference> temp = *this;
+    RandomIt<T, isConst> temp = *this;
     temp.data_ptr -= n;
     return temp;
 }
 
-template<typename T, typename Pointer, typename Reference>
-size_t   RandomIt<T, Pointer, Reference>::operator-(RandomIt<T, Pointer, Reference> it) const
+template<typename T, bool isConst>
+typename RandomIt<T, isConst>::difference_type  RandomIt<T, isConst>::operator-(RandomIt<T, isConst> it) const
 {
     return (this->data_ptr - it.data_ptr);
 }
 
-template<typename T, typename Pointer, typename Reference>
-RandomIt<T, Pointer, Reference>&   RandomIt<T, Pointer, Reference>::operator-=(size_t n)
+template<typename T, bool isConst>
+RandomIt<T, isConst>&   RandomIt<T, isConst>::operator-=(size_t n)
 {
     this->data_ptr -= n;
     return (*this);
 }
 
-template<typename T, typename Pointer, typename Reference>
-Reference   RandomIt<T, Pointer, Reference>::operator*()
+template<typename T, bool isConst>
+typename RandomIt<T, isConst>::reference   RandomIt<T, isConst>::operator*()
 {
     return (*this->data_ptr);
 }
 
-template<typename T, typename Pointer, typename Reference>
-Pointer   RandomIt<T, Pointer, Reference>::operator->()
+template<typename T, bool isConst>
+typename RandomIt<T, isConst>::pointer   RandomIt<T, isConst>::operator->()
 {
     return (this->data_ptr);
 }
 
-template<typename T, typename Pointer, typename Reference>
-Reference   RandomIt<T, Pointer, Reference>::operator[](size_t n)
+template<typename T, bool isConst>
+typename RandomIt<T, isConst>::reference   RandomIt<T, isConst>::operator[](size_t n)
 {
     return (*(this->data_ptr + n));
 }
 
-template<typename T, typename Pointer, typename Reference>
-bool    RandomIt<T, Pointer, Reference>::operator==(const RandomIt<T, Pointer, Reference> &other) const
+template<typename T, bool isConst>
+bool    RandomIt<T, isConst>::operator==(const RandomIt<T, isConst> &other) const
 {
     return (this->data_ptr == other.data_ptr);
 }
 
-template<typename T, typename Pointer, typename Reference>
-bool    RandomIt<T, Pointer, Reference>::operator!=(const RandomIt<T, Pointer, Reference> &other) const
+template<typename T, bool isConst>
+bool    RandomIt<T, isConst>::operator!=(const RandomIt<T, isConst> &other) const
 {
     return (this->data_ptr != other.data_ptr);
+}
+
+
+template<typename T, bool isConst>
+bool    RandomIt<T, isConst>::operator>=(const RandomIt<T, isConst> &other) const
+{
+    return (this->data_ptr >= other.data_ptr);
+}
+
+template<typename T, bool isConst>
+bool    RandomIt<T, isConst>::operator<=(const RandomIt<T, isConst> &other) const
+{
+    return (this->data_ptr <= other.data_ptr);
+}
+
+template<typename T, bool isConst>
+bool    RandomIt<T, isConst>::operator>(const RandomIt<T, isConst> &other) const
+{
+    return (this->data_ptr > other.data_ptr);
+}
+
+template<typename T, bool isConst>
+bool    RandomIt<T, isConst>::operator<(const RandomIt<T, isConst> &other) const
+{
+    return (this->data_ptr < other.data_ptr);
 }
