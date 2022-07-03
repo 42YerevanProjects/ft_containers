@@ -8,48 +8,57 @@
 ======================================
 */
 
-
-template<typename T, typename Pointer, typename Reference>
+template<typename T, bool isConst = false>
 class RevRandomIt
 {
     public:
-        typedef RevRandomIt<T, Pointer, Reference> RevRandIter;
-        typedef RevRandomIt<T, T*, T&>             iterator;
+        typedef typename ft::conditional<isConst, T, const T>::type value_type;
+        typedef value_type*                                         pointer;
+        typedef value_type&                                         reference;
+        typedef std::ptrdiff_t                                      difference_type;
+        typedef typename ft::random_access_iterator_tag             iterator_category;
 
-        Pointer data_ptr;
+    private:
+        pointer data_ptr;
 
+    public:
         /* Constructors and Destructor */
 
         RevRandomIt();
-        RevRandomIt(const Pointer ptr);
-        RevRandomIt(const iterator& other);
+        RevRandomIt(const pointer ptr);
+        RevRandomIt(const RevRandomIt<T, isConst>& other);
         ~RevRandomIt();
 
         /* Operator Overloads */
         
-        RevRandIter&    operator=(const iterator& other);
+        RevRandomIt<T, isConst>&    operator=(const RevRandomIt<T, isConst>& other);
 
-        RevRandIter     operator++(int);
-        RevRandIter&    operator++();
+        RevRandomIt<T, isConst>     operator++(int);
+        RevRandomIt<T, isConst>&    operator++();
 
-        RevRandIter     operator+(size_t n) const;
-        RevRandIter&    operator+=(size_t n);
+        RevRandomIt<T, isConst>     operator+(size_t n) const;
+        RevRandomIt<T, isConst>&    operator+=(size_t n);
 
-        RevRandIter     operator--(int);
-        RevRandIter&    operator--();
+        RevRandomIt<T, isConst>     operator--(int);
+        RevRandomIt<T, isConst>&    operator--();
 
-        RevRandIter     operator-(size_t n) const;
-        size_t          operator-(RevRandIter it) const;
+        RevRandomIt<T, isConst>     operator-(size_t n) const;
+        difference_type             operator-(RevRandomIt<T, isConst> it) const;
 
-        RevRandIter&    operator-=(size_t n);
+        RevRandomIt<T, isConst>&    operator-=(size_t n);
 
-        Reference       operator*();
-        Pointer         operator->();
-        Reference       operator[](size_t n);
+        reference                   operator*();
+        pointer                     operator->();
+        reference                   operator[](size_t n);
 
         /* Equality Checks */
-        bool operator==(const RevRandIter &other) const;
-        bool operator!=(const RevRandIter &other) const;
+
+        bool                        operator==(const RevRandomIt<T, isConst> &other) const;
+        bool                        operator!=(const RevRandomIt<T, isConst> &other) const;
+        bool                        operator>=(const RevRandomIt<T, isConst> &other) const;
+        bool                        operator<=(const RevRandomIt<T, isConst> &other) const;
+        bool                        operator>(const RevRandomIt<T, isConst> &other) const;
+        bool                        operator<(const RevRandomIt<T, isConst> &other) const;
 };
 
 #include "RevRandomIt.tpp"
