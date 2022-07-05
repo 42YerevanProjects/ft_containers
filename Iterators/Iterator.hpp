@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cstddef>
-#include "Traits.hpp"
-#include "RandomIt.hpp"
-#include "RevRandomIt.hpp"
+#include "type_traits.hpp"
+#include "random_iterator.hpp"
+#include "reverse_iterator.hpp"
 
