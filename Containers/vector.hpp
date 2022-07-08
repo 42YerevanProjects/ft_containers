@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../Iterators/iterator.hpp"
+#include "../Iterators/random_iterator.hpp"
+#include "../Iterators/reverse_iterator.hpp"
 #include <memory>
 
 namespace ft 
