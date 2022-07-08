@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cstddef>
-#include "type_traits.hpp"
+#include "iterator.hpp"
 
 /*
 ==============================
@@ -13,14 +12,14 @@ namespace ft
 {
 
     template<typename T>
-    class random_iterator
+    class random_iterator : ft::iterator<ft::random_access_iterator_tag, T>
     {
         public:
-            typedef T                                                   value_type;
-            typedef value_type*                                         pointer;
-            typedef value_type&                                         reference;
-            typedef std::ptrdiff_t                                      difference_type;
-            typedef typename ft::random_access_iterator_tag             iterator_category;
+            typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type        value_type;
+            typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer           pointer;
+            typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference         reference;
+            typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type   difference_type;
+            typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category iterator_category;
     
         protected:
             pointer data_ptr;
