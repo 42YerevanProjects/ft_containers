@@ -1,10 +1,6 @@
 #pragma once
 
-#include <cstddef>
 #include "type_traits.hpp"
-#include "random_iterator.hpp"
-#include "reverse_iterator.hpp"
-
 
 namespace ft
 {
@@ -20,7 +16,7 @@ namespace ft
     {
         typedef T           value_type;
         typedef Pointer     pointer;
-        typedef Reference   rference;
+        typedef Reference   reference;
         typedef Distance    difference_type;
         typedef Category    iterator_category;
     };
