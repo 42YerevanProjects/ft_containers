@@ -13,9 +13,9 @@ namespace ft
 
     struct input_iterator_tag {};
     struct output_iterator_tag {};
-    struct forward_iterator_tag : public input_iterator_tag {};
-    struct bidirectional_iterator_tag : public forward_iterator_tag {};
-    struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+    struct forward_iterator_tag : input_iterator_tag {};
+    struct bidirectional_iterator_tag : forward_iterator_tag {};
+    struct random_access_iterator_tag : bidirectional_iterator_tag {};
 
 
     /*
@@ -100,46 +100,46 @@ namespace ft
 
 
     template <typename>
-    struct is_integral_type : public is_integral_res<false, bool> {};
+    struct is_integral_type : is_integral_res<false, bool> {};
 
     template <>
-    struct is_integral_type<bool> : public is_integral_res<true, bool> {};
+    struct is_integral_type<bool> : is_integral_res<true, bool> {};
 
     template <>
-    struct is_integral_type<char> : public is_integral_res<true, char> {};
+    struct is_integral_type<char> : is_integral_res<true, char> {};
 
     template <>
-    struct is_integral_type<signed char> : public is_integral_res<true, signed char> {};
+    struct is_integral_type<signed char> : is_integral_res<true, signed char> {};
 
     template <>
-    struct is_integral_type<short int> : public is_integral_res<true, short int> {};
+    struct is_integral_type<short int> : is_integral_res<true, short int> {};
 
     template <>
-    struct is_integral_type<int> : public is_integral_res<true, int> {};
+    struct is_integral_type<int> : is_integral_res<true, int> {};
 
     template <>
-    struct is_integral_type<long int> : public is_integral_res<true, long int> {};
+    struct is_integral_type<long int> : is_integral_res<true, long int> {};
 
     template <>
-    struct is_integral_type<long long int> : public is_integral_res<true, long long int> {};
+    struct is_integral_type<long long int> : is_integral_res<true, long long int> {};
 
     template <>
-    struct is_integral_type<unsigned char> : public is_integral_res<true, unsigned char> {};
+    struct is_integral_type<unsigned char> : is_integral_res<true, unsigned char> {};
 
     template <>
-    struct is_integral_type<unsigned short int> : public is_integral_res<true, unsigned short int> {};
+    struct is_integral_type<unsigned short int> : is_integral_res<true, unsigned short int> {};
 
     template <>
-    struct is_integral_type<unsigned int> : public is_integral_res<true, unsigned int> {};
+    struct is_integral_type<unsigned int> : is_integral_res<true, unsigned int> {};
 
     template <>
-    struct is_integral_type<unsigned long int> : public is_integral_res<true, unsigned long int> {};
+    struct is_integral_type<unsigned long int> : is_integral_res<true, unsigned long int> {};
 
     template <>
-    struct is_integral_type<unsigned long long int> : public is_integral_res<true, unsigned long long int> {};
+    struct is_integral_type<unsigned long long int> : is_integral_res<true, unsigned long long int> {};
 
 
     template <typename T>
-    struct is_integral : public is_integral_type<T> {};
+    struct is_integral : is_integral_type<T> {};
 
 }
