@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include <iostream>
+#include <stdexcept>
 
 namespace ft{
 
@@ -73,9 +73,9 @@ namespace ft{
 
 
     /*
-    ========================= 
+    ========================== 
         Iterator Functions
-    =========================
+    ==========================
     */
     
     template<class T, class Alloc>
@@ -155,6 +155,56 @@ namespace ft{
             }
         }
         else
-            // insert n - _size elements at the end: After I implement insert function
+            return;// insert n - _size elements at the end: After I implement insert function
     }
+
+    /*
+    ================================ 
+        Element Access Functions
+    ================================
+    */
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::reference                vector<T, Alloc>::operator[](size_type n) { return *(_data + n); }
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::const_reference          vector<T, Alloc>::operator[](size_type n) const { return *(_data + n); }
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::reference                vector<T, Alloc>::at(size_type n) 
+    { 
+        if (n >= _size)
+            throw std::out_of_range("vector::_M_range_check: __n (which is " + std::to_string(n) + ") >= this->size() (which is " + std::to_string(_size) + ")");
+
+        return _data[n];
+    }
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::const_reference          vector<T, Alloc>::at(size_type n) const 
+    { 
+        if (n >= _size)
+            throw std::out_of_range("vector::_M_range_check: __n (which is " + std::to_string(n) + ") >= this->size() (which is " + std::to_string(_size) + ")");
+
+        return _data[n];
+    }
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::reference                vector<T, Alloc>::front() { return _data[0]; } 
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::reference                vector<T, Alloc>::back() { return _data[_size - 1]; } 
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::const_reference          vector<T, Alloc>::front() const { return _data[0]; } 
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::const_reference          vector<T, Alloc>::back() const { return _data[_size - 1]; } 
+
+    /*
+    ========================= 
+        Modifier Functions
+    ========================= 
+    */
+
+
 }
