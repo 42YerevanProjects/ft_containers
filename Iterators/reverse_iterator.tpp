@@ -1,6 +1,7 @@
 #pragma once
 
 #include "iterator.hpp"
+#include <iostream>
 
 namespace ft
 {
@@ -28,7 +29,7 @@ namespace ft
     reverse_iterator<It>    reverse_iterator<It>::operator++(int)
     {
         reverse_iterator<It> temp = *this;
-        _base--;
+        ++(*this);
         return temp;
     }
 
@@ -43,7 +44,7 @@ namespace ft
     reverse_iterator<It>    reverse_iterator<It>::operator--(int)
     {
         reverse_iterator<It> temp = *this;
-        _base++;
+        --(*this);
         return temp;
     }
 
@@ -57,13 +58,13 @@ namespace ft
     template<typename It>
     reverse_iterator<It>    reverse_iterator<It>::operator+(difference_type n) const
     {
-            return _base - n + 1;
+            return reverse_iterator(_base - n);
     }
 
     template<typename It>
     reverse_iterator<It>    reverse_iterator<It>::operator-(difference_type n) const
     {
-            return _base + n + 1;
+            return reverse_iterator(_base + n);
     } 
 
     template<typename It>
