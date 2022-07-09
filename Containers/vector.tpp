@@ -202,10 +202,45 @@ namespace ft
     typename vector<T, Alloc>::const_reference          vector<T, Alloc>::back() const { return _data[_size - 1]; } 
 
     /*
-    ========================= 
+    ========================== 
         Modifier Functions
-    ========================= 
+    ========================== 
     */
+
+    template <class T, class Alloc>
+    template<typename InputIterator>
+    void                                                vector<T, Alloc>::assign(InputIterator first, InputIterator last, 
+                                                                                    typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
+    {
+        if (!ft::is_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category>::value)
+            throw (ft::InvalidIteratorException<typename ft::is_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category>::type>());
+
+        typename ft::iterator_traits<InputIterator>::difference_type n = ft::distance(first, last);
+
+        if (n > _cap)
+            this->reserve(n);
+
+        for (size_t i = 0; i < _size; i++)
+            _alloc.destroy(_data + i);
+        for (size_t = 0; i < n; i++)
+            _alloc.construct(_data + i, *first++);
+        
+        _size = n;
+    }
+
+    template<class T, class Alloc> 
+    void                                                vector<T, Alloc>::assign(size_type n, value_type& val) 
+    {  
+        if (n > _cap)
+            this->reserve(n);
+
+        for (size_t i = 0; i < _size; i++)
+            _alloc.destroy(_data + i);
+        for (size_t = 0; i < n; i++)
+            _alloc.construct(_data + i, val);
+        
+        _size = n;
+    }
 
 
 }
