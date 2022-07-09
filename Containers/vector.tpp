@@ -65,4 +65,36 @@ namespace ft{
 
     template <class T, class Alloc>
     vector<T, Alloc>::~vector() {}
+
+
+    /*
+    ========================= 
+        Iterator Functions
+    =========================
+    */
+    
+    template<class T, class Alloc>
+    typename ft::vector<T, Alloc>::iterator                 vector<T, Alloc>::begin() { return (iterator(_data)); }
+
+    template<class T, class Alloc>
+    typename ft::vector<T, Alloc>::iterator                 vector<T, Alloc>::end() { return (iterator(_data + _size)); }
+
+    template<class T, class Alloc>
+    typename ft::vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rbegin() { return (reverse_iterator(this->end())); }
+
+    template<class T, class Alloc>
+    typename ft::vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rend() { return (reverse_iterator(this->begin())); }
+
+    template<class T, class Alloc>
+    typename ft::vector<T, Alloc>::const_iterator           vector<T, Alloc>::begin() const { return (iterator(_data)); }
+
+    template<class T, class Alloc>
+    typename ft::vector<T, Alloc>::iterator                 vector<T, Alloc>::end() const { return (iterator(_data + _size)); }
+
+    template<class T, class Alloc>
+    typename ft::vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rbegin() const { return (reverse_iterator(this->end())); }
+
+    template<class T, class Alloc>
+    typename ft::vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rend() const { return (reverse_iterator(this->begin())); }
+
 }
