@@ -3,7 +3,8 @@
 #include <memory>
 #include <stdexcept>
 
-namespace ft{
+namespace ft
+{
 
     /*
     ===================================
