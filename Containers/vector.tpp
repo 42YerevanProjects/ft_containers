@@ -64,7 +64,12 @@ namespace ft{
     }
 
     template <class T, class Alloc>
-    vector<T, Alloc>::~vector() {}
+    vector<T, Alloc>::~vector() 
+    {
+        for (size_t i = 0; i < _size; i++)
+            _alloc.destroy(_data + i);
+        _alloc.deallocate(_data, _cap);
+    }
 
 
     /*
@@ -74,27 +79,82 @@ namespace ft{
     */
     
     template<class T, class Alloc>
-    typename ft::vector<T, Alloc>::iterator                 vector<T, Alloc>::begin() { return (iterator(_data)); }
+    typename vector<T, Alloc>::iterator                 vector<T, Alloc>::begin() { return (iterator(_data)); }
 
     template<class T, class Alloc>
-    typename ft::vector<T, Alloc>::iterator                 vector<T, Alloc>::end() { return (iterator(_data + _size)); }
+    typename vector<T, Alloc>::iterator                 vector<T, Alloc>::end() { return (iterator(_data + _size)); }
 
     template<class T, class Alloc>
-    typename ft::vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rbegin() { return (reverse_iterator(this->end())); }
+    typename vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rbegin() { return (reverse_iterator(this->end())); }
 
     template<class T, class Alloc>
-    typename ft::vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rend() { return (reverse_iterator(this->begin())); }
+    typename vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rend() { return (reverse_iterator(this->begin())); }
 
     template<class T, class Alloc>
-    typename ft::vector<T, Alloc>::const_iterator           vector<T, Alloc>::begin() const { return (iterator(_data)); }
+    typename vector<T, Alloc>::const_iterator           vector<T, Alloc>::begin() const { return (iterator(_data)); }
 
     template<class T, class Alloc>
-    typename ft::vector<T, Alloc>::iterator                 vector<T, Alloc>::end() const { return (iterator(_data + _size)); }
+    typename vector<T, Alloc>::const_iterator           vector<T, Alloc>::end() const { return (iterator(_data + _size)); }
 
     template<class T, class Alloc>
-    typename ft::vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rbegin() const { return (reverse_iterator(this->end())); }
+    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rbegin() const { return (reverse_iterator(this->end())); }
 
     template<class T, class Alloc>
-    typename ft::vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rend() const { return (reverse_iterator(this->begin())); }
+    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rend() const { return (reverse_iterator(this->begin())); }
 
+    /*
+    ========================== 
+        Capacity Functions
+    ==========================
+    */
+
+    template<class T, class Alloc>
+    typename vector<T, Alloc>::size_type                vector<T, Alloc>::size() const { return (this->_size); }
+
+    template<class T, class Alloc>
+    typename vector<T, Alloc>::size_type                vector<T, Alloc>::max_size() const { return (_alloc.max_size()); }
+
+    template<class T, class Alloc>
+    typename vector<T, Alloc>::size_type                vector<T, Alloc>::capacity() const { return (this->_cap); }
+
+    template<class T, class Alloc>
+    bool                                                vector<T, Alloc>::empty() const { return (this->_size == 0); }
+
+    template<class T, class Alloc>
+    void                                                vector<T, Alloc>::reserve(size_type n) 
+    {
+        if (n > this->max_size())
+            throw std::length_error("vector::reserve");
+        else if (n > this->capacity())
+        {   
+            pointer temp_data = _alloc.allocate(n);
+
+            for (size_t i = 0; i < _size && i < n; i++)
+            {
+                _alloc.construct(temp_data + i, *(_data + i));
+                _alloc.destroy(_data + i);
+            }
+            _alloc.deallocate(_data, _cap);
+
+            _cap = n;
+            _data = temp_data;
+        }
+    }
+
+    template<class T, class Alloc> 
+    void                                                vector<T, Alloc>::resize(size_type n, value_type val)
+    {
+        if (n > this->max_size())
+            throw std::length_error("vector::resize");
+        else if (n < _size)
+        {
+            while (_size > n)
+            {
+                _size--;
+                _alloc.destroy(_data + _size);
+            }
+        }
+        else
+            // insert n - _size elements at the end: After I implement insert function
+    }
 }
