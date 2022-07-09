@@ -1,6 +1,9 @@
 #pragma once
 
 #include "type_traits.hpp"
+#include <string>
+#include <typeinfo>
+#include <exception>
 
 namespace ft
 {
@@ -57,6 +60,47 @@ namespace ft
     template<>
     struct is_iterator_tagged<ft::output_iterator_tag> 
         : valid_iterator_tag_res<true, ft::output_iterator_tag> {};
-}
 
+
+    /*
+    ==================================
+        Invalid Iterator Exception
+    ==================================
+    */
+    
+    template<typename T>
+    class InvalidIteratorException : public std::exception
+    {
+        private:
+            std::string    _msg;
+
+        public:
+            InvalidIteratorException() throw() { _msg = ("Invalid Iterator tag: " + std::string(typeid(T).name())); }
+            InvalidIteratorException(const InvalidIteratorException&) throw() {}
+            InvalidIteratorException& operator=(const InvalidIteratorException&) throw() {}
+            virtual ~InvalidIteratorException() throw() {}
+            virtual const char* what() const throw() { return (_msg.c_str()); }
+    };
+
+
+    /*
+    ============================ 
+        Distance of Iterators
+    ============================ 
+    */
+
+    template<typename InputIterator>
+    typename ft::iterator_traits<InputIterator>::difference_type   distance(InputIterator first, InputIterator last)
+    {
+        typename ft::iterator_traits<InputIterator>::difference_type dist = 0;
+        
+        while (first != last)
+        {
+            dist++;
+            first++;
+        }
+        
+        return dist;
+    }
+}
 
