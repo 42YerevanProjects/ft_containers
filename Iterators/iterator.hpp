@@ -82,11 +82,10 @@ namespace ft
             virtual const char* what() const throw() { return (_msg.c_str()); }
     };
 
-
     /*
-    ============================ 
+    ============================= 
         Distance of Iterators
-    ============================ 
+    ============================= 
     */
 
     template<typename InputIterator>
