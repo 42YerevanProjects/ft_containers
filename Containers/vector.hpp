@@ -31,6 +31,11 @@ namespace ft
             size_type       _size;
             size_type       _cap;
 
+        private:
+            template<typename InputIterator>
+            void    check_iterator(InputIterator&);
+            void    check_range(size_type n);
+
         public:
             /* Constructers and Destructer */
             explicit vector(const allocator_type& alloc = allocator_type());
@@ -84,13 +89,17 @@ namespace ft
             void                    assign(size_type n, const value_type& val);
             void                    push_back(const value_type& val);
             void                    pop_back();
+
+            template<typename InputIterator>
+            void                    insert(iterator position, InputIterator first, InputIterator last, 
+                                            typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0);
+
+            iterator                insert(iterator position, const value_type& val);
             void                    insert(iterator position, size_type n, const value_type& val);
-            void                    insert(iterator position, iterator first, iterator last);
-            void                    insert(iterator position, const_iterator first, const_iterator last);
             void                    swap(vector& x);
             void                    clear();
-            iterator                erase (iterator position);
-            iterator                erase (iterator first, iterator last);
+            iterator                erase(iterator position);
+            iterator                erase(iterator first, iterator last);
 
             /* Allocator Object Copy */
             allocator_type          get_allocator() const;
