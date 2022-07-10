@@ -101,5 +101,45 @@ namespace ft
         
         return dist;
     }
+
+    /*
+    ============================= 
+        Lexicographic Compare
+    ============================= 
+    */
+
+    template <class InputIterator1, class InputIterator2>
+	bool    lexicographical_compare(InputIterator1 lbeg, InputIterator1 lend, InputIterator2 rbeg, InputIterator2 rend)
+	{
+		while (lbeg != lend)
+		{
+			if (rbeg == rend || *rbeg < *lbeg)
+				return (false);
+			else if (*lbeg < *rbeg)
+				return (true);
+			++lbeg, ++rbeg;
+		}
+
+		return (rbeg != rend);
+	}
+
+    /*
+    ============================= 
+        Lexicographic Compare
+    ============================= 
+    */
+
+    template <class InputIterator1, class InputIterator2>
+	bool    equal(InputIterator1 lbeg, InputIterator1 lend, InputIterator2 rbeg, InputIterator2 rend)
+	{
+		while (lbeg != lend)
+		{
+			if (rbeg == rend || *rbeg != *lbeg)
+				return (false);
+			++lbeg, ++rbeg;
+		}
+
+		return (rbeg == rend);
+	}
 }
 
