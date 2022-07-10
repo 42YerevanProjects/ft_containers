@@ -55,13 +55,21 @@ namespace ft
     template <class T, class Alloc>
     vector<T, Alloc>::vector(const vector& other) 
     {
-       // To be implemented after I implement insert function 
+       _alloc = other._alloc;
+       _size = other._size;
+       _cap = other._cap;
+
+       insert(this->begin(), other.begin(), other.end());
     }
 
     template <class T, class Alloc>
     vector<T, Alloc>& vector<T, Alloc>::operator=(const vector& other) 
     {
-       // To be implemented after I implement insert function 
+        if (x == *this)
+            return (*this);
+		clear();
+		insert(this->end(), other.begin(), other.end());
+		return (*this);
     }
 
     template <class T, class Alloc>
