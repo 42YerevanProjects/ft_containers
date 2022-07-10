@@ -65,7 +65,7 @@ namespace ft
     template <class T, class Alloc>
     vector<T, Alloc>& vector<T, Alloc>::operator=(const vector& other) 
     {
-        if (x == *this)
+        if (other == *this)
             return (*this);
 		clear();
 		insert(this->end(), other.begin(), other.end());
@@ -164,7 +164,7 @@ namespace ft
             }
         }
         else
-            return;// insert n - _size elements at the end: After I implement insert function
+            this->insert(this->end(), n - this->size(), val);
     }
 
     /*
