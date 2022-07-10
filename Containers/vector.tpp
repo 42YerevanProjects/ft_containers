@@ -2,11 +2,9 @@
 
 #include <memory>
 #include <stdexcept>
-#include <iostream>
 
 namespace ft
 {
-
     /*
     ===================================
         Constructors and Destructor
@@ -364,7 +362,6 @@ namespace ft
     template<class T, class Alloc> 
     void                                                vector<T, Alloc>::check_range(size_type n)
     {
-        std::cout << "here" << "\n";
         if (n >= _size)
             throw std::out_of_range("vector::_M_range_check: __n (which is " 
                     + std::to_string(n) 
