@@ -37,7 +37,7 @@ namespace ft
                 void                pop();
                 void                swap(stack& x);
 
-                /* Non-Member Function */
+                /* Non-Member Functions */
                 
                 template<class U, class Cont>
                 friend bool         operator==(const stack<U, Cont>&, const stack<U, Cont>&);
