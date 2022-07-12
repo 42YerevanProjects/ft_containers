@@ -52,14 +52,14 @@ namespace ft
 
             /* Iterator Functions */
             iterator                begin();
+            const_iterator          cbegin() const;
             iterator                end();
-            reverse_iterator        rbegin();
-            reverse_iterator        rend();
+            const_iterator          cend() const;
 
-            const_iterator          begin() const;
-            const_iterator          end() const;
-            const_reverse_iterator  rbegin() const;
-            const_reverse_iterator  rend() const;
+            reverse_iterator        rbegin();
+            const_reverse_iterator  crbegin() const;
+            reverse_iterator        rend();
+            const_reverse_iterator  crend() const;
 
             /* Capacity Functions */
             size_type               size() const;
