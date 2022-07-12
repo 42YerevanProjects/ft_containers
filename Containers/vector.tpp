@@ -57,7 +57,7 @@ namespace ft
        _size = other._size;
        _cap = other._cap;
 
-       insert(this->begin(), other.cbegin(), other.cend());
+       insert(this->begin(), other.begin(), other.end());
     }
 
     template <class T, class Alloc>
@@ -66,7 +66,7 @@ namespace ft
         if (other == *this)
             return (*this);
 		clear();
-		insert(this->end(), other.cbegin(), other.cend());
+		insert(this->end(), other.begin(), other.end());
 		return (*this);
     }
 
