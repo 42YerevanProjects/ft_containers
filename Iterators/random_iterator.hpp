@@ -47,22 +47,22 @@ namespace ft
             random_iterator<T>&    operator--();
     
             random_iterator<T>     operator-(size_t n) const;
-            difference_type                 operator-(random_iterator<T> it) const;
+            difference_type        operator-(random_iterator<T> it) const;
     
             random_iterator<T>&    operator-=(size_t n);
     
-            reference                       operator*();
-            pointer                         operator->();
-            reference                       operator[](size_t n);
+            reference              operator*();
+            pointer                operator->();
+            reference              operator[](size_t n);
     
             /* Equality Checks */
     
-            bool                            operator==(const random_iterator<T> &other) const;
-            bool                            operator!=(const random_iterator<T> &other) const;
-            bool                            operator>=(const random_iterator<T> &other) const;
-            bool                            operator<=(const random_iterator<T> &other) const;
-            bool                            operator>(const random_iterator<T> &other) const;
-            bool                            operator<(const random_iterator<T> &other) const;
+            bool                   operator==(const random_iterator<T> &other) const;
+            bool                   operator!=(const random_iterator<T> &other) const;
+            bool                   operator>=(const random_iterator<T> &other) const;
+            bool                   operator<=(const random_iterator<T> &other) const;
+            bool                   operator>(const random_iterator<T> &other) const;
+            bool                   operator<(const random_iterator<T> &other) const;
     };
 
 }
