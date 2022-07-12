@@ -57,7 +57,7 @@ namespace ft
        _size = other._size;
        _cap = other._cap;
 
-       insert(this->begin(), other.begin(), other.end());
+       insert(this->begin(), other.cbegin(), other.cend());
     }
 
     template <class T, class Alloc>
@@ -66,7 +66,7 @@ namespace ft
         if (other == *this)
             return (*this);
 		clear();
-		insert(this->end(), other.begin(), other.end());
+		insert(this->end(), other.cbegin(), other.cend());
 		return (*this);
     }
 
@@ -89,25 +89,25 @@ namespace ft
     typename vector<T, Alloc>::iterator                 vector<T, Alloc>::begin() { return (this->_data); }
 
     template<class T, class Alloc>
-    typename vector<T, Alloc>::const_iterator           vector<T, Alloc>::cbegin() const { return (this->_data); }
+    typename vector<T, Alloc>::const_iterator           vector<T, Alloc>::begin() const { return (this->_data); }
 
     template<class T, class Alloc>
     typename vector<T, Alloc>::iterator                 vector<T, Alloc>::end() { return (_data + _size); }
 
     template<class T, class Alloc>
-    typename vector<T, Alloc>::const_iterator           vector<T, Alloc>::cend() const { return (_data + _size); }
+    typename vector<T, Alloc>::const_iterator           vector<T, Alloc>::end() const { return (_data + _size); }
 
     template<class T, class Alloc>
     typename vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rbegin() { return reverse_iterator(this->end()); }
 
     template<class T, class Alloc>
-    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::crbegin() const { return const_reverse_iterator(this->cend()); }
+    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rbegin() const { return const_reverse_iterator(this->cend()); }
 
     template<class T, class Alloc>
     typename vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rend() { return reverse_iterator(this->begin()); }
 
     template<class T, class Alloc>
-    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::crend() const { return const_reverse_iterator(this->cbegin()); }
+    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rend() const { return const_reverse_iterator(this->cbegin()); }
 
     /*
     ========================== 
