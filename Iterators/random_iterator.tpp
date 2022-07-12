@@ -9,19 +9,25 @@ namespace ft
     random_iterator<T>::random_iterator() : data_ptr(NULL) {}
     
     template<typename T>
-    random_iterator<T>::random_iterator(const pointer ptr) : data_ptr(ptr) {}
+    random_iterator<T>::random_iterator(pointer ptr) : data_ptr(ptr) {}
     
     template<typename T>
-    random_iterator<T>::random_iterator(const random_iterator<T> &other) { *this = other; }
+    random_iterator<T>::random_iterator(const random_iterator& other) { *this = other; }
     
     template<typename T>
     random_iterator<T>::~random_iterator() {}
     
     template<typename T>
-    random_iterator<T>&   random_iterator<T>::operator=(const random_iterator<T>& other)
+    random_iterator<T>&   random_iterator<T>::operator=(const random_iterator& other)
     {
         this->data_ptr = other.data_ptr;
         return (*this);
+    }
+
+    template<typename T>
+    random_iterator<T>::operator random_iterator<const T> () const
+    {
+        return (random_iterator<const T>(this->data_ptr));
     }
     
     template<typename T>

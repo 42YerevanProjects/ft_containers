@@ -28,13 +28,14 @@ namespace ft
             /* Constructors and Destructor */
     
             random_iterator();
-            random_iterator(const pointer ptr);
-            random_iterator(const random_iterator<T>& other);
+            random_iterator(pointer ptr);
+            random_iterator(const random_iterator& other);
+            operator random_iterator<const T> () const;
             virtual ~random_iterator();
     
             /* Operator Overloads */
             
-            random_iterator<T>&    operator=(const random_iterator<T>& other);
+            random_iterator<T>&    operator=(const random_iterator& other);
     
             random_iterator<T>     operator++(int);
             random_iterator<T>&    operator++();
