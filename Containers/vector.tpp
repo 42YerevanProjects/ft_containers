@@ -352,7 +352,14 @@ namespace ft
 
         return (first);
     }
+    /*
+    ====================== 
+        Allocator Copy
+    ======================
+    */
 
+    template < typename T, typename Alloc>
+    typename vector<T, Alloc>::allocator_type          vector<T, Alloc>::get_allocator() const { return allocator_type(); }
 
     /*
     ============================ 
