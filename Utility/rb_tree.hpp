@@ -6,11 +6,11 @@
 
 namespace ft
 {
-
-    template<typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc = std::allocator<Val> >
+    template< typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc = std::allocator<Val> >
     class rb_tree
     {
-        typedef typename Alloc::template rebind< ft::rb_tree_node<Val> >::other    node_allocator;
+        private:
+            typedef typename Alloc::template rebind< ft::rb_tree_node<Val> >::other    node_allocator;
 
         protected:
             typedef ft::rb_tree_node_base*          base_ptr;
@@ -28,7 +28,5 @@ namespace ft
             typedef const rb_tree_node*     const_link_type;
             typedef ptrdiff_t               difference_type;
             typedef Alloc                   allocator_type;
-
-
     };
 }
