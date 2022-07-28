@@ -15,19 +15,18 @@ namespace ft
         protected:
             typedef ft::rb_tree_node_base*          base_ptr;
             typedef const ft::rb_tree_node_base*    const_base_ptr;
-            typedef ft::rb_tree_node<Val>           rb_tree_node;
+            typedef ft::rb_tree_node<Val>           node;
 
         public:
-            typedef Key                     key_type;
-            typedef Val                     value_type;
-            typedef Compare                 key_compare;
-            typedef value_type*             pointer;
-            typedef const value_type*       const_pointer;
-            typedef value_type&             reference;
-            typedef const value_type&       const_reference;
-            typedef rb_tree_node*           link_type;
-            typedef const rb_tree_node*     const_link_type;
-            typedef ptrdiff_t               difference_type;
-            typedef Alloc                   allocator_type;
+            typedef Key             key_type;
+            typedef Val             value_type;
+            typedef Compare         key_compare;
+            typedef value_type*     pointer;
+            typedef value_type&     reference;
+            typedef node*           link_type;
+            typedef Alloc           allocator_type;
+
+            typedef rb_tree_iterator<T>         iterator;
+            typedef const_rb_tree_iterator<T>   const_iterator;
     };
 }
