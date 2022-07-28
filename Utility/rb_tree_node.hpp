@@ -75,10 +75,10 @@ namespace ft
     {
         typedef rb_tree_node<T>*    link_type;
 
-        T   value;
+        T   data;
 
         rb_tree_node() : rb_tree_node_base() {}
-        rb_tree_node(const rb_tree_node& other) : rb_tree_node_base(other) { value = other.value; }
+        rb_tree_node(const rb_tree_node& other) : rb_tree_node_base(other) { data = other.data; }
 
         rb_tree_node&   operator=(const rb_tree_node& other)
         {
