@@ -1,6 +1,8 @@
 #pragma once
 
 #include "rb_tree_node.hpp"
+#include "../Iterators/Tree/rb_tree_iterator.hpp"
+#include "../Iterators/Tree/const_rb_tree_iterator.hpp"
 #include <memory>
 
 
@@ -26,7 +28,7 @@ namespace ft
             typedef node*           link_type;
             typedef Alloc           allocator_type;
 
-            typedef rb_tree_iterator<T>         iterator;
-            typedef const_rb_tree_iterator<T>   const_iterator;
+            typedef ft::rb_tree_iterator<value_type>         iterator;
+            typedef ft::const_rb_tree_iterator<value_type>   const_iterator;
     };
 }
