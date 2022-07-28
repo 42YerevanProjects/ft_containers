@@ -52,6 +52,8 @@ namespace ft
             pointer     operator->();
             reference   operator*();
 
+            /* Equality Checks */
+
             bool    operator==(const self& x) const;
             bool    operator!=(const self& x) const;
     };
