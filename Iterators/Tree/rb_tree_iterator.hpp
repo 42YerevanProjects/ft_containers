@@ -37,12 +37,12 @@ namespace ft
 
             rb_tree_iterator();
             explicit rb_tree_iterator(link_type x);
-            rb_tree_iterator(const rb_tree_iterator& other);
+            rb_tree_iterator(const self& other);
             virtual ~rb_tree_iterator();
 
             /* Operator Overloads */
 
-            self&       operator=(const rb_tree_iterator& other);
+            self&       operator=(const self& other);
 
             self&       operator++();
             self        operator++(int);
@@ -50,8 +50,8 @@ namespace ft
             self&       operator--();
             self        operator--(int);
 
-            pointer     operator->();
-            reference   operator*();
+            pointer     operator->() const;
+            reference   operator*() const;
 
             /* Equality Checks */
 

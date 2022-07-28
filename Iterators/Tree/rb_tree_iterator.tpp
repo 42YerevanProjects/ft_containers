@@ -59,13 +59,13 @@ namespace ft
     rb_tree_iterator<T>::rb_tree_iterator(link_type x) : _node(x) {}
 
     template<typename T>
-    rb_tree_iterator<T>::rb_tree_iterator(const rb_tree_iterator& other) { *this = other; }
+    rb_tree_iterator<T>::rb_tree_iterator(const self& other) { *this = other; }
 
     template<typename T>
     rb_tree_iterator<T>::~rb_tree_iterator() {}
 
     template<typename T>
-    typename rb_tree_iterator<T>::self&        rb_tree_iterator<T>::operator=(const rb_tree_iterator& other) 
+    typename rb_tree_iterator<T>::self&        rb_tree_iterator<T>::operator=(const self& other) 
     {
         this->_node = other._node;
         return (*this);
@@ -102,13 +102,13 @@ namespace ft
     }
 
     template<typename T>
-    typename rb_tree_iterator<T>::pointer      rb_tree_iterator<T>::operator->()
+    typename rb_tree_iterator<T>::pointer      rb_tree_iterator<T>::operator->() const
     {
         return &static_cast<link_type>(_node)->_data;
     }
     
     template<typename T>
-    typename rb_tree_iterator<T>::reference    rb_tree_iterator<T>::operator*()
+    typename rb_tree_iterator<T>::reference    rb_tree_iterator<T>::operator*() const
     {
         return static_cast<link_type>(_node)->_data;
     }
