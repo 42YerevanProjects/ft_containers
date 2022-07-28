@@ -33,7 +33,6 @@ namespace ft
             base_ptr    node;
 
         public:
-
             /* Constructors and Destructor */
 
             rb_tree_iterator();
