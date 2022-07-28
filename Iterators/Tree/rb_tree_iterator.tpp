@@ -5,7 +5,7 @@ namespace ft
     /* rb_tree_iterator utility functions */
     
     template<typename T>
-    typename rb_tree_iterator<T>::base_ptr rb_tree_iterator<T>::inorder_increment(base_ptr node)
+    typename rb_tree_iterator<T>::base_ptr      rb_tree_iterator<T>::inorder_increment(base_ptr node)
     {
         if (node->right != 0)
         {
@@ -28,7 +28,7 @@ namespace ft
     }
 
     template<typename T>
-    typename rb_tree_iterator<T>::base_ptr rb_tree_iterator<T>::inorder_decrement(base_ptr node)
+    typename rb_tree_iterator<T>::base_ptr      rb_tree_iterator<T>::inorder_decrement(base_ptr node)
     {
         if (node->left != 0)
         {
@@ -115,13 +115,13 @@ namespace ft
     
 
     template<typename T>
-    bool                                    rb_tree_iterator<T>::operator==(const self& x) const
+    bool                                       rb_tree_iterator<T>::operator==(const self& x) const
     {
         return this->_node == x._node;
     }
 
     template<typename T>
-    bool                                    rb_tree_iterator<T>::operator!=(const self& x) const
+    bool                                       rb_tree_iterator<T>::operator!=(const self& x) const
     {
         return this->_node == x._node;
     }
