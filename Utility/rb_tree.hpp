@@ -20,6 +20,7 @@ namespace ft
         public:
             typedef Key                     key_type;
             typedef Val                     value_type;
+            typedef Compare                 key_compare;
             typedef value_type*             pointer;
             typedef const value_type*       const_pointer;
             typedef value_type&             reference;
