@@ -30,7 +30,7 @@ namespace ft
             base_ptr    inorder_decrement(base_ptr node);
 
         protected:
-            base_ptr    node;
+            base_ptr    _node;
 
         public:
             /* Constructors and Destructor */
@@ -41,6 +41,8 @@ namespace ft
             virtual ~rb_tree_iterator();
 
             /* Operator Overloads */
+
+            self&       operator=(const rb_tree_iterator& other);
 
             self&       operator++();
             self        operator++(int);
@@ -57,3 +59,4 @@ namespace ft
             bool    operator!=(const self& x) const;
     };
 }
+#include "rb_tree_iterator.tpp"
