@@ -36,11 +36,67 @@ namespace ft
             typedef ft::reverse_iterator<const_iterator>     const_reverse_iterator;
 
         protected:
-            base_ptr        _root;
+            node*           _root;
             key_compare     _comp;
             node_allocator  _alloc;
             size_type       _size;
+            base_ptr        _sentinel;
 
 
+        public:
+            /* Constructors and Destructor */
+    
+            explicit rb_tree(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+
+            template <typename InputIterator>
+            rb_tree(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+
+            rb_tree(const rb_tree& other);
+            rb_tree&    operator=(const rb_tree& other);
+
+            virtual ~rb_tree();
+
+            /* Iterator Functions */
+
+            iterator                begin();
+            const_iterator          begin() const;
+            iterator                end();
+            const_iterator          end() const;
+
+            reverse_iterator        rbegin();
+            const_reverse_iterator  rbegin() const;
+            reverse_iterator        rend();
+            const_reverse_iterator  rend() const;
+
+            /* Capacity Functions */
+
+            size_type               size();
+            size_type               max_size();
+            bool                    empty();
+
+            /* Modifier Functions */
+
+            iterator                insert(const_iterator positin, const value_type& val);
+            iterator                insert(iterator positin, const value_type& val);
+            
+            template <typename InputIterator>
+            void                    insert(InputIterator first, InputIterator last);
+
+            void                    erase(iterator position);
+            void                    erase(const_iterator position);
+            size_type               erase(const key_type& k);
+
+            template <typename InputIterator>
+            void                    erase(InputIterator first, InputIterator last);
+
+            void                    swap(rb_tree& x);
+            void                    clear();
+        
+
+        private:
+            /* Utility Functions */
+
+            void                    insert_fixup(base_ptr z);
+            void                    erase_fixup(base_ptr x);
     };
 }
