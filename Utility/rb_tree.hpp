@@ -91,12 +91,33 @@ namespace ft
 
             void                    swap(rb_tree& x);
             void                    clear();
+
+            /* Observer functions */
+
+            key_compare             key_comp() const;
+
+            /* Operations Functions */
+
+            iterator                find(const key_type& k);
+            const_iterator          find(const key_type& k) const;
+            size_type               count(const key_type& k) const;
+            iterator                lower_bound(const key_type& k);
+            const_iterator          lower_bound(const key_type& k) const;
+            iterator                upper_bound(const key_type& k);
+            const_iterator          upper_bound(const key_type& k) const;
+
+            /* Allocator Object Copy */
+
+            allocator_type          get_allocator() const;
         
 
-        private:
-            /* Utility Functions */
+        protected:
+            /* Insert & Delete Utility Functions */
 
             void                    insert_fixup(base_ptr z);
             void                    erase_fixup(base_ptr x);
+            void                    left_rotate(base_ptr x);
+            void                    right_rotate(base_ptr x);
+            void                    transplant(base_ptr u, base_ptr v);
     };
 }
