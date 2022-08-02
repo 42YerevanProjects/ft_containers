@@ -128,12 +128,12 @@ namespace ft
             /* Node Check Utility Functions */
 
             node*                   root() const;
-            bool                    is_root(const node* n) const;
-            bool                    is_red(const node* n) const;
-            bool                    is_black(const node* n) const;
-            bool                    is_sentinel(const node* n) const;
-            bool                    is_internal(const node* n) const;
-            bool                    is_external(const node* n) const;
+            bool                    is_root(const base_ptr n) const;
+            bool                    is_red(const base_ptr n) const;
+            bool                    is_black(const base_ptr n) const;
+            bool                    is_sentinel(const base_ptr n) const;
+            bool                    is_internal(const base_ptr n) const;
+            bool                    is_external(const base_ptr n) const;
 
             /* Node Create/Delete Utility Functions */
 
