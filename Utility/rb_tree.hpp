@@ -5,7 +5,6 @@
 #include "../Includes/iterators.hpp"
 #include <memory>
 
-
 namespace ft
 {
     template< typename Key,
@@ -145,4 +144,5 @@ namespace ft
             void                    destroy_tree(base_ptr n);
     };
 }
+
 #include "rb_tree.tpp"
