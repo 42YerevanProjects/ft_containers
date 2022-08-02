@@ -42,7 +42,6 @@ namespace ft
             size_type       _size;
             base_ptr        _sentinel;
 
-
         public:
             /* Constructors and Destructor */
     
@@ -119,5 +118,27 @@ namespace ft
             void                    left_rotate(base_ptr x);
             void                    right_rotate(base_ptr x);
             void                    transplant(base_ptr u, base_ptr v);
+
+            /* Key Extraction Utility Functions */
+
+            const key_type&         extract_key(const value_type& val) const;
+            const key_type&         extract_key(const node* ptr) const;
+            const key_type&         extract_key(const_iterator it) const;
+
+            /* Node Check Utility Functions */
+
+            node*                   root() const;
+            bool                    is_root(const node* n) const;
+            bool                    is_red(const node* n) const;
+            bool                    is_black(const node* n) const;
+            bool                    is_sentinel(const node* n) const;
+            bool                    is_internal(const node* n) const;
+            bool                    is_external(const node* n) const;
+
+            /* Node Create/Delete Utility Functions */
+
+            node*                   create_node(const value_type& val);
+            void                    destroy_node(base_ptr n);
+            void                    destroy_tree(base_ptr n);
     };
 }
