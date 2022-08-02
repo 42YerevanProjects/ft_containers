@@ -1,6 +1,7 @@
 #pragma once
 
 #include "rb_tree_node.hpp"
+#include "functional.hpp"
 #include "../Iterators/List/reverse_iterator.hpp"
 #include "../Iterators/Tree/rb_tree_iterator.hpp"
 #include "../Iterators/Tree/const_rb_tree_iterator.hpp"
@@ -9,7 +10,11 @@
 
 namespace ft
 {
-    template< typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc = std::allocator<Val> >
+    template< typename Key,
+              typename Val, 
+              typename KeyOfValue, 
+              typename Compare = ft::less<Val>, 
+              typename Alloc = std::allocator<Val> >
     class rb_tree
     {
         private:
@@ -21,8 +26,8 @@ namespace ft
             typedef ft::rb_tree_node<Val>           node;
 
         public:
-            typedef Key             key_type;
             typedef Val             value_type;
+            typedef Key             key_type;
             typedef Compare         key_compare;
             typedef value_type*     pointer;
             typedef value_type&     reference;
@@ -142,3 +147,4 @@ namespace ft
             void                    destroy_tree(base_ptr n);
     };
 }
+#include "rb_tree.tpp"
