@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../Utility/rb_tree_node.hpp"
+#include "../Includes/utility.hpp"
 
 namespace ft
 {
     template < class Key,
-               class T
-               //class Compare = less<Key>,
+               class T,
+               class Compare = ft::less<Key>
                //class Alloc = std::allocator<pair<const key, T> >
              >
     class map
