@@ -2,9 +2,7 @@
 
 #include "rb_tree_node.hpp"
 #include "functional.hpp"
-#include "../Iterators/List/reverse_iterator.hpp"
-#include "../Iterators/Tree/rb_tree_iterator.hpp"
-#include "../Iterators/Tree/const_rb_tree_iterator.hpp"
+#include "../Includes/iterators.hpp"
 #include <memory>
 
 
