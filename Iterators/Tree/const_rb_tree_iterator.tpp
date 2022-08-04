@@ -5,7 +5,7 @@ namespace ft
     /* const_rb_tree_iterator utility functions */
     
     template<typename T>
-    typename const_rb_tree_iterator<T>::base_ptr      const_rb_tree_iterator<T>::inorder_increment(base_ptr node)
+    typename const_rb_tree_iterator<T>::link_type      const_rb_tree_iterator<T>::inorder_increment(link_type node)
     {
         if (node->right != 0)
         {
@@ -28,7 +28,7 @@ namespace ft
     }
 
     template<typename T>
-    typename const_rb_tree_iterator<T>::base_ptr      const_rb_tree_iterator<T>::inorder_decrement(base_ptr node)
+    typename const_rb_tree_iterator<T>::link_type      const_rb_tree_iterator<T>::inorder_decrement(link_type node)
     {
         if (node->left != 0)
         {

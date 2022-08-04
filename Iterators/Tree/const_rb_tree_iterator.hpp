@@ -26,15 +26,14 @@ namespace ft
             typedef rb_tree_iterator<T>         iterator;
 
             typedef const_rb_tree_iterator<T>   self;
-            typedef const rb_tree_node_base*    base_ptr;
             typedef const rb_tree_node<T>*      link_type;
 
         private:
-            base_ptr    inorder_increment(base_ptr node);
-            base_ptr    inorder_decrement(base_ptr node);
+            link_type    inorder_increment(link_type node);
+            link_type    inorder_decrement(link_type node);
 
         protected:
-            base_ptr    _node;
+            link_type    _node;
 
         public:
             /* Constructors and Destructor */

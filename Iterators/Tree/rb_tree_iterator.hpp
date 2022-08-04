@@ -22,15 +22,14 @@ namespace ft
             typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category iterator_category;
 
             typedef rb_tree_iterator<T> self;
-            typedef rb_tree_node_base*  base_ptr;
             typedef rb_tree_node<T>*    link_type;
 
         private:
-            base_ptr    inorder_increment(base_ptr node);
-            base_ptr    inorder_decrement(base_ptr node);
+            link_type    inorder_increment(link_type node);
+            link_type    inorder_decrement(link_type node);
 
         protected:
-            base_ptr    _node;
+            link_type    _node;
 
         public:
             /* Constructors and Destructor */
