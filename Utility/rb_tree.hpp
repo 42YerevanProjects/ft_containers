@@ -18,8 +18,6 @@ namespace ft
             typedef typename Alloc::template rebind< ft::rb_tree_node<Val> >::other    node_allocator;
 
         protected:
-            typedef ft::rb_tree_node_base*          base_ptr;
-            typedef const ft::rb_tree_node_base*    const_base_ptr;
             typedef ft::rb_tree_node<Val>           node;
 
         public:
@@ -42,15 +40,15 @@ namespace ft
             key_compare     _comp;
             node_allocator  _alloc;
             size_type       _size;
-            base_ptr        _sentinel;
+            node*           _sentinel;
 
         public:
             /* Constructors and Destructor */
     
             explicit rb_tree(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 
-            template <typename InputIterator>
-            rb_tree(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+            template <typename InputIt>
+            rb_tree(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 
             rb_tree(const rb_tree& other);
             rb_tree&    operator=(const rb_tree& other);
@@ -115,11 +113,11 @@ namespace ft
         protected:
             /* Insert & Delete Utility Functions */
 
-            void                    insert_fixup(base_ptr z);
-            void                    erase_fixup(base_ptr x);
-            void                    left_rotate(base_ptr x);
-            void                    right_rotate(base_ptr x);
-            void                    transplant(base_ptr u, base_ptr v);
+            void                    insert_fixup(node* z);
+            void                    erase_fixup(node* x);
+            void                    left_rotate(node* x);
+            void                    right_rotate(node* x);
+            void                    transplant(node* u, node* v);
 
             /* Key Extraction Utility Functions */
 
@@ -130,18 +128,24 @@ namespace ft
             /* Node Check Utility Functions */
 
             node*                   root() const;
-            bool                    is_root(const base_ptr n) const;
-            bool                    is_red(const base_ptr n) const;
-            bool                    is_black(const base_ptr n) const;
-            bool                    is_sentinel(const base_ptr n) const;
-            bool                    is_internal(const base_ptr n) const;
-            bool                    is_external(const base_ptr n) const;
+            bool                    is_root(const node* n) const;
+            bool                    is_red(const node* n) const;
+            bool                    is_black(const node* n) const;
+            bool                    is_sentinel(const node* n) const;
+            bool                    is_internal(const node* n) const;
+            bool                    is_external(const node* n) const;
 
             /* Node Create/Delete Utility Functions */
 
             node*                   create_node(const value_type& val);
-            void                    destroy_node(base_ptr n);
-            void                    destroy_tree(base_ptr n);
+            void                    destroy_node(node* n);
+            void                    destroy_tree(node* n);
+
+            /* Tree min, max utility functions */
+
+            node*                   minimum();
+            node*                   maximum();
+            void                    update_extremum();
     };
 }
 
