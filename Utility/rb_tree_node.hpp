@@ -21,7 +21,7 @@ namespace ft
         link_type       right;
         T               data;
 
-        rb_tree_node() : color(Black), parent(), left(), right() {}
+        rb_tree_node() : color(Black), parent(), left(), right(), data() {}
         rb_tree_node(const rb_tree_node& other) { *this = other; }
 
         rb_tree_node&   operator=(const rb_tree_node& other)
