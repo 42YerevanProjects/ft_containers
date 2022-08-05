@@ -27,6 +27,7 @@ namespace ft
         private:
             link_type    inorder_increment(link_type node);
             link_type    inorder_decrement(link_type node);
+            bool         is_sentinel(link_type node);
 
         protected:
             link_type    _node;
