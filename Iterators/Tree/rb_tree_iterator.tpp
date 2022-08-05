@@ -1,16 +1,24 @@
 #pragma once
 
+#include <iostream>
+
 namespace ft
 {
     /* rb_tree_iterator utility functions */
+
+    template<typename T>
+    bool                                        rb_tree_iterator<T>::is_sentinel(link_type node)
+    {
+        return (node != 0 and node->data == 0 and node->parent == node);
+    }
     
     template<typename T>
-    typename rb_tree_iterator<T>::link_type      rb_tree_iterator<T>::inorder_increment(link_type node)
+    typename rb_tree_iterator<T>::link_type     rb_tree_iterator<T>::inorder_increment(link_type node)
     {
-        if (node->right != 0)
+        if (node->right != 0 and !is_sentinel(node->right))
         {
             node = node->right;
-            while (node->left != 0)
+            while (node and node->left != 0 and !is_sentinel(node->left))
                 node = node->left;
         }
         else
@@ -28,21 +36,21 @@ namespace ft
     }
 
     template<typename T>
-    typename rb_tree_iterator<T>::link_type      rb_tree_iterator<T>::inorder_decrement(link_type node)
+    typename rb_tree_iterator<T>::link_type     rb_tree_iterator<T>::inorder_decrement(link_type node)
     {
-        if (node->left != 0)
+        if (node->left != 0 and !is_sentinel(node->left))
         {
             node = node->left;
-            while (node->right != 0)
+            while (node and node->right != 0 and !is_sentinel(node->right))
                 node = node->right;
         }
         else
         {
-            if (node == node->parent->right)
+            if (node->parent && node == node->parent->right)
                 node = node->parent;
             else
             {
-                while (node == node->parent->left)
+                while (node->parent && node == node->parent->left)
                     node = node->parent;
                 node = node->parent;
             }
@@ -56,7 +64,7 @@ namespace ft
     rb_tree_iterator<T>::rb_tree_iterator() : _node() {}
 
     template<typename T>
-    rb_tree_iterator<T>::rb_tree_iterator(link_type x) : _node(x) {}
+    rb_tree_iterator<T>::rb_tree_iterator(link_type x) : _node(x) { }
 
     template<typename T>
     rb_tree_iterator<T>::rb_tree_iterator(const self& other) { *this = other; }
@@ -74,7 +82,7 @@ namespace ft
     template<typename T>
     typename rb_tree_iterator<T>::self&        rb_tree_iterator<T>::operator++()
     {
-        *this = inorder_increment(_node);
+        this->_node = inorder_increment(_node);
         return (*this);
     }
     
@@ -82,14 +90,14 @@ namespace ft
     typename rb_tree_iterator<T>::self         rb_tree_iterator<T>::operator++(int)
     {
         typename rb_tree_iterator<T>::self temp = *this;
-        *this = inorder_increment(_node);
+        this->_node = inorder_increment(_node);
         return (temp);
     }
 
     template<typename T>
     typename rb_tree_iterator<T>::self&        rb_tree_iterator<T>::operator--()
     {
-        *this = inorder_decrement(_node);
+        this->_node = inorder_decrement(_node);
         return (*this);
     }
     
@@ -97,7 +105,7 @@ namespace ft
     typename rb_tree_iterator<T>::self         rb_tree_iterator<T>::operator--(int)
     {
         typename rb_tree_iterator<T>::self temp = *this;
-        *this = inorder_decrement(_node);
+        this->_node = inorder_decrement(_node);
         return (temp);
     }
 
@@ -110,9 +118,10 @@ namespace ft
     template<typename T>
     typename rb_tree_iterator<T>::reference    rb_tree_iterator<T>::operator*() const
     {
-        return static_cast<link_type>(_node)->_data;
+        return static_cast<link_type>(_node)->data;
     }
     
+    /* rb_tree_iterator equality checks */
 
     template<typename T>
     bool                                       rb_tree_iterator<T>::operator==(const self& x) const
@@ -123,6 +132,6 @@ namespace ft
     template<typename T>
     bool                                       rb_tree_iterator<T>::operator!=(const self& x) const
     {
-        return this->_node == x._node;
+        return this->_node != x._node;
     }
 }
