@@ -26,20 +26,22 @@ namespace ft
             typedef rb_tree_iterator<T>         iterator;
 
             typedef const_rb_tree_iterator<T>   self;
+            typedef ft::rb_tree_node_base*      base_ptr;
             typedef const rb_tree_node<T>*      link_type;
 
         private:
-            link_type    inorder_increment(link_type node);
-            link_type    inorder_decrement(link_type node);
+            base_ptr    inorder_increment(base_ptr node);
+            base_ptr    inorder_decrement(base_ptr node);
+            bool        is_sentinel(base_ptr node);
 
         protected:
-            link_type    _node;
+            base_ptr    _node;
 
         public:
             /* Constructors and Destructor */
 
             const_rb_tree_iterator();
-            explicit const_rb_tree_iterator(link_type x);
+            explicit const_rb_tree_iterator(base_ptr x);
             const_rb_tree_iterator(const iterator& _it);
             const_rb_tree_iterator(const self& other);
             virtual ~const_rb_tree_iterator();

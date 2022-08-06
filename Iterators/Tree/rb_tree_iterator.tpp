@@ -7,15 +7,15 @@ namespace ft
     /* rb_tree_iterator utility functions */
 
     template<typename T>
-    bool                                        rb_tree_iterator<T>::is_sentinel(link_type node)
+    bool                                        rb_tree_iterator<T>::is_sentinel(base_ptr node)
     {
-        return (node != 0 and node->data == 0 and node->parent == node);
+        return (node != 0 and node->parent == node);
     }
     
     template<typename T>
-    typename rb_tree_iterator<T>::link_type     rb_tree_iterator<T>::inorder_increment(link_type node)
+    typename rb_tree_iterator<T>::base_ptr     rb_tree_iterator<T>::inorder_increment(base_ptr node)
     {
-        if(is_sentinel(node))
+        if(is_sentinel(node)) // for rend
             return node->left;
         if (node->right != 0 and !is_sentinel(node->right))
         {
@@ -38,9 +38,9 @@ namespace ft
     }
 
     template<typename T>
-    typename rb_tree_iterator<T>::link_type     rb_tree_iterator<T>::inorder_decrement(link_type node)
+    typename rb_tree_iterator<T>::base_ptr     rb_tree_iterator<T>::inorder_decrement(base_ptr node)
     {
-        if(is_sentinel(node))
+        if(is_sentinel(node)) // for end
             return node->right;
         if (node->left != 0 and !is_sentinel(node->left))
         {
@@ -68,7 +68,7 @@ namespace ft
     rb_tree_iterator<T>::rb_tree_iterator() : _node() {}
 
     template<typename T>
-    rb_tree_iterator<T>::rb_tree_iterator(link_type x) : _node(x) { }
+    rb_tree_iterator<T>::rb_tree_iterator(base_ptr x) : _node(x) { }
 
     template<typename T>
     rb_tree_iterator<T>::rb_tree_iterator(const self& other) { *this = other; }
@@ -116,7 +116,7 @@ namespace ft
     template<typename T>
     typename rb_tree_iterator<T>::pointer      rb_tree_iterator<T>::operator->() const
     {
-        return &static_cast<link_type>(_node)->_data;
+        return &static_cast<link_type>(_node)->data;
     }
     
     template<typename T>
