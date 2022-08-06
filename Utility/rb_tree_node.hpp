@@ -3,36 +3,49 @@
 namespace ft
 {
     /*
-    =====================
-        RB Node Class
-    =====================
+    ==========================
+        Rb Node Base Class
+    ==========================
     */
 
-    enum rb_tree_color { Red = false, Black = true };
-    
-    template<typename T>
-    struct rb_tree_node
+    enum rb_tree_color { red = false, black = true };
+
+    struct rb_tree_node_base
     {
-        typedef rb_tree_node<T>*    link_type;
+        typedef rb_tree_node_base*          base_ptr;
+        typedef const rb_tree_node_base*    const_base_ptr;
 
         rb_tree_color   color;
-        link_type       parent;
-        link_type       left;
-        link_type       right;
-        T               data;
+        base_ptr        parent;
+        base_ptr        left;
+        base_ptr        right;
 
-        rb_tree_node() : color(Black), parent(), left(), right(), data() {}
-        rb_tree_node(const rb_tree_node& other) { *this = other; }
+        rb_tree_node_base() : left(), right(), parent(), color(black) {}
+        rb_tree_node_base(const rb_tree_node_base& other) { *this = other; }
 
-        rb_tree_node&   operator=(const rb_tree_node& other)
+        rb_tree_node_base&  operator=(const rb_tree_node_base& other)
         {
             this->left = other.left;
             this->right = other.right;
             this->parent = other.parent;
             this->color = other.color;
-            this->_data = other._data;
 
             return (*this);
+
         }
+    };
+
+    /*
+    =====================
+        RB Node Class
+    =====================
+    */
+
+    template<typename T>
+    struct rb_tree_node : rb_tree_node_base
+    {
+        typedef rb_tree_node<T>*    link_type;
+
+        T   data;
     };
 }
