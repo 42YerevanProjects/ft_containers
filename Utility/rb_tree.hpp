@@ -19,6 +19,8 @@ namespace ft
 
         protected:
             typedef ft::rb_tree_node<Val>           node;
+            typedef ft::rb_tree_node_base           base;
+            typedef ft::rb_tree_node_base*          base_ptr;
 
         public:
             typedef Val             value_type;
@@ -40,7 +42,7 @@ namespace ft
             key_compare     _comp;
             node_allocator  _alloc;
             size_type       _size;
-            node*           _sentinel;
+            base            _sentinel;
 
         public:
             /* Constructors and Destructor */
@@ -128,12 +130,12 @@ namespace ft
             /* Node Check Utility Functions */
 
             node*                   root() const;
-            bool                    is_root(const node* n) const;
-            bool                    is_red(const node* n) const;
-            bool                    is_black(const node* n) const;
-            bool                    is_sentinel(const node* n) const;
-            bool                    is_internal(const node* n) const;
-            bool                    is_external(const node* n) const;
+            bool                    is_root(const base_ptr n) const;
+            bool                    is_red(const base_ptr n) const;
+            bool                    is_black(const base_ptr n) const;
+            bool                    is_sentinel(const base_ptr n) const;
+            bool                    is_internal(const base_ptr n) const;
+            bool                    is_external(const base_ptr n) const;
 
             /* Node Create/Delete Utility Functions */
 
