@@ -15,6 +15,8 @@ namespace ft
     template<typename T>
     typename rb_tree_iterator<T>::link_type     rb_tree_iterator<T>::inorder_increment(link_type node)
     {
+        if(is_sentinel(node))
+            return node->left;
         if (node->right != 0 and !is_sentinel(node->right))
         {
             node = node->right;
@@ -38,6 +40,8 @@ namespace ft
     template<typename T>
     typename rb_tree_iterator<T>::link_type     rb_tree_iterator<T>::inorder_decrement(link_type node)
     {
+        if(is_sentinel(node))
+            return node->right;
         if (node->left != 0 and !is_sentinel(node->left))
         {
             node = node->left;
