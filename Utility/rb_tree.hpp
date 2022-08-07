@@ -10,8 +10,9 @@ namespace ft
     template< typename Key,
               typename Val,
               typename KeyOfValue,
-              typename Compare = ft::less<Val>, 
-              typename Alloc = std::allocator<Val> >
+              typename Compare = ft::less<Key>, 
+              typename Alloc = std::allocator<Val> 
+            >
     class rb_tree
     {
         private:
@@ -114,16 +115,16 @@ namespace ft
         protected:
             /* Insert & Delete Utility Functions */
 
-            void                    insert_fixup(node* z);
-            void                    erase_fixup(node* x);
-            void                    left_rotate(node* x);
-            void                    right_rotate(node* x);
-            void                    transplant(node* u, node* v);
+            void                    insert_fixup(base_ptr z);
+            void                    erase_fixup(base_ptr x);
+            void                    left_rotate(base_ptr x);
+            void                    right_rotate(base_ptr x);
+            void                    transplant(base_ptr u, base_ptr v);
 
             /* Key Extraction Utility Functions */
 
             const key_type&         extract_key(const value_type& val) const;
-            const key_type&         extract_key(const node* ptr) const;
+            const key_type&         extract_key(const base_ptr n) const;
 
             /* Node Check Utility Functions */
 
