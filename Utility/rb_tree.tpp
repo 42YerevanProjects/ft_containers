@@ -106,30 +106,40 @@ namespace ft
         base_ptr    y = &_sentinel;
         node*       z = create_node(val);
 
-        while (x != &_sentinel)
+        if (x == 0)
         {
-            y = x;
-            if (_comp(extract_key(z), extract_key(x)))
-                x = x->left;
-            else
-                x = x->right;
-        }
-
-        z->parent = y;
-        if (y == &_sentinel)
             _root = z;
-        else if (_comp(extract_key(z), extract_key(y)))
-            y->left = z;
+            _root->parent = &_sentinel;
+        }
         else
-            y->right = z;
+        {
+            while (!is_sentinel(x))
+            {
+                y = x;
+                if (_comp(extract_key(z), extract_key(x)))
+                    x = x->left;
+                else
+                    x = x->right;
+            }
+
+            z->parent = y;
+            if (is_sentinel(y))
+                _root = z;
+            else if (_comp(extract_key(z), extract_key(y)))
+                y->left = z;
+            else
+                y->right = z;
+        }    
 
         z->left = &_sentinel;
         z->right = &_sentinel;
         z->color = red;
 
+
         _size++;
+        std::cout << "ss: " << is_sentinel(_root->left) << std::endl;
+        insert_fixup(z);
         update_extremum();
-        //TODO: do insert_fixup
     }
 
 
@@ -139,6 +149,105 @@ namespace ft
     =========================
     */
     
+
+    /* Insert & Delete Utility Functions */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert_fixup(base_ptr z)
+    {
+        while (z->parent->color == red)
+        {
+            std::cout << "booo" << std::endl;
+            if (z->parent == z->parent->parent->left)
+            {
+                base_ptr y = z->parent->parent->right;
+                if (y->color = red)
+                {
+                    z->parent->color = black;
+                    y->color = black;
+                    z->parent->parent->color = red;
+                    z = z->parent->parent;
+                }
+                else
+                {
+                    if (z = z->parent->right)
+                    {
+                        z = z->parent;
+                        left_rotate(z);
+                    }
+                    z->parent->color = black;
+                    z->parent->parent->color = red;
+                    right_rotate(z->parent->parent);
+                }
+            }
+            else
+            {    
+                base_ptr y = z->parent->parent->left;
+                if (y->color = red)
+                {
+                    z->parent->color = black;
+                    y->color = black;
+                    z->parent->parent->color = red;
+                    z = z->parent->parent;
+                }
+                else
+                {    
+                    if (z = z->parent->left)
+                    {
+                        z = z->parent;
+                        right_rotate(z);
+                    }
+                    z->parent->color = black;
+                    z->parent->parent->color = red;
+                    left_rotate(z->parent->parent);
+                }
+            }
+        }
+        _root->color = black;
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::left_rotate(base_ptr x)
+    {
+        base_ptr y = x->right;
+
+        x->right = y->left;
+        if (!is_sentinel(y->left))
+            y->left->parent = x;
+
+        y->parent = x->parent;
+        if (is_sentinel(x->parent))
+            _root = static_cast<node *>(y);
+        else if (x == x->parent->left)
+            x->parent->left = y;
+        else
+            x->parent->right = y;
+
+        y->left = x;
+        x->parent = y;
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::right_rotate(base_ptr x)
+    {
+        base_ptr y = x->left;
+
+        x->left = y->right;
+        if (!is_sentinel(y->right))
+            y->right->parent = x;
+
+        y->parent = x->parent;
+        if (is_sentinel(x->parent))
+            _root = static_cast<node *>(y);
+        else if (x == x->parent->left)
+            x->parent->left = y;
+        else
+            x->parent->right = y;
+
+        y->right = x;
+        x->parent = y;
+    }
+
     /* Key Extraction Utility Functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -148,9 +257,9 @@ namespace ft
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    const typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::key_type&         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::extract_key(const node* n) const
+    const typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::key_type&         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::extract_key(const base_ptr n) const
     {
-        return (KeyOfValue()(n->data));
+        return (KeyOfValue()(static_cast<const node*>(n)->data));
     }
 
     /* Node Check Utility Functions */
@@ -160,7 +269,6 @@ namespace ft
     { 
         return (n != 0 and n->parent == n); 
     }
-
 
     /* Node Create/Delete Utility Functions */
 
