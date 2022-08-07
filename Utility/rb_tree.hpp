@@ -8,8 +8,8 @@
 namespace ft
 {
     template< typename Key,
-              typename Val, 
-              typename KeyOfValue, 
+              typename Val,
+              typename KeyOfValue,
               typename Compare = ft::less<Val>, 
               typename Alloc = std::allocator<Val> >
     class rb_tree
@@ -23,8 +23,8 @@ namespace ft
             typedef ft::rb_tree_node_base*          base_ptr;
 
         public:
-            typedef Val             value_type;
             typedef Key             key_type;
+            typedef Val             value_type;
             typedef Compare         key_compare;
             typedef value_type*     pointer;
             typedef value_type&     reference;
@@ -71,21 +71,21 @@ namespace ft
 
             /* Capacity Functions */
 
-            size_type               size();
-            size_type               max_size();
-            bool                    empty();
+            size_type               size() const;
+            size_type               max_size() const;
+            bool                    empty() const;
 
             /* Modifier Functions */
 
-            iterator                insert(const_iterator position, const value_type& val);
+            void                    insert(const value_type& val);
             iterator                insert(iterator position, const value_type& val);
+            iterator                insert(const_iterator position, const value_type& val);
             
             template <typename InputIterator>
             void                    insert(InputIterator first, InputIterator last);
 
             void                    erase(iterator position);
             void                    erase(const_iterator position);
-            size_type               erase(const key_type& k);
 
             template <typename InputIterator>
             void                    erase(InputIterator first, InputIterator last);
@@ -111,7 +111,6 @@ namespace ft
 
             allocator_type          get_allocator() const;
         
-
         protected:
             /* Insert & Delete Utility Functions */
 
@@ -125,7 +124,6 @@ namespace ft
 
             const key_type&         extract_key(const value_type& val) const;
             const key_type&         extract_key(const node* ptr) const;
-            const key_type&         extract_key(const_iterator it) const;
 
             /* Node Check Utility Functions */
 
