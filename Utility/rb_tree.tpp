@@ -100,7 +100,7 @@ namespace ft
     */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const value_type& val) 
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const value_type& val) 
     {
         base_ptr    x = _root;
         base_ptr    y = &_sentinel;
@@ -145,13 +145,12 @@ namespace ft
     =========================
         Utility Functions
     =========================
-    */
-    
+    */ 
 
     /* Insert & Delete Utility Functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert_fixup(base_ptr z)
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert_fixup(base_ptr z)
     {
         while (is_red(z->parent))
         {
@@ -205,7 +204,7 @@ namespace ft
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::left_rotate(base_ptr x)
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::left_rotate(base_ptr x)
     {
         base_ptr y = x->right;
 
@@ -226,7 +225,7 @@ namespace ft
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::right_rotate(base_ptr x)
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::right_rotate(base_ptr x)
     {
         base_ptr y = x->left;
 
@@ -327,7 +326,7 @@ namespace ft
     /* Tree min, max utility functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::minimum()
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::minimum()
     {
         base_ptr min = _root;
         while (min && min->left != 0 && !is_sentinel(min->left))
@@ -336,7 +335,7 @@ namespace ft
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::maximum()
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::maximum()
     {
         base_ptr max = _root;
         while (max && max->right != 0 && !is_sentinel(max->right))
@@ -345,7 +344,7 @@ namespace ft
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::update_extremum()
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::update_extremum()
     {
         node* min = minimum();
         node* max = maximum();
