@@ -153,12 +153,12 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert_fixup(base_ptr z)
     {
-        while (z->parent->color == red)
+        while (is_red(z->parent))
         {
             if (z->parent == z->parent->parent->left)
             {
                 base_ptr y = z->parent->parent->right;
-                if (y->color = red)
+                if (is_red(y))
                 {
                     z->parent->color = black;
                     y->color = black;
@@ -167,7 +167,7 @@ namespace ft
                 }
                 else
                 {
-                    if (z = z->parent->right)
+                    if (z == z->parent->right)
                     {
                         z = z->parent;
                         left_rotate(z);
@@ -180,7 +180,7 @@ namespace ft
             else
             {    
                 base_ptr y = z->parent->parent->left;
-                if (y->color == red)
+                if (is_red(y))
                 {
                     z->parent->color = black;
                     y->color = black;
@@ -261,6 +261,42 @@ namespace ft
     }
 
     /* Node Check Utility Functions */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::root() const
+    { 
+        return (this->_root); 
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::is_root(const base_ptr n) const
+    { 
+        return (this->_root == n); 
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::is_red(const base_ptr n) const
+    { 
+        return (n != 0 and n->color == red); 
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::is_black(const base_ptr n) const
+    { 
+        return (n != 0 and n->color == black); 
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::is_external(const base_ptr n) const
+    { 
+        return (n == 0 or is_sentinel(n)); 
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::is_internal(const base_ptr n) const
+    { 
+        return (n != 0 and !is_sentinel(n)); 
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::is_sentinel(const base_ptr n) const
