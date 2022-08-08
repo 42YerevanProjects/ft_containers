@@ -101,8 +101,33 @@ namespace ft
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const value_type& val) 
+    { 
+        hinted_insert(val, NULL);
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    template <typename InputIterator>
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(InputIterator first, InputIterator last)
     {
-        base_ptr    x = _root;
+        while(first != last)
+        {
+            insert(*first);
+            first++;
+        } 
+    }
+
+    /*
+    =========================
+        Utility Functions
+    =========================
+    */ 
+
+    /* Insert & Delete Utility Functions */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::hinted_insert(const value_type& val, base_ptr hint)
+    {        
+        base_ptr    x = ((is_internal(hint)) ? hint : this->root());
         base_ptr    y = &_sentinel;
         node*       z = create_node(val);
 
@@ -129,7 +154,7 @@ namespace ft
                 y->left = z;
             else
                 y->right = z;
-        }    
+        }
 
         z->left = &_sentinel;
         z->right = &_sentinel;
@@ -139,15 +164,6 @@ namespace ft
         insert_fixup(z);
         update_extremum();
     }
-
-
-    /*
-    =========================
-        Utility Functions
-    =========================
-    */ 
-
-    /* Insert & Delete Utility Functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert_fixup(base_ptr z)
