@@ -79,11 +79,12 @@ namespace ft
             /* Modifier Functions */
 
             void                    insert(const value_type& val);
-            iterator                insert(iterator position, const value_type& val);
-            iterator                insert(const_iterator position, const value_type& val);
-            
+
             template <typename InputIterator>
             void                    insert(InputIterator first, InputIterator last);
+
+            iterator                insert(iterator position, const value_type& val);
+            iterator                insert(const_iterator position, const value_type& val);
 
             void                    erase(iterator position);
             void                    erase(const_iterator position);
@@ -115,6 +116,7 @@ namespace ft
         protected:
             /* Insert & Delete Utility Functions */
 
+            void                    hinted_insert(const value_type& val, base_ptr hint);
             void                    insert_fixup(base_ptr z);
             void                    erase_fixup(base_ptr x);
             void                    left_rotate(base_ptr x);
@@ -132,9 +134,9 @@ namespace ft
             bool                    is_root(const base_ptr n) const;
             bool                    is_red(const base_ptr n) const;
             bool                    is_black(const base_ptr n) const;
-            bool                    is_sentinel(const base_ptr n) const;
-            bool                    is_internal(const base_ptr n) const;
             bool                    is_external(const base_ptr n) const;
+            bool                    is_internal(const base_ptr n) const;
+            bool                    is_sentinel(const base_ptr n) const;
 
             /* Node Create/Delete Utility Functions */
 
