@@ -135,9 +135,7 @@ namespace ft
         z->right = &_sentinel;
         z->color = red;
 
-
         _size++;
-        std::cout << "ss: " << is_sentinel(_root->left) << std::endl;
         insert_fixup(z);
         update_extremum();
     }
@@ -157,7 +155,6 @@ namespace ft
     {
         while (z->parent->color == red)
         {
-            std::cout << "booo" << std::endl;
             if (z->parent == z->parent->parent->left)
             {
                 base_ptr y = z->parent->parent->right;
@@ -183,7 +180,7 @@ namespace ft
             else
             {    
                 base_ptr y = z->parent->parent->left;
-                if (y->color = red)
+                if (y->color == red)
                 {
                     z->parent->color = black;
                     y->color = black;
@@ -192,7 +189,7 @@ namespace ft
                 }
                 else
                 {    
-                    if (z = z->parent->left)
+                    if (z == z->parent->left)
                     {
                         z = z->parent;
                         right_rotate(z);
@@ -204,6 +201,7 @@ namespace ft
             }
         }
         _root->color = black;
+        _sentinel.color = black;
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
