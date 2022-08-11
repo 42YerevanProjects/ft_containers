@@ -151,7 +151,7 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const_iterator position, const value_type& val)
     {
-        return (insert(const_cast<base_ptr>(position._node), val));
+        return (insert(iterator(const_cast<base_ptr>(position._node)), val));
     }
 
 
