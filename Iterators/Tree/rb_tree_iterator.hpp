@@ -14,6 +14,10 @@ namespace ft
     template <typename T>
     class rb_tree_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
     {
+        private:
+            template <class K, class V, class KOV, class C, class A>
+			friend class rb_tree;
+
         public:
             typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type        value_type;
             typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer           pointer;
