@@ -120,31 +120,31 @@ namespace ft
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(iterator position, const value_type& val)
     {
         if (position == end())
-		{
-			if (!empty() and _comp(extract_key(--end()), extract_key(val)))
-				return(hinted_insert(val, (--position)._node));
-			else
-			    return (hinted_insert(val, NULL));
+        {
+            if (!empty() and _comp(extract_key(--end()), extract_key(val)))
+                return(hinted_insert(val, (--position)._node));
+            else
+                return (hinted_insert(val, NULL));
         }
-		else if (_comp(extract_key(val), extract_key(position)))
-		{
-			iterator	pred = position;
+        else if (_comp(extract_key(val), extract_key(position)))
+        {
+            iterator	pred = position;
 
-			if (position == begin() or _comp(extract_key(--pred), extract_key(val)))
-				return (hinted_insert(val, position._node));
-			else
-				return (hinted_insert(val, NULL));
-		}
-		else if (_comp(extract_key(position), extract_key(val)))
-		{
-			iterator	succ = position;
+            if (position == begin() or _comp(extract_key(--pred), extract_key(val)))
+                return (hinted_insert(val, position._node));
+            else
+                return (hinted_insert(val, NULL));
+        }
+        else if (_comp(extract_key(position), extract_key(val)))
+        {
+            iterator	succ = position;
 
-			if (position == --end() or _comp(extract_key(val), extract_key(++position)))
-				return (hinted_insert(val, position._node));
-			else
-				return (hinted_insert(val, NULL));
-	    }
-		else
+            if (position == --end() or _comp(extract_key(val), extract_key(++position)))
+                return (hinted_insert(val, position._node));
+            else
+                return (hinted_insert(val, NULL));
+        }
+        else
             return (hinted_insert(val, position._node));	
     }
 
