@@ -116,7 +116,7 @@ namespace ft
         protected:
             /* Insert & Delete Utility Functions */
 
-            void                    hinted_insert(const value_type& val, base_ptr hint);
+            iterator                hinted_insert(const value_type& val, base_ptr hint);
             void                    insert_fixup(base_ptr z);
             void                    erase_fixup(base_ptr x);
             void                    left_rotate(base_ptr x);
@@ -127,6 +127,7 @@ namespace ft
 
             const key_type&         extract_key(const value_type& val) const;
             const key_type&         extract_key(const base_ptr n) const;
+            const key_type&         extract_key(iterator it) const;
 
             /* Node Check Utility Functions */
 
