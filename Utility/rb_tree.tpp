@@ -107,13 +107,13 @@ namespace ft
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     template <typename InputIterator>
-    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(InputIterator first, InputIterator last)
+    void    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(InputIterator first, InputIterator last,
+                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        while(first != last)
-        {
-            insert(*first);
-            first++;
-        } 
+        size_t n = ft::distance(first, last);
+
+		while (n--)
+			this->insert(*(first++));
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
