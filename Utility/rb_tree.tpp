@@ -121,31 +121,37 @@ namespace ft
     {
         if (position == end())
 		{
-			if (!empty() and this->_comp(extract_key(--end()), extract_key(val)))
+			if (!empty() and _comp(extract_key(--end()), extract_key(val)))
 				return(hinted_insert(val, (--position)._node));
 			else
 			    return (hinted_insert(val, NULL));
         }
-		else if (this->_comp(extract_key(val), extract_key(position)))
+		else if (_comp(extract_key(val), extract_key(position)))
 		{
 			iterator	pred = position;
 
-			if (position == begin() || _comp(extract_key(--pred), extract_key(val)))
+			if (position == begin() or _comp(extract_key(--pred), extract_key(val)))
 				return (hinted_insert(val, position._node));
 			else
 				return (hinted_insert(val, NULL));
 		}
-		else if (this->_comp(extract_key(position), extract_key(val)))
+		else if (_comp(extract_key(position), extract_key(val)))
 		{
 			iterator	succ = position;
 
-			if (position == --end() || _comp(extract_key(val), extract_key(++position)))
+			if (position == --end() or _comp(extract_key(val), extract_key(++position)))
 				return (hinted_insert(val, position._node));
 			else
 				return (hinted_insert(val, NULL));
 	    }
 		else
             return (hinted_insert(val, position._node));	
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const_iterator position, const value_type& val)
+    {
+        return (insert(const_cast<base_ptr>(position._node), val));
     }
 
 
