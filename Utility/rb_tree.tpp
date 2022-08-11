@@ -116,6 +116,39 @@ namespace ft
         } 
     }
 
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(iterator position, const value_type& val)
+    {
+        if (position == end())
+		{
+			if (!empty() and this->_comp(extract_key(--end()), extract_key(val)))
+				return(hinted_insert(val, (--position)._node));
+			else
+			    return (hinted_insert(val, NULL));
+        }
+		else if (this->_comp(extract_key(val), extract_key(position)))
+		{
+			iterator	pred = position;
+
+			if (position == begin() || _comp(extract_key(--pred), extract_key(val)))
+				return (hinted_insert(val, position._node));
+			else
+				return (hinted_insert(val, NULL));
+		}
+		else if (this->_comp(extract_key(position), extract_key(val)))
+		{
+			iterator	succ = position;
+
+			if (position == --end() || _comp(extract_key(val), extract_key(++position)))
+				return (hinted_insert(val, position._node));
+			else
+				return (hinted_insert(val, NULL));
+	    }
+		else
+            return (hinted_insert(val, position._node));	
+    }
+
+
     /*
     =========================
         Utility Functions
@@ -125,7 +158,7 @@ namespace ft
     /* Insert & Delete Utility Functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::hinted_insert(const value_type& val, base_ptr hint)
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::hinted_insert(const value_type& val, base_ptr hint)
     {        
         base_ptr    x = ((is_internal(hint)) ? hint : this->root());
         base_ptr    y = &_sentinel;
@@ -163,6 +196,7 @@ namespace ft
         _size++;
         insert_fixup(z);
         update_extremum();
+        return (iterator(z));
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -273,6 +307,12 @@ namespace ft
     const typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::key_type&         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::extract_key(const base_ptr n) const
     {
         return (KeyOfValue()(static_cast<const node*>(n)->data));
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    const typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::key_type&         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::extract_key(iterator it) const
+    {
+        return (KeyOfValue()(*it));
     }
 
     /* Node Check Utility Functions */
