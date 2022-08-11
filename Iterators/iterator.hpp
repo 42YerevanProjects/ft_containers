@@ -125,7 +125,7 @@ namespace ft
 
     /*
     ============================= 
-        Lexicographic Compare
+        Compare With Equals
     ============================= 
     */
 
