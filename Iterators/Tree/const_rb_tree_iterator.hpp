@@ -21,11 +21,11 @@ namespace ft
 			friend class rb_tree;
 
         public:
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type        value_type;
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer           pointer;
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference         reference;
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type   difference_type;
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category iterator_category;
+            typedef typename ft::iterator<ft::bidirectional_iterator_tag, const T>::value_type        value_type;
+            typedef typename ft::iterator<ft::bidirectional_iterator_tag, const T>::pointer           pointer;
+            typedef typename ft::iterator<ft::bidirectional_iterator_tag, const T>::reference         reference;
+            typedef typename ft::iterator<ft::bidirectional_iterator_tag, const T>::difference_type   difference_type;
+            typedef typename ft::iterator<ft::bidirectional_iterator_tag, const T>::iterator_category iterator_category;
 
             typedef rb_tree_iterator<T>         iterator;
 

@@ -72,7 +72,7 @@ namespace ft
     const_rb_tree_iterator<T>::const_rb_tree_iterator(const iterator& _it) : _node(_it._node) {}
 
     template<typename T>
-    const_rb_tree_iterator<T>::const_rb_tree_iterator(const self& other) { *this = other; }
+    const_rb_tree_iterator<T>::const_rb_tree_iterator(const self& other) : _node(other._node ) {}
 
     template<typename T>
     const_rb_tree_iterator<T>::~const_rb_tree_iterator() {}
@@ -87,7 +87,7 @@ namespace ft
     template<typename T>
     typename const_rb_tree_iterator<T>::self&        const_rb_tree_iterator<T>::operator++()
     {
-        *this = inorder_increment(_node);
+        this->_node = inorder_increment(_node);
         return (*this);
     }
     
@@ -95,14 +95,14 @@ namespace ft
     typename const_rb_tree_iterator<T>::self         const_rb_tree_iterator<T>::operator++(int)
     {
         typename const_rb_tree_iterator<T>::self temp = *this;
-        *this = inorder_increment(_node);
+        this->_node = inorder_increment(_node);
         return (temp);
     }
 
     template<typename T>
     typename const_rb_tree_iterator<T>::self&        const_rb_tree_iterator<T>::operator--()
     {
-        *this = inorder_decrement(_node);
+        this->_node = inorder_decrement(_node);
         return (*this);
     }
     
@@ -110,20 +110,20 @@ namespace ft
     typename const_rb_tree_iterator<T>::self         const_rb_tree_iterator<T>::operator--(int)
     {
         typename const_rb_tree_iterator<T>::self temp = *this;
-        *this = inorder_decrement(_node);
+        this->_node = inorder_decrement(_node);
         return (temp);
     }
 
     template<typename T>
     typename const_rb_tree_iterator<T>::pointer      const_rb_tree_iterator<T>::operator->() const
     {
-        return &static_cast<link_type>(_node)->_data;
+        return &static_cast<link_type>(_node)->data;
     }
     
     template<typename T>
     typename const_rb_tree_iterator<T>::reference    const_rb_tree_iterator<T>::operator*() const
     {
-        return static_cast<link_type>(_node)->_data;
+        return static_cast<link_type>(_node)->data;
     }
     
 
