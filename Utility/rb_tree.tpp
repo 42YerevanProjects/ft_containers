@@ -58,13 +58,22 @@ namespace ft
     */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                 rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::begin() { return iterator(_sentinel.left); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                 rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::begin()
+    { 
+        return iterator(_sentinel.left);
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::begin() const { return const_iterator(_sentinel.left); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::begin() const
+    { 
+        return const_iterator(_sentinel.left);
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                 rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::end() { return iterator(&_sentinel); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                 rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::end() 
+    {
+        return iterator(&_sentinel);
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::end() const 
@@ -73,16 +82,28 @@ namespace ft
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::reverse_iterator         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rbegin() { return reverse_iterator(end()); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::reverse_iterator         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rbegin() 
+    {
+        return reverse_iterator(end());
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_reverse_iterator   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rbegin() const { return const_reverse_iterator(end()); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_reverse_iterator   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rbegin() const
+    {
+        return const_reverse_iterator(end());
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::reverse_iterator         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rend() { return reverse_iterator(begin()); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::reverse_iterator         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rend() 
+    {
+        return reverse_iterator(begin());
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_reverse_iterator   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rend() const { return const_reverse_iterator(begin()); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_reverse_iterator   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rend() const
+    {
+        return const_reverse_iterator(begin());
+    }
 
 
     /*
