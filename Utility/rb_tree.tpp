@@ -710,7 +710,7 @@ namespace ft
         this->_alloc.deallocate(static_cast<node *>(n), 1);
     }
 
-    /* Node Find Utility Function */
+    /* Find Node Utility Function */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::base_ptr                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::find_node(base_ptr current, const key_type& k) const
