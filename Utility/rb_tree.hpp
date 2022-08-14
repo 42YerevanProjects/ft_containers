@@ -125,6 +125,7 @@ namespace ft
             void                    left_rotate(base_ptr x);
             void                    right_rotate(base_ptr x);
             void                    transplant(base_ptr u, base_ptr v);
+            void                    nullify(base_ptr leaf);
 
             /* Key Extraction Utility Functions */
 
