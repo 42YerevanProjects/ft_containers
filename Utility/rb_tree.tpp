@@ -205,8 +205,12 @@ namespace ft
             y->color = z->color;
         }
 
+        _size--;
+        destroy_node(z);
+
         if (y_original_color == black)
             erase_fixup(x);
+        //TODO: nullify the leaf after fixup 
 
         update_extremum();
     }
@@ -270,6 +274,8 @@ namespace ft
             if (z->parent == z->parent->parent->left)
             {
                 base_ptr y = z->parent->parent->right;
+
+                /* Case 1 */
                 if (is_red(y))
                 {
                     z->parent->color = black;
@@ -279,11 +285,14 @@ namespace ft
                 }
                 else
                 {
+                    /* Case 2 */
                     if (z == z->parent->right)
                     {
                         z = z->parent;
                         left_rotate(z);
                     }
+
+                    /* Case 3 */
                     z->parent->color = black;
                     z->parent->parent->color = red;
                     right_rotate(z->parent->parent);
@@ -292,6 +301,8 @@ namespace ft
             else
             {    
                 base_ptr y = z->parent->parent->left;
+
+                /* Case 1 */
                 if (is_red(y))
                 {
                     z->parent->color = black;
@@ -301,11 +312,15 @@ namespace ft
                 }
                 else
                 {    
+
+                    /* Case 2 */
                     if (z == z->parent->left)
                     {
                         z = z->parent;
                         right_rotate(z);
                     }
+
+                    /* Case 3 */
                     z->parent->color = black;
                     z->parent->parent->color = red;
                     left_rotate(z->parent->parent);
@@ -316,11 +331,89 @@ namespace ft
         _sentinel.color = black;
     }
 
-
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase_fixup(base_ptr x)
     {
-        
+        while (!is_root(x) and is_black(x))
+        {
+            if (x == x->parent->left)
+            {
+                base_ptr w = x->parent->right;
+ 
+                /* Case 1 */
+                if (is_red(w))
+                {
+                    w->color = black;
+                    x->parent->color = red;
+                    left_rotate(x->parent);
+                    w = x->parent->right;
+                }
+
+                /* Case 2 */
+                if (is_black(w->left) and is_black(w->right))
+                {
+                    w->color = red;
+                    x = x->parent;
+                }
+                else 
+                {
+                    /* Case 3*/
+                    if (is_black(w->right))
+                    {
+                        w->left->color = black;
+                        w->color = red;
+                        right_rotate(w);
+                        w = x->parent->right;
+                    }
+
+                    /* Case 4*/
+                    w->color = x->parent->color;
+                    x->parent->color = black;
+                    w->right->color = black;
+                    left_rotate(x->parent);
+                    x = root();
+                }
+            }
+            else
+            {
+                base_ptr w = x->parent->left;
+ 
+                /* Case 1 */
+                if (is_red(w))
+                {
+                    w->color = black;
+                    x->parent->color = red;
+                    right_rotate(x->parent);
+                    w = x->parent->left;
+                }
+
+                /* Case 2 */
+                if (is_black(w->left) and is_black(w->right))
+                {
+                    w->color = red;
+                    x = x->parent;
+                }
+                else 
+                {
+                    /* Case 3*/
+                    if (is_black(w->left))
+                    {
+                        w->right->color = black;
+                        w->color = red;
+                        left_rotate(w);
+                        w = x->parent->left;
+                    }
+
+                    /* Case 4*/
+                    w->color = x->parent->color;
+                    x->parent->color = black;
+                    w->left->color = black;
+                    right_rotate(x->parent);
+                    x = root();
+                }
+            } 
+            x->color = black;
+        }
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -369,7 +462,7 @@ namespace ft
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::transplant(base_ptr u, base_ptr v)
     {
         if (is_root(u))
-            _root = v;
+            _root = static_cast<node *>(v);
         else if (u == u->parent->left)
             u->parent->left = v;
         else
@@ -460,6 +553,13 @@ namespace ft
         return (new_node);
     }
 
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::destroy_node(base_ptr n) 
+    {
+        allocator_type alloc_copy(this->_alloc);
+        alloc_copy.destroy(&static_cast<node *>(n)->data);
+        this->_alloc.deallocate(static_cast<node *>(n), 1);
+    }
 
     /* Tree min, max utility functions */
 
@@ -484,8 +584,9 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::update_extremum()
     {
-        node* min = minimum(root());
-        node* max = maximum(root());
+        std :: cout << "yay" << std::endl;
+        node* min = minimum(this->_root);
+        node* max = maximum(this->_root);
 
         _sentinel.left = (min != 0) ? min : 0;
         _sentinel.right = (max != 0) ? max : 0;
