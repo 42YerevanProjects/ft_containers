@@ -285,10 +285,6 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::clear()
     {
-       // destroy_tree(this->_root);
-       // this->_size = 0;
-       // this->_root = 0;
-       
         erase(begin(), end());
         update_extremum();
     }
@@ -663,16 +659,6 @@ namespace ft
         allocator_type alloc_copy(this->_alloc);
         alloc_copy.destroy(&static_cast<node *>(n)->data);
         this->_alloc.deallocate(static_cast<node *>(n), 1);
-    }
-
-    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::destroy_tree(base_ptr n) 
-    {
-        if (is_external(n))
-            return;
-        destroy_tree(n->left);
-        destroy_tree(n->right);
-        destroy_node(n);
     }
 
     /* Tree min, max utility functions */
