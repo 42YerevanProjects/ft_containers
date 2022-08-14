@@ -502,12 +502,12 @@ namespace ft
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::nullify(base_ptr leaf)
     {
         if (leaf->parent)
-		{
-            if (leaf->parent->left == leaf)
-				leaf->parent->left = &_sentinel;
-            else if (leaf->parent->right == leaf)
-				leaf->parent->right = &_sentinel;
-		}
+        {
+            if (leaf == leaf->parent->left)
+                leaf->parent->left = &_sentinel;
+            else
+                leaf->parent->right = &_sentinel;
+        }
     }
 
     /* Key Extraction Utility Functions */
