@@ -41,13 +41,21 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     rb_tree<Key, Val, KeyOfValue, Compare, Alloc>&  rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::operator=(const rb_tree& other)
     {    
-        // TODO: To be implemented after I implement the insert and erase functions
+
+        if (other != *this)
+        {
+            this->_comp = other._comp;
+
+            clear();
+            insert(other.begin(), other.end());
+        }
+        return (*this);
     }
  
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::~rb_tree()
     {
-        // TODO: To be implemented after I implement the clear function
+        clear();
     }
 
 
