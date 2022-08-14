@@ -313,17 +313,25 @@ namespace ft
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::size_type               rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::count(const key_type& k) const
     {
        size_type n = 0;
+       base_ptr  x = root();
 
-       for (const_iterator it = begin(); it != end(); it++)
+       while (is_internal(x))
        {
-           key_type curr = extract_key(*it);
-           if (!_comp(k, curr) and !_comp(curr, k))
+           key_type curr = extract_key(x);
+
+           if (_comp(k, curr))
+               x = x->left;
+           else if (_comp(curr, k))
+               x = x->right;
+           else
+           {
                n++;
+               x = x->left; // Case for set and multiset
+           }
        }
 
        return (n);
     }
-
 
 
     /*
