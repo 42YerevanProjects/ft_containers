@@ -1,4 +1,4 @@
-#pragma once
+#pragma oncie
 
 #include <memory>
 #include <iostream>
@@ -21,7 +21,7 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     template<typename InputIt>
     rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(InputIt first, InputIt last, const key_compare& comp, const allocator_type& alloc,
-                typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*) : _comp(comp), _alloc(alloc)
+                                                                typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*) : _comp(comp), _alloc(alloc)
     {
         _sentinel.parent = &_sentinel;
         insert(first, last);
@@ -67,7 +67,10 @@ namespace ft
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                 rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::end() { return iterator(&_sentinel); }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::end() const { return const_iterator(const_cast<base_ptr>(&_sentinel)); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::end() const 
+    { 
+        return const_iterator(const_cast<base_ptr>(&_sentinel)); 
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::reverse_iterator         rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rbegin() { return reverse_iterator(end()); }
@@ -103,6 +106,8 @@ namespace ft
         Modifier Functions
     ==========================
     */
+
+    /* Insert Function of the Red-Black Tree */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const value_type& val) 
@@ -157,6 +162,53 @@ namespace ft
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const_iterator position, const value_type& val)
     {
         return (insert(iterator(const_cast<base_ptr>(position._node)), val));
+    }
+
+    /* Erase Function of the Red-Black Tree */
+    
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase(iterator position)
+    {
+        base_ptr z = position._node;
+        base_ptr x;
+
+        base_ptr y = z;
+        color y_original_color = y->color;
+
+        if (is_sentinel(z->left))
+        {
+            x = z->right;
+            transplant(z, z->right);
+        }
+        else if (is_sentinel(z->right))
+        {
+            x = z->left;
+            transplant(z, z->left);
+        }
+        else
+        {
+            y = minimum(z->right); 
+            y_original_color = y->color;
+
+            x = y->right;
+            if (y->parent == z)
+                x->parent = y;
+            else
+            {
+                transplant(y, y->right);
+                y->right = z->right;
+                y->right->parent = y;
+            }
+            transplant(z, y);
+            y->left = z->left;
+            y->left->parent = y;
+            y->color = z->color;
+        }
+
+        if (y_original_color == black)
+            erase_fixup(x);
+
+        update_extremum();
     }
 
 
@@ -264,6 +316,13 @@ namespace ft
         _sentinel.color = black;
     }
 
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase_fixup(base_ptr x)
+    {
+        
+    }
+
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::left_rotate(base_ptr x)
     {
@@ -304,6 +363,18 @@ namespace ft
 
         y->right = x;
         x->parent = y;
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::transplant(base_ptr u, base_ptr v)
+    {
+        if (is_root(u))
+            _root = v;
+        else if (u == u->parent->left)
+            u->parent->left = v;
+        else
+            u->parent->right = v;
+        v->parent = u->parent;
     }
 
     /* Key Extraction Utility Functions */
@@ -393,18 +464,18 @@ namespace ft
     /* Tree min, max utility functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::minimum()
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::minimum(base_ptr n)
     {
-        base_ptr min = _root;
+        base_ptr min = n;
         while (min && min->left != 0 && !is_sentinel(min->left))
             min = min->left;
         return (static_cast<link_type>(min));
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::maximum()
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::maximum(base_ptr n)
     {
-        base_ptr max = _root;
+        base_ptr max = n;
         while (max && max->right != 0 && !is_sentinel(max->right))
             max = max->right;
         return (static_cast<link_type>(max));
@@ -413,8 +484,8 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::update_extremum()
     {
-        node* min = minimum();
-        node* max = maximum();
+        node* min = minimum(root());
+        node* max = maximum(root());
 
         _sentinel.left = (min != 0) ? min : 0;
         _sentinel.right = (max != 0) ? max : 0;
