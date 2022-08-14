@@ -17,6 +17,8 @@ namespace ft
         private:
             template <class K, class V, class KOV, class C, class A>
 			friend class rb_tree;
+            template <typename U>
+			friend class const_rb_tree_iterator;
 
         public:
             typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type        value_type;
