@@ -145,8 +145,8 @@ namespace ft
             /* Node Create/Delete Utility Functions */
 
             node*                   create_node(const value_type& val);
-            void                    destroy_node(node* n);
-            void                    destroy_tree(node* n);
+            void                    destroy_node(base_ptr n);
+            void                    destroy_tree(base_ptr n);
 
             /* Tree min, max utility functions */
 
