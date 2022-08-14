@@ -304,6 +304,24 @@ namespace ft
 
 
     /*
+    ==========================
+        Observer Functions
+    ==========================
+    */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::key_compare             rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::key_comp() const
+    {
+        return (this->_comp);
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::allocator_type          rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::get_allocator() const
+    {
+        return (this->_alloc);
+    }
+
+    /*
     =========================
         Utility Functions
     =========================
