@@ -170,32 +170,33 @@ namespace ft
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase(iterator position)
     {
         base_ptr z = position._node;
+        base null_leaf; // to keep track of x and nullify it with sentinels
         base_ptr x;
 
         base_ptr y = z;
         color y_original_color = y->color;
 
-        if (is_sentinel(z->left))
+        if (is_external(z->left))
         {
-            x = z->right;
-            transplant(z, z->right);
+            x = is_external(z->right) ? &null_leaf : z->right;
+            transplant(z, x);
         }
         else if (is_sentinel(z->right))
         {
-            x = z->left;
-            transplant(z, z->left);
+            x = is_external(z->right) ? &null_leaf : z->right;
+            transplant(z, x);
         }
         else
         {
             y = minimum(z->right); 
             y_original_color = y->color;
 
-            x = y->right;
+            x = is_external(y->right) ? &null_leaf : y->right;
             if (y->parent == z)
                 x->parent = y;
             else
             {
-                transplant(y, y->right);
+                transplant(y, x);
                 y->right = z->right;
                 y->right->parent = y;
             }
@@ -210,7 +211,7 @@ namespace ft
 
         if (y_original_color == black)
             erase_fixup(x);
-        //TODO: nullify the leaf after fixup 
+        nullify(&null_leaf); 
 
         update_extremum();
     }
@@ -390,6 +391,7 @@ namespace ft
                 /* Case 2 */
                 if (is_black(w->left) and is_black(w->right))
                 {
+
                     w->color = red;
                     x = x->parent;
                 }
@@ -468,6 +470,18 @@ namespace ft
         else
             u->parent->right = v;
         v->parent = u->parent;
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::nullify(base_ptr leaf)
+    {
+        if (leaf->parent)
+		{
+            if (leaf->parent->left == leaf)
+				leaf->parent->left = &_sentinel;
+            else if (leaf->parent->right == leaf)
+				leaf->parent->right = &_sentinel;
+		}
     }
 
     /* Key Extraction Utility Functions */
@@ -567,7 +581,10 @@ namespace ft
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::minimum(base_ptr n)
     {
         base_ptr min = n;
-        while (min && min->left != 0 && !is_sentinel(min->left))
+        if (is_external(min))
+            return (NULL);
+
+        while (is_internal(min->left))
             min = min->left;
         return (static_cast<link_type>(min));
     }
@@ -576,7 +593,11 @@ namespace ft
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::maximum(base_ptr n)
     {
         base_ptr max = n;
-        while (max && max->right != 0 && !is_sentinel(max->right))
+
+        if (is_external(max))
+            return (NULL);
+
+        while (is_internal(max->right))
             max = max->right;
         return (static_cast<link_type>(max));
     }
@@ -584,7 +605,6 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::update_extremum()
     {
-        std :: cout << "yay" << std::endl;
         node* min = minimum(this->_root);
         node* max = maximum(this->_root);
 
