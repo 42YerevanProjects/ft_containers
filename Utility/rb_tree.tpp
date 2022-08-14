@@ -352,6 +352,22 @@ namespace ft
         return (this->_alloc);
     }
 
+
+    /*
+    ==========================
+        Observer Functions
+    ==========================
+    */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::find(const key_type& k)
+    {
+        if (count(k))
+            return iterator(find_node(root(), k));
+        else
+            return end();
+    }
+
     /*
     =========================
         Utility Functions
