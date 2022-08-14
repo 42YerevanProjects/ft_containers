@@ -22,6 +22,7 @@ namespace ft
             typedef ft::rb_tree_node<Val>           node;
             typedef ft::rb_tree_node_base           base;
             typedef ft::rb_tree_node_base*          base_ptr;
+            typedef ft::rb_tree_color               color;
 
         public:
             typedef Key             key_type;
@@ -51,7 +52,8 @@ namespace ft
             explicit rb_tree(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 
             template <typename InputIt>
-            rb_tree(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+            rb_tree(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type(),
+                        typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type* = 0);
 
             rb_tree(const rb_tree& other);
             rb_tree&    operator=(const rb_tree& other);
@@ -148,8 +150,8 @@ namespace ft
 
             /* Tree min, max utility functions */
 
-            node*                   minimum();
-            node*                   maximum();
+            node*                   minimum(base_ptr n);
+            node*                   maximum(base_ptr n);
             void                    update_extremum();
     };
 }
