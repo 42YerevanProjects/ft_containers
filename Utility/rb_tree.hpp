@@ -145,6 +145,11 @@ namespace ft
 
             node*                   create_node(const value_type& val);
             void                    destroy_node(base_ptr n);
+            
+            /* Find Node Utility Function */
+
+            base_ptr                find_node(base_ptr current, const key_type& k) const;
+            bool                    equal_keys(const key_type& x, const key_type&  y) const;
 
             /* Tree min, max utility functions */
 
