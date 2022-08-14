@@ -98,10 +98,6 @@ namespace ft
             void                    swap(rb_tree& x);
             void                    clear();
 
-            /* Observer functions */
-
-            key_compare             key_comp() const;
-
             /* Operations Functions */
 
             iterator                find(const key_type& k);
@@ -112,9 +108,11 @@ namespace ft
             iterator                upper_bound(const key_type& k);
             const_iterator          upper_bound(const key_type& k) const;
 
-            /* Allocator Object Copy */
+            /* Observer functions */
 
+            key_compare             key_comp() const;
             allocator_type          get_allocator() const;
+
         
         protected:
             /* Insert & Delete Utility Functions */
