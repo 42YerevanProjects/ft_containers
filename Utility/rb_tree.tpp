@@ -113,13 +113,22 @@ namespace ft
     */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::size_type               rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::size() const { return _size; }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::size_type               rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::size() const
+    {
+        return _size;
+    }
     
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::size_type               rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::max_size() const { return _alloc.max_size(); }
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::size_type               rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::max_size() const
+    {
+        return _alloc.max_size();
+    }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::empty() const { return _size == 0; }
+    bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::empty() const
+    {
+        return _size == 0;
+    }
 
 
     /*
