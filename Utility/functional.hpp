@@ -47,4 +47,14 @@ namespace ft
             return (x.first);
         }
     };
+
+    /* A generic swap function */
+
+    template <typename T>
+    void    swap(T& a, T& b)
+    {
+        T save = a;
+        a = b;
+        b = save;
+    }
 }
