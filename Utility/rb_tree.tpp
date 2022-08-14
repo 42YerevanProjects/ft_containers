@@ -158,10 +158,10 @@ namespace ft
     void    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(InputIterator first, InputIterator last,
                 typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        size_t n = ft::distance(first, last);
+        iterator hint = end();
 
-        while (first != last)
-            this->insert(*(first++));
+        while (first++ != last)
+            hint = insert(*first, hint);
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -291,6 +291,19 @@ namespace ft
        
         erase(begin(), end());
         update_extremum();
+    }
+
+    /* Swap Function of Red-Black Tree */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::swap(rb_tree& x)
+    {
+        ft::swap(this->_sentinel, x._sentinel);
+        ft::swap(this->_sentinel.parent, x._sentinel.parent);
+        ft::swap(this->_sentinel.left, x._sentinel.left);
+        ft::swap(this->_sentinel.right, x._sentinel.right);
+        ft::swap(this->_root, x._root);
+        ft::swap(this->_size, x._size);
     }
 
 
