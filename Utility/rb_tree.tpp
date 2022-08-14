@@ -310,6 +310,29 @@ namespace ft
     */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::size_type               rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::count(const key_type& k) const
+    {
+       size_type n = 0;
+
+       for (const_iterator it = begin(); it != end(); it++)
+       {
+           key_type curr = extract_key(*it);
+           if (!_comp(k, curr) and !_comp(curr, k))
+               n++;
+       }
+
+       return (n);
+    }
+
+
+
+    /*
+    ==========================
+        Observer Functions
+    ==========================
+    */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::key_compare             rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::key_comp() const
     {
         return (this->_comp);
