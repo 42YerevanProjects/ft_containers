@@ -92,8 +92,8 @@ namespace ft
             void                    erase(iterator position);
             void                    erase(const_iterator position);
 
-            template <typename InputIterator>
-            void                    erase(InputIterator first, InputIterator last);
+            void                    erase(iterator first, iterator last);
+            void                    erase(const_iterator first, const_iterator last);
 
             void                    swap(rb_tree& x);
             void                    clear();
