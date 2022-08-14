@@ -218,6 +218,30 @@ namespace ft
         update_extremum();
     }
 
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase(const_iterator position)
+    {
+        erase(iterator(const_cast<base_ptr>(position._node)));
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase(iterator first, iterator last)
+    {
+        size_t n = ft::distance(first, last);
+
+        while (n--)
+            erase(first++);
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase(const_iterator first, const_iterator last)
+    {
+        iterator beg(const_cast<base_ptr>(first._node));
+        iterator end(const_cast<base_ptr>(last._node));
+
+        erase(beg, end);
+    }
+
 
     /*
     =========================
