@@ -21,7 +21,7 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     template<typename InputIt>
     rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(InputIt first, InputIt last, const key_compare& comp, const allocator_type& alloc,
-                                                                typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*) : _comp(comp), _alloc(alloc)
+                                                                typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*) : _size(0), _comp(comp), _alloc(alloc)
     {
         _sentinel.parent = &_sentinel;
         insert(first, last);
