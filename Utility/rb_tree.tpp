@@ -28,7 +28,7 @@ namespace ft
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(const rb_tree& other) : _size(other._size), _comp(other._comp), _alloc(other._alloc)
+    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(const rb_tree& other) : _size(0), _comp(other._comp), _alloc(other._alloc)
     {  
         _sentinel.parent = &_sentinel;
 
@@ -206,8 +206,10 @@ namespace ft
             y->color = z->color;
         }
 
-        _size--;
+        this->_size--;
         destroy_node(z);
+        if (empty())
+            this->_root = 0;
 
         if (y_original_color == black)
             erase_fixup(x);
