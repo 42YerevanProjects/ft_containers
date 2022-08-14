@@ -710,6 +710,25 @@ namespace ft
         this->_alloc.deallocate(static_cast<node *>(n), 1);
     }
 
+    /* Node Find Utility Function */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::base_ptr                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::find_node(base_ptr current, const key_type& k) const
+    {
+        if (is_external(current) || equal_keys(extract_key(current), k))
+            return (current);
+        else if (_comp(k, extract_key(current)))
+            return find_node(current->left, k);
+        else 
+            return find_node(current->right, k);
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::equal_keys(const key_type& x, const key_type& y) const
+    {
+        return (!_comp(x, y) and !_comp(y, x));
+    }
+
     /* Tree min, max utility functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
