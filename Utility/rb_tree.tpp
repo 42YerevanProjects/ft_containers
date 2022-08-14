@@ -272,6 +272,19 @@ namespace ft
         erase(beg, end);
     }
 
+    /* Clear Function of Red-Black Tree */
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::clear()
+    {
+       // destroy_tree(this->_root);
+       // this->_size = 0;
+       // this->_root = 0;
+       
+        erase(begin(), end());
+        update_extremum();
+    }
+
 
     /*
     =========================
@@ -631,6 +644,16 @@ namespace ft
         this->_alloc.deallocate(static_cast<node *>(n), 1);
     }
 
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::destroy_tree(base_ptr n) 
+    {
+        if (is_external(n))
+            return;
+        destroy_tree(n->left);
+        destroy_tree(n->right);
+        destroy_node(n);
+    }
+
     /* Tree min, max utility functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -664,7 +687,7 @@ namespace ft
         node* min = minimum(this->_root);
         node* max = maximum(this->_root);
 
-        _sentinel.left = (min != 0) ? min : 0;
-        _sentinel.right = (max != 0) ? max : 0;
+        _sentinel.left = (min != 0) ? min : &_sentinel;
+        _sentinel.right = (max != 0) ? max : &_sentinel;
     }
 }
