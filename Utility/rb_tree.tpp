@@ -122,8 +122,8 @@ namespace ft
     {
         size_t n = ft::distance(first, last);
 
-		while (first != last)
-			this->insert(*(first++));
+        while (first != last)
+            this->insert(*(first++));
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
