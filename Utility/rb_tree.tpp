@@ -1,7 +1,6 @@
 #pragma oncie
 
 #include <memory>
-#include <iostream>
 
 namespace ft
 {
@@ -304,9 +303,9 @@ namespace ft
 
 
     /*
-    ============================
-        Operations Functions
-    ============================
+    ========================
+        Lookup Functions
+    ========================
     */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -350,6 +349,86 @@ namespace ft
             return const_iterator(find_node(root(), k));
         else
             return end();
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::lower_bound(const key_type& k)
+    {
+        base_ptr x = root();
+        base_ptr y = &this->_sentinel;
+
+        while (is_internal(x))
+        {
+            if (!_comp(extract_key(x), k))
+            {
+                y = x;
+                x = x->left;
+            }
+            else
+                x = x->right;
+        }
+
+        return iterator(y);
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::lower_bound(const key_type& k) const
+    {
+        base_ptr x = root();
+        base_ptr y = &this->_sentinel;
+
+        while (is_internal(x))
+        {
+            if (!_comp(extract_key(x), k))
+            {
+                y = x;
+                x = x->left;
+            }
+            else
+                x = x->right;
+        }
+
+        return const_iterator(y);
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::upper_bound(const key_type& k)
+    {
+        base_ptr x = root();
+        base_ptr y = &this->_sentinel;
+
+        while (is_internal(x))
+        {
+            if (_comp(k, extract_key(x)))
+            {
+                y = x;
+                x = x->left;
+            }
+            else
+                x = x->right;
+        }
+
+        return iterator(y);
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator          rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::upper_bound(const key_type& k) const
+    {
+        base_ptr x = root();
+        base_ptr y = &this->_sentinel;
+
+        while (is_internal(x))
+        {
+            if (_comp(k, extract_key(x)))
+            {
+                y = x;
+                x = x->left;
+            }
+            else
+                x = x->right;
+        }
+
+        return const_iterator(y);
     }
 
 
