@@ -98,7 +98,7 @@ namespace ft
             void                    swap(rb_tree& x);
             void                    clear();
 
-            /* Operations Functions */
+            /* Lookup Functions */
 
             size_type               count(const key_type& k) const;
             iterator                find(const key_type& k);
