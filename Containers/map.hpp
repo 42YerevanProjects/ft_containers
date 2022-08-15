@@ -52,5 +52,22 @@ namespace ft
                         return (this->_comp(lhs.first, rhs.first));
                     }
             };
+
+        protected:
+            rb_tree _tree;
+
+        public:
+            /* Constructors and Destructor */
+
+            explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+
+            template <typename InputIt>
+            map(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type(),
+                    typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type* = 0);
+
+            map(const map& other);
+            map&    operator=(const map& other);
+
+            ~map();
     };
 }
