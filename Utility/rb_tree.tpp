@@ -304,9 +304,9 @@ namespace ft
 
 
     /*
-    ==========================
-        Observer Functions
-    ==========================
+    ============================
+        Operations Functions
+    ============================
     */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -334,6 +334,25 @@ namespace ft
     }
 
 
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::find(const key_type& k)
+    {
+        if (count(k))
+            return iterator(find_node(root(), k));
+        else
+            return end();
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::find(const key_type& k) const
+    {
+        if (count(k))
+            return const_iterator(find_node(root(), k));
+        else
+            return end();
+    }
+
+
     /*
     ==========================
         Observer Functions
@@ -352,30 +371,6 @@ namespace ft
         return (this->_alloc);
     }
 
-
-    /*
-    ============================
-        Operations Functions
-    ============================
-    */
-
-    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::find(const key_type& k)
-    {
-        if (count(k))
-            return iterator(find_node(root(), k));
-        else
-            return end();
-    }
-
-    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::find(const key_type& k) const
-    {
-        if (count(k))
-            return const_iterator(find_node(root(), k));
-        else
-            return end();
-    }
 
     /*
     =========================
