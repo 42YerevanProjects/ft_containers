@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../iterator.hpp"
+#include "iterator.hpp"
 
 /*
 ==============================
@@ -66,4 +66,5 @@ namespace ft
     };
 
 }
+
 #include "random_iterator.tpp"
