@@ -68,6 +68,18 @@ namespace ft
             map(const map& other);
             map&    operator=(const map& other);
 
-            ~map();
+            virtual ~map();
+
+            /* Iterator Functions */
+
+            iterator                begin();
+            const_iterator          begin() const;
+            iterator                end();
+            const_iterator          end() const;
+
+            reverse_iterator        rbegin();
+            const_reverse_iterator  rbegin() const;
+            reverse_iterator                rend();
+            const_reverse_iterator          rend() const;
     };
 }
