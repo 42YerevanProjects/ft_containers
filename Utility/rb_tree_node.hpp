@@ -15,12 +15,12 @@ namespace ft
         typedef rb_tree_node_base*          base_ptr;
         typedef const rb_tree_node_base*    const_base_ptr;
 
-        rb_tree_color   color;
         base_ptr        parent;
         base_ptr        left;
         base_ptr        right;
+        rb_tree_color   color;
 
-        rb_tree_node_base() : left(), right(), parent(), color(black) {}
+        rb_tree_node_base() : parent(), left(), right(), color(black) {}
         rb_tree_node_base(const rb_tree_node_base& other) { *this = other; }
 
         rb_tree_node_base&  operator=(const rb_tree_node_base& other)
