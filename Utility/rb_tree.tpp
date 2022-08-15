@@ -431,6 +431,12 @@ namespace ft
         return const_iterator(y);
     }
 
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::print_keys() const
+    {
+        inorder(root());
+    }
+
 
     /*
     ==========================
@@ -809,7 +815,7 @@ namespace ft
         this->_alloc.deallocate(static_cast<node *>(n), 1);
     }
 
-    /* Find Node Utility Function */
+    /* Node Lookup Utility Function */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::base_ptr                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::find_node(base_ptr current, const key_type& k) const
@@ -826,6 +832,16 @@ namespace ft
     bool                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::equal_keys(const key_type& x, const key_type& y) const
     {
         return (!_comp(x, y) and !_comp(y, x));
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::inorder(base_ptr x) const
+    {
+        if (is_external(x))
+            return;
+        inorder(x->left);
+        std::cout << extract_key(x) << " ";
+        inorder(x->right);
     }
 
     /* Tree min, max utility functions */
