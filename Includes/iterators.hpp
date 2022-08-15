@@ -2,7 +2,7 @@
 
 #include "../Iterators/iterator.hpp"
 #include "../Iterators/type_traits.hpp"
-#include "../Iterators/List/random_iterator.hpp"
-#include "../Iterators/List/reverse_iterator.hpp"
-#include "../Iterators/Tree/rb_tree_iterator.hpp"
-#include "../Iterators/Tree/const_rb_tree_iterator.hpp"
+#include "../Iterators/random_iterator.hpp"
+#include "../Iterators/reverse_iterator.hpp"
+#include "../Iterators/rb_tree_iterator.hpp"
+#include "../Iterators/const_rb_tree_iterator.hpp"
