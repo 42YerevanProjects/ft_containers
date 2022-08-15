@@ -1,9 +1,12 @@
 #pragma once
 
+
+#include <iostream>
+#include <memory>
+
 #include "rb_tree_node.hpp"
 #include "functional.hpp"
 #include "../Includes/iterators.hpp"
-#include <memory>
 
 namespace ft
 {
@@ -39,7 +42,7 @@ namespace ft
             typedef ft::reverse_iterator<iterator>           reverse_iterator;
             typedef ft::reverse_iterator<const_iterator>     const_reverse_iterator;
 
-        protected:
+         protected:
             node*           _root;
             key_compare     _comp;
             node_allocator  _alloc;
@@ -108,6 +111,8 @@ namespace ft
             iterator                upper_bound(const key_type& k);
             const_iterator          upper_bound(const key_type& k) const;
 
+            void                    print_keys() const;
+
             /* Observer functions */
 
             key_compare             key_comp() const;
@@ -146,10 +151,11 @@ namespace ft
             node*                   create_node(const value_type& val);
             void                    destroy_node(base_ptr n);
             
-            /* Find Node Utility Function */
+            /* Node Lookup Utility Function */
 
             base_ptr                find_node(base_ptr current, const key_type& k) const;
             bool                    equal_keys(const key_type& x, const key_type&  y) const;
+            void                    inorder(base_ptr x) const;
 
             /* Tree min, max utility functions */
 
