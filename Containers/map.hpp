@@ -79,7 +79,18 @@ namespace ft
 
             reverse_iterator        rbegin();
             const_reverse_iterator  rbegin() const;
-            reverse_iterator                rend();
-            const_reverse_iterator          rend() const;
+            reverse_iterator        rend();
+            const_reverse_iterator  rend() const;
+
+            /* Capacity Functions */
+
+            size_type               size() const;
+            size_type               max_size() const;
+            bool                    empty() const;
+
+            /* Element Access Functions */
+
+            mapped_type&            at(const key_type& k);
+            mapped_type&            operator[](const key_type& k);
     };
 }
