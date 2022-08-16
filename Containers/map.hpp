@@ -130,3 +130,5 @@ namespace ft
             allocator_type              get_allocator() const;
     };
 }
+
+#include "map.tpp"
