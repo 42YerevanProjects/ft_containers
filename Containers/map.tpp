@@ -96,20 +96,11 @@ namespace ft
     */
 
     template <typename Key, typename T, typename Compare, typename Alloc>
-    typename map<Key, T, Compare, Alloc>::size_type                         map<Key, T, Compare, Alloc>::size() const
-    {
-        return (_tree.size());
-    }
+    typename map<Key, T, Compare, Alloc>::size_type                         map<Key, T, Compare, Alloc>::size() const { return (_tree.size()); }
 
     template <typename Key, typename T, typename Compare, typename Alloc>
-    typename map<Key, T, Compare, Alloc>::size_type                         map<Key, T, Compare, Alloc>::max_size() const
-    {
-        return (_tree.max_size());
-    }
+    typename map<Key, T, Compare, Alloc>::size_type                         map<Key, T, Compare, Alloc>::max_size() const { return (_tree.max_size()); }
  
     template <typename Key, typename T, typename Compare, typename Alloc>
-    bool                                                                    map<Key, T, Compare, Alloc>::empty() const
-    {
-        return (_tree.empty());
-    }
+    bool                                                                    map<Key, T, Compare, Alloc>::empty() const { return (_tree.empty()); }
 }
