@@ -160,7 +160,7 @@ namespace ft
         iterator hint = end();
 
         while (first++ != last)
-            hint = insert(*first, hint);
+            hint = hinted_insert(*first, hint._node);
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
