@@ -19,7 +19,7 @@ namespace ft
             typedef ft::pair<const key_type, mapped_type>       value_type;
 
         private:
-            typedef typename Alloc::template rebond<value_type>::other                                              pair_allocator;
+            typedef typename Alloc::template rebind<value_type>::other                                              pair_allocator;
             typedef ft::rb_tree<key_type, value_type, ft::select_first<value_type>, key_compare, pair_allocator>    rb_tree;
 
         public:
@@ -101,8 +101,32 @@ namespace ft
             template <class InputIt>
             void                        insert(InputIt first, InputIt last);
 
-            void                        erase(iterator position);
             size_type                   erase(const key_type& k);
+            void                        erase(iterator position);
             void                        erase(iterator first, iterator last);
+
+            void                        swap(map& x);
+            void                        clear();
+
+            /* Observer Functions */
+
+            key_compare                 key_comp() const;
+            value_compare               value_comp() const;
+
+            /* Lookup Operation Functions */
+
+            iterator                    find(const key_type& k);
+            const_iterator              find(const key_type& k) const;
+
+            size_type                   count(const key_type& k) const;
+
+            iterator                    lower_bound(const key_type& k);
+            const_iterator              lower_bound(const key_type& k) const;
+            iterator                    upper_bound(const key_type& k);
+            const_iterator              upper_bound(const key_type& k) const;
+
+            /* Allocator Object Copy */
+
+            allocator_type              get_allocator() const;
     };
 }
