@@ -31,7 +31,6 @@ namespace ft
             this->color = other.color;
 
             return (*this);
-
         }
     };
 
