@@ -194,4 +194,22 @@ namespace ft
         _tree.clear();
     }
 
+
+    /*
+    ==========================
+        Observer Functions
+    ==========================
+    */
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::key_compare                        map<Key, T, Compare, Alloc>::key_comp() const
+    {
+        return (_tree.key_comp());
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::value_compare                        map<Key, T, Compare, Alloc>::value_comp() const
+    {
+        return (value_compare(key_comp()));
+    }
 }
