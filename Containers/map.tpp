@@ -317,4 +317,6 @@ namespace ft
 	{
 		return (!(lhs < rhs));
 	}
+
+    //TODO: implement non-member swap whenever it is bug free
 }
