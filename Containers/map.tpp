@@ -79,4 +79,48 @@ namespace ft
  
     template <typename Key, typename T, typename Compare, typename Alloc>
     bool                                                                    map<Key, T, Compare, Alloc>::empty() const { return (_tree.empty()); }
+
+    
+    /*
+    ==========================
+        Modifier Functions
+    ==========================
+    */
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    ft::pair<typename map<Key, T, Compare, Alloc>::iterator, bool>          map<Key, T, Compare, Alloc>::insert(const value_type& val)
+    {
+        iterator pos;
+
+        if (_tree.count(val.first))
+        {
+            pos = _tree.find(val.first);
+            return (ft::make_pair(pos, false));
+        }
+        else
+        {
+            pos = _tree.insert(val);
+            return (ft::make_pair(pos, true));
+        }
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::iterator                          map<Key, T, Compare, Alloc>::insert(iterator position, const value_type& val)
+    {
+        iterator result;
+
+        if (_tree.count(val.first))
+            result = _tree.find(val.first);
+        else
+            result = _tree.insert(position, val);
+        
+        return (result);
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    template <typename InputIt>
+    void        map<Key, T, Compare, Alloc>::insert(InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*)
+    {
+        _tree.insert(first, last);
+    }
 }
