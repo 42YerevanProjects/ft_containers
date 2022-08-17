@@ -283,40 +283,40 @@ namespace ft
     */
 
     template <typename Key, typename T, typename Compare, typename Alloc>
-	bool operator==(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
-	{
-		return (lhs._tree == rhs._tree);
-	}
+    bool operator==(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (lhs._tree == rhs._tree);
+    }
 
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool operator<(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
-	{
-		return (lhs._tree < rhs._tree);
-	}
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    bool operator<(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (lhs._tree < rhs._tree);
+    }
 
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool operator!=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
-	{
-		return (!(lhs == rhs));
-	}
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    bool operator!=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (!(lhs == rhs));
+    }
 	
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool operator<=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
-	{
-		return (!(rhs < lhs));
-	}
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    bool operator<=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (!(rhs < lhs));
+    }
 
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool operator>(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
-	{
-		return (rhs < lhs);
-	}
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    bool operator>(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (rhs < lhs);
+    }
 
-	template <typename Key, typename T, typename Compare, typename Alloc>
-	bool operator>=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
-	{
-		return (!(lhs < rhs));
-	}
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    bool operator>=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (!(lhs < rhs));
+    }
 
     //TODO: implement non-member swap whenever it is bug free
 }
