@@ -1,6 +1,7 @@
 #pragma oncie
 
 #include <memory>
+#include <iostream>
 
 namespace ft
 {
@@ -264,10 +265,11 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase(iterator first, iterator last)
     {
-        size_t n = ft::distance(first, last);
+        while (first != last)
+        {
 
-        while (n--)
             erase(first++);
+        }
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -293,10 +295,10 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::swap(rb_tree& x)
     {
-        ft::swap(this->_sentinel, x._sentinel);
-        ft::swap(this->_sentinel.parent, x._sentinel.parent);
         ft::swap(this->_sentinel.left, x._sentinel.left);
         ft::swap(this->_sentinel.right, x._sentinel.right);
+        ft::swap(this->_sentinel.parent, x._sentinel.parent);
+        ft::swap(this->_sentinel, x._sentinel);
         ft::swap(this->_root, x._root);
         ft::swap(this->_size, x._size);
     }
