@@ -82,7 +82,34 @@ namespace ft
     template <typename Key, typename T, typename Compare, typename Alloc>
     bool                                                                    map<Key, T, Compare, Alloc>::empty() const { return (_tree.empty()); }
 
-    
+
+    /*
+    ================================
+        Element Access Functions
+    ================================
+    */
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::mapped_type&                      map<Key, T, Compare, Alloc>::at(const key_type& k)
+    { 
+        iterator pos = _tree.find(k);
+
+        if (pos == end())
+            throw std::out_of_range("map::at");
+        
+        return (pos->second);
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::mapped_type&                      map<Key, T, Compare, Alloc>::operator[](const key_type& k)
+    {
+        if (_tree.count(k))
+            return _tree.find(k)->second;
+
+        return (_tree.insert(ft::make_pair(k, T()))->second);
+    }
+
+
     /*
     ==========================
         Modifier Functions
