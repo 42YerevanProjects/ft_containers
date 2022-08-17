@@ -98,8 +98,8 @@ namespace ft
             ft::pair<iterator, bool>    insert(const value_type& val);
             iterator                    insert(iterator position, const value_type& val);
 
-            template <class InputIt>
-            void                        insert(InputIt first, InputIt last);
+            template <typename InputIt>
+            void                        insert(InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type* = 0);
 
             size_type                   erase(const key_type& k);
             void                        erase(iterator position);
