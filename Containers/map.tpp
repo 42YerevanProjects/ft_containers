@@ -208,8 +208,57 @@ namespace ft
     }
 
     template <typename Key, typename T, typename Compare, typename Alloc>
-    typename map<Key, T, Compare, Alloc>::value_compare                        map<Key, T, Compare, Alloc>::value_comp() const
+    typename map<Key, T, Compare, Alloc>::value_compare                      map<Key, T, Compare, Alloc>::value_comp() const
     {
         return (value_compare(key_comp()));
+    }
+
+
+    /*
+    =================================
+        LOOKUP Operator Functions
+    =================================
+    */
+    
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::iterator                           map<Key, T, Compare, Alloc>::find(const key_type& k)
+    {
+        return (_tree.find(k));
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::const_iterator                     map<Key, T, Compare, Alloc>::find(const key_type& k) const
+    {
+        return (_tree.find(k));
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::size_type                          map<Key, T, Compare, Alloc>::count(const key_type& k) const
+    {
+        return (_tree.count(k));
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::iterator                           map<Key, T, Compare, Alloc>::lower_bound(const key_type& k)
+    {
+        return (_tree.lower_bound(k));
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::const_iterator                     map<Key, T, Compare, Alloc>::lower_bound(const key_type& k) const
+    {
+        return (_tree.lower_bound(k));
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::iterator                           map<Key, T, Compare, Alloc>::upper_bound(const key_type& k)
+    {
+        return (_tree.upper_bound(k));
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::const_iterator                     map<Key, T, Compare, Alloc>::upper_bound(const key_type& k) const
+    {
+        return (_tree.upper_bound(k));
     }
 }
