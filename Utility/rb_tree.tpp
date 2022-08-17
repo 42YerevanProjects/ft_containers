@@ -894,7 +894,7 @@ namespace ft
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
 	bool operator==(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
 	{
-		return (lhs.size() == rhs.size() and ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+		return (lhs.size() == rhs.size() and ft::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
