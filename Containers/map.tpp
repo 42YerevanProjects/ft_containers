@@ -216,7 +216,7 @@ namespace ft
 
     /*
     =================================
-        LOOKUP Operator Functions
+        Lookup Operator Functions
     =================================
     */
     
@@ -261,4 +261,60 @@ namespace ft
     {
         return (_tree.upper_bound(k));
     }
+
+
+    /*
+    =============================
+        Allocator Object Copy
+    =============================
+    */
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    typename map<Key, T, Compare, Alloc>::allocator_type                     map<Key, T, Compare, Alloc>::get_allocator() const
+    {
+        return (_tree.get_allocator());
+    }
+
+
+    /*
+    =====================================
+        Non-Member Operator Overloads
+    =====================================
+    */
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+	bool operator==(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+	{
+		return (lhs._tree == rhs._tree);
+	}
+
+	template <typename Key, typename T, typename Compare, typename Alloc>
+	bool operator<(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+	{
+		return (lhs._tree < rhs._tree);
+	}
+
+	template <typename Key, typename T, typename Compare, typename Alloc>
+	bool operator!=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+	{
+		return (!(lhs == rhs));
+	}
+	
+	template <typename Key, typename T, typename Compare, typename Alloc>
+	bool operator<=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+	{
+		return (!(rhs < lhs));
+	}
+
+	template <typename Key, typename T, typename Compare, typename Alloc>
+	bool operator>(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	template <typename Key, typename T, typename Compare, typename Alloc>
+	bool operator>=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+	{
+		return (!(lhs < rhs));
+	}
 }
