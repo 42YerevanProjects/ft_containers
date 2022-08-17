@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Includes/utility.hpp"
+#include <stdexcept>
 
 namespace ft
 {
