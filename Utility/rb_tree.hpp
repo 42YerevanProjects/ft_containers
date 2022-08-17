@@ -83,7 +83,7 @@ namespace ft
 
             /* Modifier Functions */
 
-            void                    insert(const value_type& val);
+            iterator                insert(const value_type& val);
 
             template <typename InputIterator>
             void                    insert(InputIterator first, InputIterator last,

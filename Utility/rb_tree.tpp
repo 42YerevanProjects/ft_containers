@@ -147,9 +147,9 @@ namespace ft
     /* Insert Function of the Red-Black Tree */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const value_type& val) 
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(const value_type& val) 
     { 
-        hinted_insert(val, NULL);
+        return (hinted_insert(val, NULL));
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
