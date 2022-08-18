@@ -180,13 +180,11 @@ namespace ft
         _tree.erase(first, last);
     }
 
-    // TODO: Have to fix the bug created by  rb_tree::swap which messeds up the erase process 
-    //
-    //template <typename Key, typename T, typename Compare, typename Alloc>
-    //void                                                                     map<Key, T, Compare, Alloc>::swap(map& x)
-    //{
-    //    _tree.swap(x._tree);
-    //}
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    void                                                                     map<Key, T, Compare, Alloc>::swap(map& x)
+    {
+        _tree.swap(x._tree);
+    }
  
     template <typename Key, typename T, typename Compare, typename Alloc>
     void                                                                     map<Key, T, Compare, Alloc>::clear()
