@@ -295,12 +295,46 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::swap(rb_tree& x)
     {
-        ft::swap(this->_sentinel.left, x._sentinel.left);
-        ft::swap(this->_sentinel.right, x._sentinel.right);
-        ft::swap(this->_sentinel.parent, x._sentinel.parent);
-        ft::swap(this->_sentinel, x._sentinel);
-        ft::swap(this->_root, x._root);
+        if (this->root() == 0)
+        {
+            if (x.root() != 0)
+            {
+                this->_root = x._root;
+                this->_sentinel.left = x._sentinel.left;
+                this->_sentinel.right = x._sentinel.left;
+                this->_root->parent = &this->_sentinel;
+
+                x._root = 0;
+                x._sentinel.left = &x._sentinel;
+                x._sentinel.right = &x._sentinel;
+            }
+        }
+        else if (x.root() == 0)
+        {
+            x._root = this->_root;
+            x._sentinel.left = this->_sentinel.left;
+            x._sentinel.right = this->_sentinel.right;
+            x._root->parent = &x._sentinel;
+
+            this->_root = 0;
+            this->_sentinel.left = x._sentinel.left;
+            this->_sentinel.right = x._sentinel.left;
+        }
+        else
+        {
+            ft::swap(this->_root, x._root);
+            ft::swap(this->_sentinel.left, x._sentinel.left);
+            ft::swap(this->_sentinel.right, x._sentinel.right);
+
+            this->_root->parent = &this->_sentinel;
+            x._root->parent = &x._sentinel;
+        
+        }
+        
+        // No need to swap header's color as it does not change.
+
         ft::swap(this->_size, x._size);
+        ft::swap(this->_comp, x._comp);
     }
 
 
