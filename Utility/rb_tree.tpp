@@ -919,47 +919,51 @@ namespace ft
 
 
     /*
-    ===================================
-        Operator Overload Functions
-    ===================================
-    */ 
+    =====================================
+        Non-Member Operator Overloads
+    =====================================
+    */
 
 
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
-	bool operator==(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
+	bool    operator==(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
 	{
 		return (lhs.size() == rhs.size() and ft::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
-	bool operator!=(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
+	bool    operator!=(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
 	{
 		return (!(lhs == rhs));
 	}
 
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
-	bool operator<(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
+	bool    operator<(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
 	{
 		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
-	bool operator<=(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
+	bool    operator<=(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
 	{
 		return (!(rhs < lhs));
 	}
 
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
-	bool operator>(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
+	bool    operator>(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
 	{
 		return (rhs < lhs);
 	}
 
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
-	bool operator>=(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
+	bool    operator>=(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
 	{
 		return (!(lhs < rhs));
 	}
 
-    //TODO: implement non-member swap whenever it is bug free
+    template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
+	void    swap(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
+	{
+        lhs.swap(rhs);
+	}
 }
