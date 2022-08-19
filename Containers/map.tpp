@@ -331,7 +331,7 @@ namespace ft
     }
 
     template <typename Key, typename T, typename Compare, typename Alloc>
-    void    swap(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    void    swap( map<Key, T, Compare, Alloc> &lhs,  map<Key, T, Compare, Alloc> &rhs)
     {
         lhs.swap(rhs);
     }
