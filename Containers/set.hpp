@@ -109,6 +109,13 @@ namespace ft
             /* Allocator Object Copy */
 
             allocator_type              get_allocator() const;
+
+        private:
+            template <typename Key1, typename Compare1, typename Alloc1>
+            friend bool operator<(const set<Key1, Compare1, Alloc1>&, const set<Key1, Compare1, Alloc1>&);
+
+            template <typename Key1, typename Compare1, typename Alloc1>
+            friend bool operator==(const set<Key1, Compare1, Alloc1>&, const set<Key1, Compare1, Alloc1>&);
     };
 }
 
