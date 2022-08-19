@@ -260,6 +260,20 @@ namespace ft
         return (_tree.upper_bound(k));
     }
 
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    ft::pair<typename map<Key, T, Compare, Alloc>::iterator, typename map<Key, T, Compare, Alloc>::iterator>                
+    map<Key, T, Compare, Alloc>::equal_range(const key_type& k)
+    {
+        return _tree.equal_range(k);
+    }
+
+    template <typename Key, typename T, typename Compare, typename Alloc>
+    ft::pair<typename map<Key, T, Compare, Alloc>::const_iterator, typename map<Key, T, Compare, Alloc>::const_iterator>   
+    map<Key, T, Compare, Alloc>::equal_range(const key_type& k) const
+    {
+        return _tree.equal_range(k);
+    }
+
 
     /*
     =============================
