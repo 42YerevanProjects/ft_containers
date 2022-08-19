@@ -6,6 +6,7 @@
 
 #include "rb_tree_node.hpp"
 #include "functional.hpp"
+#include "pair.hpp"
 #include "../Includes/iterators.hpp"
 
 namespace ft
@@ -111,13 +112,15 @@ namespace ft
             iterator                upper_bound(const key_type& k);
             const_iterator          upper_bound(const key_type& k) const;
 
+            ft::pair<iterator, iterator>                equal_range(const key_type& k);
+            ft::pair<const_iterator, const_iterator>    equal_range(const key_type& k) const;
+
             void                    print_keys() const;
 
             /* Observer functions */
 
             key_compare             key_comp() const;
             allocator_type          get_allocator() const;
-
         
         protected:
             /* Insert & Delete Utility Functions */

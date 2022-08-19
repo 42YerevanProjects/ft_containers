@@ -413,7 +413,7 @@ namespace ft
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator           rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::lower_bound(const key_type& k) const
     {
         base_ptr x = root();
-        base_ptr y = &this->_sentinel;
+        base_ptr y = const_cast<base_ptr>(&_sentinel);
 
         while (is_internal(x))
         {
@@ -453,7 +453,7 @@ namespace ft
     typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator          rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::upper_bound(const key_type& k) const
     {
         base_ptr x = root();
-        base_ptr y = &this->_sentinel;
+        base_ptr y = const_cast<base_ptr>(&_sentinel);
 
         while (is_internal(x))
         {
@@ -467,6 +467,25 @@ namespace ft
         }
 
         return const_iterator(y);
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    ft::pair< typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator, typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::iterator>           
+    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::equal_range(const key_type& k)
+    {
+        ft::pair<const_iterator, const_iterator> const_range = static_cast<const rb_tree&>(*this).equal_range(k);
+        
+        iterator low = iterator(const_cast<base_ptr>(const_range.first._node));
+        iterator up = iterator(const_cast<base_ptr>(const_range.second._node));
+
+        return (ft::make_pair(low, up));
+    }
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    ft::pair< typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator, typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::const_iterator>           
+    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::equal_range(const key_type& k) const
+    {
+        return (ft::make_pair(lower_bound(k), upper_bound(k)));
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
