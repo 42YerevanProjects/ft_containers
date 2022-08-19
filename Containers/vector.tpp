@@ -101,13 +101,13 @@ namespace ft
     typename vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rbegin() { return reverse_iterator(this->end()); }
 
     template<class T, class Alloc>
-    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rbegin() const { return const_reverse_iterator(this->cend()); }
+    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rbegin() const { return const_reverse_iterator(this->end()); }
 
     template<class T, class Alloc>
     typename vector<T, Alloc>::reverse_iterator         vector<T, Alloc>::rend() { return reverse_iterator(this->begin()); }
 
     template<class T, class Alloc>
-    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rend() const { return const_reverse_iterator(this->cbegin()); }
+    typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rend() const { return const_reverse_iterator(this->begin()); }
 
     /*
     ========================== 
