@@ -150,6 +150,7 @@ namespace ft
 
             node*                   create_node(const value_type& val);
             void                    destroy_node(base_ptr n);
+            void                    destroy_tree(base_ptr n);
             
             /* Node Lookup Utility Function */
 
