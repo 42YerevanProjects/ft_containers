@@ -255,4 +255,53 @@ namespace ft
     {
         return (_tree.get_allocator());
     }
+
+
+    /*
+    =====================================
+        Non-Member Operator Overloads
+    =====================================
+    */
+
+    template <typename Key, typename Compare, typename Alloc>
+    bool    operator==(const set<Key, Compare, Alloc> &lhs, const set<Key, Compare, Alloc> &rhs)
+    {
+        return (lhs._tree == rhs._tree);
+    }
+
+    template <typename Key, typename Compare, typename Alloc>
+    bool    operator<(const set<Key, Compare, Alloc> &lhs, const set<Key, Compare, Alloc> &rhs)
+    {
+        return (lhs._tree < rhs._tree);
+    }
+
+    template <typename Key, typename Compare, typename Alloc>
+    bool    operator!=(const set<Key, Compare, Alloc> &lhs, const set<Key, Compare, Alloc> &rhs)
+    {
+        return (!(lhs == rhs));
+    }
+	
+    template <typename Key, typename Compare, typename Alloc>
+    bool    operator<=(const set<Key, Compare, Alloc> &lhs, const set<Key, Compare, Alloc> &rhs)
+    {
+        return (!(rhs < lhs));
+    }
+
+    template <typename Key, typename Compare, typename Alloc>
+    bool    operator>(const set<Key, Compare, Alloc> &lhs, const set<Key, Compare, Alloc> &rhs)
+    {
+        return (rhs < lhs);
+    }
+
+    template <typename Key, typename Compare, typename Alloc>
+    bool    operator>=(const set<Key, Compare, Alloc> &lhs, const set<Key, Compare, Alloc> &rhs)
+    {
+        return (!(lhs < rhs));
+    }
+
+    template <typename Key, typename Compare, typename Alloc>
+    void    swap(set<Key, Compare, Alloc> &lhs, set<Key, Compare, Alloc> &rhs)
+    {
+        lhs.swap(rhs);
+    }
 }
