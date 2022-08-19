@@ -5,11 +5,11 @@
 
 namespace ft
 {
-    template<
+    template <
               class Key,
               class Compare = ft::less<Key>,
               class Alloc = std::allocator<Key>
-            >
+             >
     class set
     {
         public:
@@ -35,5 +35,40 @@ namespace ft
             typedef typename rb_tree::const_iterator            const_iterator;
             typedef typename rb_tree::reverse_iterator          reverse_iterator;
             typedef typename rb_tree::const_reverse_iterator    const_reverse_iterator;
+
+        protected:
+            rb_tree _tree;
+
+        public: 
+            /* Constructors and Destructor */
+
+            explicit set(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+
+            template <typename InputIt>
+            set(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type(),
+                    typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type* = 0);
+
+            set(const set& other);
+            set&    operator=(const set& other);
+
+            virtual ~set();
+
+            /* Iterator Functions */
+
+            iterator                    begin();
+            const_iterator              begin() const;
+            iterator                    end();
+            const_iterator              end() const;
+
+            reverse_iterator            rbegin();
+            const_reverse_iterator      rbegin() const;
+            reverse_iterator            rend();
+            const_reverse_iterator      rend() const;
+
+            /* Capacity Functions */
+
+            size_type                   size() const;
+            size_type                   max_size() const;
+            bool                        empty() const;
     };
 }
