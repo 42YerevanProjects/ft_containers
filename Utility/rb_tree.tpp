@@ -286,8 +286,11 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::clear()
     {
-        erase(begin(), end());
-        update_extremum();
+        destroy_tree(_root);
+        _root = 0;
+        _size = 0;
+        _sentinel.left = &_sentinel;
+        _sentinel.right = &_sentinel;
     }
 
     /* Swap Function of Red-Black Tree */
@@ -851,6 +854,16 @@ namespace ft
         this->_alloc.deallocate(static_cast<node *>(n), 1);
     }
 
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::destroy_tree(base_ptr n) 
+    {
+        if (is_external(n))
+            return;
+        destroy_tree(n->left);
+        destroy_tree(n->right);
+        destroy_node(n);
+    }
+
     /* Node Lookup Utility Function */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -962,7 +975,7 @@ namespace ft
 	}
 
     template <typename Key, typename Val, typename KeyOfValue, typename  Compare, typename Alloc>
-	void    swap(const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, const rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
+	void    swap(rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &lhs, rb_tree<Key, Val, KeyOfValue, Compare, Alloc> &rhs)
 	{
         lhs.swap(rhs);
 	}
