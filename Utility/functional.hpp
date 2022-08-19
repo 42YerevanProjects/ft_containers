@@ -48,6 +48,23 @@ namespace ft
         }
     };
 
+
+    /* A unary function object class that selscts the first parameter of a pair */
+
+    template <class T>
+    struct select_self : unary_function<T, T>
+    {
+        T&          operator()(T& x)
+        {
+            return (x);
+        }
+
+        const T&    operator()(const T& x)
+        {
+            return (x);
+        }
+    };
+
     /* A generic swap function */
 
     template <typename T>
