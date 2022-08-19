@@ -70,5 +70,25 @@ namespace ft
             size_type                   size() const;
             size_type                   max_size() const;
             bool                        empty() const;
+
+            /* Modifier Functions */
+
+            ft::pair<iterator, bool>    insert(const value_type& val);
+            iterator                    insert(iterator position, const value_type& val);
+
+            template <typename InputIt>
+            void                        insert(InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type* = 0);
+
+            size_type                   erase(const key_type& k);
+            void                        erase(iterator position);
+            void                        erase(iterator first, iterator last);
+
+            void                        swap(set& x);
+            void                        clear();
+
+            /* Observer Functions */
+
+            key_compare                 key_comp() const;
+            value_compare               value_comp() const;
     };
 }
