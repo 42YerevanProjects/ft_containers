@@ -523,8 +523,10 @@ namespace ft
                 y = x;
                 if (_comp(extract_key(z), extract_key(x)))
                     x = x->left;
-                else
+                else if (_comp(extract_key(x), extract_key(z)))
                     x = x->right;
+                else    // Case for set and multiset
+                    x = x->left;
             }
 
             z->parent = y;
