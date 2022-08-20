@@ -2,6 +2,7 @@
 
 #include "../Iterators/random_iterator.hpp"
 #include "../Iterators/reverse_iterator.hpp"
+#include "../Utility/functional.hpp"
 #include <memory>
 
 namespace ft 
@@ -39,7 +40,7 @@ namespace ft
         public:
             /* Constructers and Destructer */
             explicit vector(const allocator_type& alloc = allocator_type());
-            explicit vector (size_t n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+            explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
 
             template<typename InputIterator>
             vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),

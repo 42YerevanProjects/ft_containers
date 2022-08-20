@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <stdexcept>
 
 namespace ft
@@ -21,7 +20,7 @@ namespace ft
     }
 
     template <class T, class Alloc>
-    vector<T, Alloc>::vector(size_t n, const value_type& val, const allocator_type& alloc)
+    vector<T, Alloc>::vector(size_type n, const value_type& val, const allocator_type& alloc)
     {
         _alloc = alloc;
         _data = _alloc.allocate(n);
@@ -45,9 +44,8 @@ namespace ft
         _size = n;
         _cap = n;
 
-        for (size_t i = 0; i < n; i++)
+        for (difference_type i = 0; i < n; i++)
             _alloc.construct(_data + i, *first++);
-
     }
     
     template <class T, class Alloc>
@@ -73,7 +71,7 @@ namespace ft
     template <class T, class Alloc>
     vector<T, Alloc>::~vector() 
     {
-        for (size_t i = 0; i < _size; i++)
+        for (size_type i = 0; i < _size; i++)
             _alloc.destroy(_data + i);
         _alloc.deallocate(_data, _cap);
     }
@@ -136,7 +134,7 @@ namespace ft
         {   
             pointer temp_data = _alloc.allocate(n);
 
-            for (size_t i = 0; i < _size && i < n; i++)
+            for (size_type i = 0; i < _size && i < n; i++)
             {
                 _alloc.construct(temp_data + i, *(_data + i));
                 _alloc.destroy(_data + i);
@@ -214,9 +212,9 @@ namespace ft
         if (n > _cap)
             this->reserve(n);
 
-        for (size_t i = 0; i < _size; i++)
+        for (size_type i = 0; i < _size; i++)
             _alloc.destroy(_data + i);
-        for (size_t i = 0; i < n; i++)
+        for (size_type i = 0; i < n; i++)
             _alloc.construct(_data + i, *first++);
         
         _size = n;
@@ -228,9 +226,9 @@ namespace ft
         if (n > _cap)
             this->reserve(n);
 
-        for (size_t i = 0; i < _size; i++)
+        for (size_type i = 0; i < _size; i++)
             _alloc.destroy(_data + i);
-        for (size_t i = 0; i < n; i++)
+        for (size_type i = 0; i < n; i++)
             _alloc.construct(_data + i, val);
         
         _size = n;
@@ -243,7 +241,7 @@ namespace ft
     {
         if (_size + 1 > _cap)
         {
-            size_t new_cap = (_size > 0) ? (2 * _size) : 1;
+            size_type new_cap = (_size > 0) ? (2 * _size) : 1;
             this->reserve(new_cap);
         }
         _alloc.construct(_data + _size + 1,  val);
@@ -290,7 +288,7 @@ namespace ft
         vector<T, Alloc> temp(position, this->end());
 	    this->_size -= (this->end() - position);
 
-	    for (size_t i = 0; i < n; i++)
+	    for (size_type i = 0; i < n; i++)
 		    this->push_back(val);
 
 	    iterator it_begin = temp.begin();
@@ -325,7 +323,7 @@ namespace ft
     template < typename T, typename Alloc >
     void                                                vector<T, Alloc>::clear()
     {
-        for (size_t i = 0; i < _size; i++)
+        for (size_type i = 0; i < _size; i++)
             _alloc.destroy(_data + i);
         _size = 0;
     }
@@ -333,7 +331,7 @@ namespace ft
     template < typename T, typename Alloc>
     typename vector<T, Alloc>::iterator                 vector<T, Alloc>::erase(iterator position)
     {
-        for (size_t i = position - this->begin() ; i < _size - 1 ; i++)
+        for (difference_type i = position - this->begin() ; i < _size - 1 ; i++)
 			_data[i] = _data[i + 1];
 
 		_size--;
@@ -423,9 +421,9 @@ namespace ft
     {
         if (n >= _size)
             throw std::out_of_range("vector::_M_range_check: __n (which is " 
-                    + std::to_string(n) 
+                    + ft::to_string(n) 
                     + ") >= this->size() (which is " 
-                    + std::to_string(_size) + ")");
+                    + ft::to_string(_size) + ")");
     }
 
     template<class T, class Alloc> 
