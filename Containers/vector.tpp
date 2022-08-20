@@ -44,7 +44,7 @@ namespace ft
         _size = n;
         _cap = n;
 
-        for (difference_type i = 0; i < n; i++)
+        for (ptrdiff_t i = 0; i < n; i++)
             _alloc.construct(_data + i, *first++);
     }
     
@@ -209,12 +209,12 @@ namespace ft
         check_iterator(first);
         typename ft::iterator_traits<InputIterator>::difference_type n = ft::distance(first, last);
 
-        if (n > _cap)
+        if ((size_type) n > _cap)
             this->reserve(n);
 
         for (size_type i = 0; i < _size; i++)
             _alloc.destroy(_data + i);
-        for (size_type i = 0; i < n; i++)
+        for (ptrdiff_t i = 0; i < n; i++)
             _alloc.construct(_data + i, *first++);
         
         _size = n;
@@ -331,7 +331,7 @@ namespace ft
     template < typename T, typename Alloc>
     typename vector<T, Alloc>::iterator                 vector<T, Alloc>::erase(iterator position)
     {
-        for (difference_type i = position - this->begin() ; i < _size - 1 ; i++)
+        for (size_type i = position - this->begin(); i < _size - 1; i++)
 			_data[i] = _data[i + 1];
 
 		_size--;
