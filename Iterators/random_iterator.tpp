@@ -6,10 +6,10 @@ namespace ft
 {
 
     template<typename T>
-    random_iterator<T>::random_iterator() : data_ptr(NULL) {}
+    random_iterator<T>::random_iterator() : _elem(NULL) {}
     
     template<typename T>
-    random_iterator<T>::random_iterator(pointer ptr) : data_ptr(ptr) {}
+    random_iterator<T>::random_iterator(pointer ptr) : _elem(ptr) {}
     
     template<typename T>
     random_iterator<T>::random_iterator(const random_iterator& other) { *this = other; }
@@ -20,28 +20,28 @@ namespace ft
     template<typename T>
     random_iterator<T>&   random_iterator<T>::operator=(const random_iterator& other)
     {
-        this->data_ptr = other.data_ptr;
+        this->_elem = other._elem;
         return (*this);
     }
 
     template<typename T>
     random_iterator<T>::operator random_iterator<const T> () const
     {
-        return (random_iterator<const T>(this->data_ptr));
+        return (random_iterator<const T>(this->_elem));
     }
     
     template<typename T>
     random_iterator<T>   random_iterator<T>::operator++(int)
     {
         random_iterator<T> temp = *this;
-        this->data_ptr++;
+        this->_elem++;
         return temp;
     }
     
     template<typename T>
     random_iterator<T>&   random_iterator<T>::operator++()
     {
-        ++this->data_ptr;
+        ++this->_elem;
         return (*this);
     }
     
@@ -49,14 +49,14 @@ namespace ft
     random_iterator<T>   random_iterator<T>::operator+(size_t n) const
     {
         random_iterator<T> temp = *this;
-        temp.data_ptr += n;
+        temp._elem += n;
         return temp;
     }
     
     template<typename T>
     random_iterator<T>&   random_iterator<T>::operator+=(size_t n)
     {
-        this->data_ptr += n;
+        this->_elem += n;
         return (*this);
     }
     
@@ -64,14 +64,14 @@ namespace ft
     random_iterator<T>   random_iterator<T>::operator--(int)
     {
         random_iterator<T> temp = *this;
-        temp.data_ptr--;
+        temp._elem--;
         return temp;
     }
     
     template<typename T>
     random_iterator<T>&   random_iterator<T>::operator--()
     {
-        --this->data_ptr;
+        --this->_elem;
         return (*this);
     }
     
@@ -79,75 +79,75 @@ namespace ft
     random_iterator<T>   random_iterator<T>::operator-(size_t n) const
     {
         random_iterator<T> temp = *this;
-        temp.data_ptr -= n;
+        temp._elem -= n;
         return temp;
     }
     
     template<typename T>
     typename random_iterator<T>::difference_type  random_iterator<T>::operator-(random_iterator<T> it) const
     {
-        return (this->data_ptr - it.data_ptr);
+        return (this->_elem - it._elem);
     }
     
     template<typename T>
     random_iterator<T>&   random_iterator<T>::operator-=(size_t n)
     {
-        this->data_ptr -= n;
+        this->_elem -= n;
         return (*this);
     }
     
     template<typename T>
     typename random_iterator<T>::reference   random_iterator<T>::operator*()
     {
-        return (*this->data_ptr);
+        return (*this->_elem);
     }
     
     template<typename T>
     typename random_iterator<T>::pointer   random_iterator<T>::operator->()
     {
-        return (this->data_ptr);
+        return (this->_elem);
     }
     
     template<typename T>
     typename random_iterator<T>::reference   random_iterator<T>::operator[](size_t n)
     {
-        return (*(this->data_ptr + n));
+        return (*(this->_elem + n));
     }
     
     template<typename T>
     bool    random_iterator<T>::operator==(const random_iterator& other) const
     {
-        return (this->data_ptr == other.data_ptr);
+        return (this->_elem == other._elem);
     }
     
     template<typename T>
     bool    random_iterator<T>::operator!=(const random_iterator& other) const
     {
-        return (this->data_ptr != other.data_ptr);
+        return (this->_elem != other._elem);
     }
     
     
     template<typename T>
     bool    random_iterator<T>::operator>=(const random_iterator& other) const
     {
-        return (this->data_ptr >= other.data_ptr);
+        return (this->_elem >= other._elem);
     }
     
     template<typename T>
     bool    random_iterator<T>::operator<=(const random_iterator& other) const
     {
-        return (this->data_ptr <= other.data_ptr);
+        return (this->_elem <= other._elem);
     }
     
     template<typename T>
     bool    random_iterator<T>::operator>(const random_iterator& other) const
     {
-        return (this->data_ptr > other.data_ptr);
+        return (this->_elem > other._elem);
     }
     
     template<typename T>
     bool    random_iterator<T>::operator<(const random_iterator& other) const
     {
-        return (this->data_ptr < other.data_ptr);
+        return (this->_elem < other._elem);
     }
 }

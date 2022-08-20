@@ -22,7 +22,7 @@ namespace ft
             typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category iterator_category;
     
         protected:
-            pointer data_ptr;
+            pointer _elem;
     
         public:
             /* Constructors and Destructor */
