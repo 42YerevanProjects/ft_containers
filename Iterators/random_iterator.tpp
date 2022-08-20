@@ -113,6 +113,14 @@ namespace ft
     {
         return (*(this->_elem + n));
     }
+
+    template<typename T>
+    typename random_iterator<T>::pointer   random_iterator<T>::base() const
+    {
+        return (this->_elem);
+    }
+    
+    /* Comparison Operator Functions*/
     
     template<typename T>
     bool    random_iterator<T>::operator==(const random_iterator& other) const
@@ -149,5 +157,104 @@ namespace ft
     bool    random_iterator<T>::operator<(const random_iterator& other) const
     {
         return (this->_elem < other._elem);
+    }
+
+    /* Non-member operator overloads */
+
+    template <typename T>
+    typename random_iterator<T>::difference_type    operator==(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    {
+        return (lhs.base() == rhs.base());
+    }
+
+    // For iterator == const_iterator 
+    template<typename T_L, typename T_R>
+    typename random_iterator<T_L>::difference_type  operator==(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    {
+        return (lhs.base() == rhs.base());
+    }
+
+    template <typename T>
+    typename random_iterator<T>::difference_type    operator!=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    {
+        return (lhs.base() != rhs.base());
+    }
+
+    // For iterator != const_iterator
+    template<typename T_L, typename T_R>
+    typename random_iterator<T_L>::difference_type  operator!=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    {
+        return (lhs.base() != rhs.base());
+    }
+
+    template <typename T>
+    typename random_iterator<T>::difference_type    operator<(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    {
+        return (lhs.base() < rhs.base());
+    }
+
+    /* For iterator < const_iterator */
+    template<typename T_L, typename T_R>
+    typename random_iterator<T_L>::difference_type  operator<(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    {
+        return (lhs.base() < rhs.base());
+    }
+
+    template <typename T>
+    typename random_iterator<T>::difference_type    operator>(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    {
+        return (lhs.base() > rhs.base());
+    }
+
+    // For iterator > const_iterator
+    template<typename T_L, typename T_R>
+    typename random_iterator<T_L>::difference_type  operator>(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    {
+        return (lhs.base() > rhs.base());
+    }
+
+    template <typename T>
+    typename random_iterator<T>::difference_type    operator<=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    {
+        return (lhs.base() <= rhs.base());
+    }
+
+    // For iterator <= const_iterator 
+    template<typename T_L, typename T_R>
+    typename random_iterator<T_L>::difference_type  operator<=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    {
+        return (lhs.base() <= rhs.base());
+    }
+
+    template <typename T>
+    typename random_iterator<T>::difference_type    operator>=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    {
+        return (lhs.base() >= rhs.base());
+    }
+
+    // For iterator >= const_iterator
+    template<typename T_L, typename T_R>
+    typename random_iterator<T_L>::difference_type  operator>=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    {
+        return (lhs.base() >= rhs.base());
+    }
+
+    template<typename T>
+    random_iterator<T>  operator+(typename random_iterator<T>::difference_type n, random_iterator<T>& rai)
+    {
+        return (&(*rai) + n);
+    }
+
+    template <typename T>
+    typename random_iterator<T>::difference_type    operator-(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    {
+        return (lhs.base() - rhs.base());
+    }
+
+    // For iterator - const_iterator
+    template<typename T_L, typename T_R>
+    typename random_iterator<T_L>::difference_type  operator-(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    {
+        return (lhs.base() - rhs.base());
     }
 }
