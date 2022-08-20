@@ -54,6 +54,11 @@ namespace ft
             reference              operator*();
             pointer                operator->();
             reference              operator[](size_t n);
+
+            /* The base function */
+
+            pointer               base() const;
+
     
             /* Equality Checks */
     
