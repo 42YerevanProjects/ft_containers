@@ -90,7 +90,7 @@ namespace ft
     template<typename It>
     typename reverse_iterator<It>::pointer   reverse_iterator<It>::operator->() const
     { 
-        return (&(*_base)); 
+        return (&(operator*())); 
     }
 
     template<typename It>
@@ -192,5 +192,4 @@ namespace ft
     { 
         return (lhs.base() - rhs.base()); 
     }
-
 }
