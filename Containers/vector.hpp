@@ -34,7 +34,7 @@ namespace ft
         private:
             template<typename InputIterator>
             void    check_iterator(InputIterator&);
-            void    check_range(size_type n);
+            void    check_range(size_type n) const;
 
         public:
             /* Constructers and Destructer */

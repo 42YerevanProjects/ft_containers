@@ -419,7 +419,7 @@ namespace ft
     */
 
     template<class T, class Alloc> 
-    void                                                vector<T, Alloc>::check_range(size_type n)
+    void                                                vector<T, Alloc>::check_range(size_type n) const
     {
         if (n >= _size)
             throw std::out_of_range("vector::_M_range_check: __n (which is " 
