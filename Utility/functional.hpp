@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <sstream>
+
 namespace ft
 {
     /* Base class for standard unary function objects */
@@ -73,5 +76,16 @@ namespace ft
         T save = a;
         a = b;
         b = save;
+    }
+
+    /* A generic to_string function */
+
+    template <typename T>
+    std::string to_string(T n)
+    {
+        // Stream used to convert
+        std::ostringstream ss;
+        ss << n;
+        return (ss.str());
     }
 }
