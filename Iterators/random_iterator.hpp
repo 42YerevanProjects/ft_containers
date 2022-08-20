@@ -57,14 +57,13 @@ namespace ft
     
             /* Equality Checks */
     
-            bool                   operator==(const random_iterator<T> &other) const;
-            bool                   operator!=(const random_iterator<T> &other) const;
-            bool                   operator>=(const random_iterator<T> &other) const;
-            bool                   operator<=(const random_iterator<T> &other) const;
-            bool                   operator>(const random_iterator<T> &other) const;
-            bool                   operator<(const random_iterator<T> &other) const;
+            bool                   operator==(const random_iterator& other) const;
+            bool                   operator!=(const random_iterator& other) const;
+            bool                   operator>=(const random_iterator& other) const;
+            bool                   operator<=(const random_iterator& other) const;
+            bool                   operator>(const random_iterator& other) const;
+            bool                   operator<(const random_iterator& other) const;
     };
-
 }
 
 #include "random_iterator.tpp"

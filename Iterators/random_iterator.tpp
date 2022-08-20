@@ -115,38 +115,38 @@ namespace ft
     }
     
     template<typename T>
-    bool    random_iterator<T>::operator==(const random_iterator<T> &other) const
+    bool    random_iterator<T>::operator==(const random_iterator& other) const
     {
         return (this->data_ptr == other.data_ptr);
     }
     
     template<typename T>
-    bool    random_iterator<T>::operator!=(const random_iterator<T> &other) const
+    bool    random_iterator<T>::operator!=(const random_iterator& other) const
     {
         return (this->data_ptr != other.data_ptr);
     }
     
     
     template<typename T>
-    bool    random_iterator<T>::operator>=(const random_iterator<T> &other) const
+    bool    random_iterator<T>::operator>=(const random_iterator& other) const
     {
         return (this->data_ptr >= other.data_ptr);
     }
     
     template<typename T>
-    bool    random_iterator<T>::operator<=(const random_iterator<T> &other) const
+    bool    random_iterator<T>::operator<=(const random_iterator& other) const
     {
         return (this->data_ptr <= other.data_ptr);
     }
     
     template<typename T>
-    bool    random_iterator<T>::operator>(const random_iterator<T> &other) const
+    bool    random_iterator<T>::operator>(const random_iterator& other) const
     {
         return (this->data_ptr > other.data_ptr);
     }
     
     template<typename T>
-    bool    random_iterator<T>::operator<(const random_iterator<T> &other) const
+    bool    random_iterator<T>::operator<(const random_iterator& other) const
     {
         return (this->data_ptr < other.data_ptr);
     }
