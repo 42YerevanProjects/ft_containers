@@ -31,22 +31,22 @@ namespace ft
     }
     
     template<typename T>
-    random_iterator<T>   random_iterator<T>::operator++(int)
+    random_iterator<T>      random_iterator<T>::operator++(int)
     {
         random_iterator<T> temp = *this;
-        this->_elem++;
+        operator++();
         return temp;
     }
     
     template<typename T>
-    random_iterator<T>&   random_iterator<T>::operator++()
+    random_iterator<T>&     random_iterator<T>::operator++()
     {
-        ++this->_elem;
+        this->_elem++;
         return (*this);
     }
     
     template<typename T>
-    random_iterator<T>   random_iterator<T>::operator+(size_t n) const
+    random_iterator<T>      random_iterator<T>::operator+(difference_type n) const
     {
         random_iterator<T> temp = *this;
         temp._elem += n;
@@ -54,7 +54,7 @@ namespace ft
     }
     
     template<typename T>
-    random_iterator<T>&   random_iterator<T>::operator+=(size_t n)
+    random_iterator<T>&   random_iterator<T>::operator+=(difference_type n)
     {
         this->_elem += n;
         return (*this);
@@ -64,7 +64,7 @@ namespace ft
     random_iterator<T>   random_iterator<T>::operator--(int)
     {
         random_iterator<T> temp = *this;
-        temp._elem--;
+        operator--();
         return temp;
     }
     
@@ -76,7 +76,7 @@ namespace ft
     }
     
     template<typename T>
-    random_iterator<T>   random_iterator<T>::operator-(size_t n) const
+    random_iterator<T>   random_iterator<T>::operator-(difference_type n) const
     {
         random_iterator<T> temp = *this;
         temp._elem -= n;
@@ -90,7 +90,7 @@ namespace ft
     }
     
     template<typename T>
-    random_iterator<T>&   random_iterator<T>::operator-=(size_t n)
+    random_iterator<T>&   random_iterator<T>::operator-=(difference_type n)
     {
         this->_elem -= n;
         return (*this);
@@ -105,13 +105,13 @@ namespace ft
     template<typename T>
     typename random_iterator<T>::pointer   random_iterator<T>::operator->()
     {
-        return (this->_elem);
+        return (&(operator*()));
     }
     
     template<typename T>
-    typename random_iterator<T>::reference   random_iterator<T>::operator[](size_t n)
+    typename random_iterator<T>::reference   random_iterator<T>::operator[](difference_type n)
     {
-        return (*(this->_elem + n));
+        return (*(operator+(n)));
     }
 
     template<typename T>
@@ -242,7 +242,7 @@ namespace ft
     template<typename T>
     random_iterator<T>  operator+(typename random_iterator<T>::difference_type n, random_iterator<T>& rai)
     {
-        return (&(*rai) + n);
+        return (rai + n);
     }
 
     template <typename T>
