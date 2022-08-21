@@ -40,20 +40,20 @@ namespace ft
             random_iterator<T>     operator++(int);
             random_iterator<T>&    operator++();
     
-            random_iterator<T>     operator+(size_t n) const;
-            random_iterator<T>&    operator+=(size_t n);
+            random_iterator<T>     operator+(difference_type n) const;
+            random_iterator<T>&    operator+=(difference_type n);
     
             random_iterator<T>     operator--(int);
             random_iterator<T>&    operator--();
     
-            random_iterator<T>     operator-(size_t n) const;
+            random_iterator<T>     operator-(difference_type n) const;
             difference_type        operator-(random_iterator<T> it) const;
     
-            random_iterator<T>&    operator-=(size_t n);
+            random_iterator<T>&    operator-=(difference_type n);
     
             reference              operator*();
             pointer                operator->();
-            reference              operator[](size_t n);
+            reference              operator[](difference_type n);
 
             /* The base function */
 
