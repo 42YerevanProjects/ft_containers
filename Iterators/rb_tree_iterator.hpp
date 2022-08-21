@@ -9,6 +9,7 @@
 ===============================
 */
 
+
 namespace ft
 {
     template <typename T>
@@ -17,6 +18,7 @@ namespace ft
         private:
             template <class K, class V, class KOV, class C, class A>
 			friend class rb_tree;
+
             template <typename U>
 			friend class const_rb_tree_iterator;
 
@@ -62,8 +64,11 @@ namespace ft
 
             /* Equality Checks */
 
-            bool    operator==(const self& x) const;
-            bool    operator!=(const self& x) const;
+            bool        operator==(const self& x) const;
+            bool        operator!=(const self& x) const;
+
+            /* Base Node */
+            const base_ptr    base_node() const;
     };
 }
 

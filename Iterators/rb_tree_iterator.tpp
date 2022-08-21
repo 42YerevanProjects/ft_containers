@@ -138,4 +138,27 @@ namespace ft
     {
         return this->_node != x._node;
     }
+
+    /* Base Node */
+
+    template<typename T>
+    const typename rb_tree_iterator<T>::base_ptr    rb_tree_iterator<T>::base_node() const
+    {
+        return (this->_node);
+    }
+
+
+    /* Non-Member Operators */
+
+    template <typename T>
+	bool	operator==(const rb_tree_iterator<T>& lhs, const rb_tree_iterator<T>& rhs)
+	{
+		return (lhs.base_node() == rhs.base_node());
+	}
+
+	template <class T>
+	bool	operator!=(const rb_tree_iterator<T>& lhs, const rb_tree_iterator<T>& rhs)
+	{
+		return (!(lhs == rhs));
+	}
 }

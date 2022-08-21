@@ -65,8 +65,11 @@ namespace ft
 
             /* Equality Checks */
 
-            bool    operator==(const self& x) const;
-            bool    operator!=(const self& x) const;
+            bool        operator==(const self& x) const;
+            bool        operator!=(const self& x) const;
+
+            /* Base Node */
+            const base_ptr  base_node() const;
     };
 }
 
