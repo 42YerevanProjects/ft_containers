@@ -98,10 +98,12 @@ namespace ft
     { 
         return (this->base()[-n - 1]); 
     }
-
     
     template<typename It>
-    It   reverse_iterator<It>::base() const { return _base; }
+    It   reverse_iterator<It>::base() const 
+    { 
+        return _base; 
+    }
 
     /* Comparison Operator Functions*/
 
