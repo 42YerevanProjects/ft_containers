@@ -28,7 +28,7 @@ namespace ft
 
         protected:
             allocator_type  _alloc;
-            pointer         _data;
+            pointer         _vct;
             size_type       _size;
             size_type       _cap;
 
@@ -117,7 +117,7 @@ namespace ft
             template <typename InputIterator>
             pointer     deep_copy(size_type n, InputIterator first, InputIterator last);
 
-            void        fill(size_type n, const value_type& val);
+            void        fill(size_type n, const value_type& val, pointer start);
             void        check_range(size_type n) const;
             size_type   check_size(size_type n) const;
     };
