@@ -18,6 +18,7 @@ namespace ft
             typedef const T&                const_reference;
             typedef T*                      pointer;
             typedef const T*                const_pointer;
+            typedef ptrdiff_t               difference_type;
             typedef size_t                  size_type;
             
             /* Iterators of Vector */
