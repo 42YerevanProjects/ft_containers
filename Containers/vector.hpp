@@ -32,13 +32,10 @@ namespace ft
             size_type       _size;
             size_type       _cap;
 
-        private:
-            template<typename InputIterator>
-            void    check_iterator(InputIterator&);
-            void    check_range(size_type n) const;
 
         public:
             /* Constructers and Destructer */
+
             explicit vector(const allocator_type& alloc = allocator_type());
             explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
 
@@ -52,6 +49,7 @@ namespace ft
             virtual ~vector();
 
             /* Iterator Functions */
+
             iterator                begin();
             const_iterator          begin() const;
             iterator                end();
@@ -63,6 +61,7 @@ namespace ft
             const_reverse_iterator  rend() const;
 
             /* Capacity Functions */
+            
             size_type               size() const;
             size_type               max_size() const;
             size_type               capacity() const;
@@ -71,6 +70,7 @@ namespace ft
             void                    resize(size_type n, value_type val = value_type());
 
             /* Element Access Functions */
+            
             reference               operator[](size_type n);
             const_reference         operator[](size_type n) const;
 
@@ -83,6 +83,7 @@ namespace ft
             const_reference         back() const;
 
             /* Modifier Functions */
+            
             template<typename InputIterator>
             void                    assign(InputIterator first, InputIterator last,
                                             typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0);
@@ -102,8 +103,23 @@ namespace ft
             iterator                erase(iterator position);
             iterator                erase(iterator first, iterator last);
 
-            /* Allocator Object Copy */
+            /* Allocator Object */
+            
             allocator_type          get_allocator() const;
+
+
+        private:
+            /* Utility Functions */
+
+            template <typename InputIterator>
+            void        range_fill(InputIterator first, InputIterator last);
+
+            template <typename InputIterator>
+            pointer     deep_copy(size_type n, InputIterator first, InputIterator last);
+
+            void        fill(size_type n, const value_type& val);
+            void        check_range(size_type n) const;
+            size_type   check_size(size_type n) const;
     };
 }
 
