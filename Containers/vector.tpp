@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <iostream>
 
 namespace ft
 {
@@ -11,24 +12,17 @@ namespace ft
     */
 
     template <class T, class Alloc>
-    vector<T, Alloc>::vector(const allocator_type& alloc)
-    {
-        _alloc = alloc;
-        _data = _alloc.allocate(0);
-        _size = 0;
-        _cap = 0;
-    }
+    vector<T, Alloc>::vector(const allocator_type& alloc) :  _alloc(alloc), _data(NULL), _size(0), _cap(0)
+    {  }
 
     template <class T, class Alloc>
-    vector<T, Alloc>::vector(size_type n, const value_type& val, const allocator_type& alloc)
+    vector<T, Alloc>::vector(size_type n, const value_type& val, const allocator_type& alloc) : _alloc(alloc), _data(NULL)
     {
-        _alloc = alloc;
-        _data = _alloc.allocate(n);
+        check_size(static_cast<size_type>(n));
+        _data = (n ? _alloc.allocate(n) : pointer()); 
         _size = n;
         _cap = n;
-
-        for (size_type i = 0; i < n; i++)
-            _alloc.construct(_data + i, val);
+        this->fill(n, val);
     }
     
     template <class T, class Alloc>
@@ -36,26 +30,23 @@ namespace ft
     vector<T, Alloc>::vector(InputIterator first, InputIterator last, const allocator_type& alloc,
     typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        check_iterator(first); 
         typename ft::iterator_traits<InputIterator>::difference_type n = ft::distance(first, last);
 
         _alloc = alloc;
         _data = _alloc.allocate(n);
-        _size = n;
+        _size = 0;
         _cap = n;
-
-        for (ptrdiff_t i = 0; i < n; i++)
-            _alloc.construct(_data + i, *first++);
+        this->range_fill(first, last);
     }
     
     template <class T, class Alloc>
     vector<T, Alloc>::vector(const vector& other) 
     {
        _alloc = other._alloc;
-       _size = other._size;
-       _cap = other._cap;
-
-       insert(this->begin(), other.begin(), other.end());
+       _data = 0;
+       _cap = 0;
+       _size = 0;
+       this->range_fill(other.begin(), other.end());
     }
 
     template <class T, class Alloc>
@@ -63,16 +54,16 @@ namespace ft
     {
         if (other == *this)
             return (*this);
-		clear();
-		insert(this->end(), other.begin(), other.end());
-		return (*this);
+
+        clear();
+        this->range_fill(other.begin(), other.end());
+        return (*this);
     }
 
     template <class T, class Alloc>
     vector<T, Alloc>::~vector() 
     {
-        for (size_type i = 0; i < _size; i++)
-            _alloc.destroy(_data + i);
+        this->clear();
         _alloc.deallocate(_data, _cap);
     }
 
@@ -107,6 +98,7 @@ namespace ft
     template<class T, class Alloc>
     typename vector<T, Alloc>::const_reverse_iterator   vector<T, Alloc>::rend() const { return const_reverse_iterator(this->begin()); }
 
+
     /*
     ========================== 
         Capacity Functions
@@ -130,19 +122,18 @@ namespace ft
     {
         if (n > this->max_size())
             throw std::length_error("vector::reserve");
-        else if (n > this->capacity())
-        {   
-            pointer temp_data = _alloc.allocate(n);
+        else if (this->capacity() < n)
+        {  
+            pointer new_vct = this->deep_copy(n, _data, (_data + _size));
 
-            for (size_type i = 0; i < _size && i < n; i++)
-            {
-                _alloc.construct(temp_data + i, *(_data + i));
-                _alloc.destroy(_data + i);
-            }
-            _alloc.deallocate(_data, _cap);
+			for (size_type i = 0 ; i < _size && i < n ; i++)
+				_alloc.destroy(_data + i);
 
-            _cap = n;
-            _data = temp_data;
+            if (_data)
+			    _alloc.deallocate(_data, _cap);
+
+			_cap = n;
+            this->_data = new_vct;
         }
     }
 
@@ -162,6 +153,7 @@ namespace ft
         else
             this->insert(this->end(), n - this->size(), val);
     }
+
 
     /*
     ================================ 
@@ -193,6 +185,7 @@ namespace ft
     template<class T, class Alloc> 
     typename vector<T, Alloc>::const_reference          vector<T, Alloc>::back() const { return _data[_size - 1]; } 
 
+
     /*
     ========================== 
         Modifier Functions
@@ -206,7 +199,6 @@ namespace ft
     void        vector<T, Alloc>::assign(InputIterator first, InputIterator last, 
     typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        check_iterator(first);
         typename ft::iterator_traits<InputIterator>::difference_type n = ft::distance(first, last);
 
         if ((size_type) n > _cap)
@@ -262,8 +254,6 @@ namespace ft
     void        vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last, 
     typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        check_iterator(first);
-
         vector<T, Alloc> temp(position, this->end());
 	    this->_size -= (this->end() - position);
 
@@ -350,14 +340,17 @@ namespace ft
 
         return (first);
     }
+
+
     /*
-    ====================== 
-        Allocator Copy
-    ======================
+    ======================== 
+        Allocator Object
+    ========================
     */
 
     template < typename T, typename Alloc>
-    typename vector<T, Alloc>::allocator_type          vector<T, Alloc>::get_allocator() const { return allocator_type(); }
+    typename vector<T, Alloc>::allocator_type          vector<T, Alloc>::get_allocator() const { return this->_alloc;; }
+
 
     /*
     ============================ 
@@ -417,20 +410,87 @@ namespace ft
     */
 
     template<class T, class Alloc> 
-    void                                                vector<T, Alloc>::check_range(size_type n) const
+    template<typename InputIterator> 
+    void                                                vector<T, Alloc>::range_fill(InputIterator first, InputIterator last)
     {
-        if (n >= _size)
-            throw std::out_of_range("vector::_M_range_check: __n (which is " 
-                    + ft::to_string(n) 
-                    + ") >= this->size() (which is " 
-                    + ft::to_string(_size) + ")");
+        try
+        {
+            for (; first != last; ++first)
+                this->push_back(*first);
+        }
+        catch (...)
+        {
+            this->clear();
+            throw ;
+        }
     }
 
     template<class T, class Alloc> 
-    template<typename InputIterator>
-    void                                                vector<T, Alloc>::check_iterator(InputIterator&)
+    template<typename InputIterator> 
+    typename vector<T, Alloc>::pointer                  vector<T, Alloc>::deep_copy(size_type n, InputIterator first, InputIterator last)
     {
-        if (!ft::is_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category>::value)
-            throw (ft::InvalidIteratorException<typename ft::is_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category>::type>()); 
+        std::cout << "why god" << std::endl;
+        pointer     copy = (n ? _alloc.allocate(n) : pointer());
+        size_type   i;
+
+        try
+        {
+            for (i = 0; (first != last and i < n); first++, i++)
+                _alloc.construct(copy + i, *first);
+
+            return (copy);
+        }
+        catch(...)
+        { 
+            for (size_type j = 0; j < i; j++)
+                _alloc.destroy(copy + j);
+            _alloc.deallocate(copy, n);
+
+            throw ;
+        }
+    }
+
+    template<class T, class Alloc> 
+    void                                                vector<T, Alloc>::fill(size_type n, const value_type& val)
+    {
+        size_type i;
+        try
+        {
+            for (i = 0; i < n; i++)
+                _alloc.construct(_data + i, val);
+        }
+        catch(...)
+        {
+            for (size_type j = 0; j < i; j++)
+                _alloc.destroy(_data + j);
+            throw ;
+        }
+    }
+
+    template<class T, class Alloc> 
+    void                                                vector<T, Alloc>::check_range(size_type n) const
+    {
+        if (n >= _size)
+            throw std::out_of_range("vector::at: n (which is " 
+                    + ft::to_string(n) 
+                    + ") >= this->size() (which is " 
+                    + ft::to_string(this->_size) + ")");
+    }
+
+    template<class T, class Alloc> 
+    typename vector<T, Alloc>::size_type                vector<T, Alloc>::check_size(size_type n) const
+    {
+        if (max_size() - this->_size < n)
+            throw std::length_error("vector::vector");
+		
+        size_type	new_size;
+
+        if (this->_size > n)
+            new_size = 2 * this->_size;
+        else
+            new_size = n + this->_size;
+
+        // in case of overflow
+        return ((new_size > max_size()) ? max_size() : new_size);
     }
 }
