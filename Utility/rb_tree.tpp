@@ -1,4 +1,4 @@
-#pragma oncie
+#pragma once
 
 #include <memory>
 #include <iostream>
@@ -21,14 +21,14 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     template<typename InputIt>
     rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(InputIt first, InputIt last, const key_compare& comp, const allocator_type& alloc,
-                                                                typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*) : _size(0), _comp(comp), _alloc(alloc)
+                                                                typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*) : _comp(comp), _alloc(alloc), _size(0)
     {
         _sentinel.parent = &_sentinel;
         insert(first, last);
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(const rb_tree& other) : _size(0), _comp(other._comp), _alloc(other._alloc)
+    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(const rb_tree& other) : _comp(other._comp), _alloc(other._alloc), _size(0)
     {  
         _sentinel.parent = &_sentinel;
 
