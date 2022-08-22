@@ -125,35 +125,12 @@ namespace ft
         return static_cast<link_type>(_node)->data;
     }
     
-    /* rb_tree_iterator equality checks */
-
-    template<typename T>
-    bool                                       rb_tree_iterator<T>::operator==(const self& x) const
-    {
-        return this->_node == x._node;
-    }
-
-    template<typename T>
-    bool                                       rb_tree_iterator<T>::operator!=(const self& x) const
-    {
-        return this->_node != x._node;
-    }
-
-    /* Base Node */
-
-    template<typename T>
-    const typename rb_tree_iterator<T>::base_ptr    rb_tree_iterator<T>::base_node() const
-    {
-        return (this->_node);
-    }
-
-
     /* Non-Member Operators */
 
     template <typename T>
 	bool	operator==(const rb_tree_iterator<T>& lhs, const rb_tree_iterator<T>& rhs)
 	{
-		return (lhs.base_node() == rhs.base_node());
+		return (lhs._node == rhs._node);
 	}
 
 	template <class T>
