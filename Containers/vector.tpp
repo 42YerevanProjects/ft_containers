@@ -13,7 +13,9 @@ namespace ft
 
     template <class T, class Alloc>
     vector<T, Alloc>::vector(const allocator_type& alloc) :  _alloc(alloc), _vct(NULL), _size(0), _cap(0)
-    {  }
+    { 
+
+    }
 
     template <class T, class Alloc>
     vector<T, Alloc>::vector(size_type n, const value_type& val, const allocator_type& alloc) : _alloc(alloc)
@@ -30,7 +32,7 @@ namespace ft
     vector<T, Alloc>::vector(InputIterator first, InputIterator last, const allocator_type& alloc,
     typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        typename ft::iterator_traits<InputIterator>::difference_type n = ft::distance(first, last);
+        difference_type n = ft::distance(first, last);
 
         _alloc = alloc;
         _vct = _alloc.allocate(n);
@@ -267,14 +269,14 @@ namespace ft
     void    vector<T, Alloc>::assign(InputIterator first, InputIterator last, 
             typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        typename ft::iterator_traits<InputIterator>::difference_type n = ft::distance(first, last);
+        difference_type n = ft::distance(first, last);
 
         if ((size_type) n > _cap)
             this->reserve(n);
 
         for (size_type i = 0; i < _size; i++)
             _alloc.destroy(_vct + i);
-        for (ptrdiff_t i = 0; i < n; i++)
+        for (difference_type i = 0; i < n; i++)
             _alloc.construct(_vct + i, *first++);
         
         _size = n;
@@ -336,39 +338,39 @@ namespace ft
             typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
         vector<T, Alloc> temp(position, this->end());
-	    this->_size -= (this->end() - position);
+        this->_size -= (this->end() - position);
 
-	    while (first != last)
-	    {
-		    push_back(*first);
-		    ++first;
-	    }
+        while (first != last)
+        {
+            push_back(*first);
+            ++first;
+        }
 
-	    iterator it_begin = temp.begin();
-	    iterator it_end = temp.end();
-	    while (it_begin != it_end)
-	    {
-		    this->push_back(*it_begin);
-		    ++it_begin;
-	    }
+        iterator it_begin = temp.begin();
+        iterator it_end = temp.end();
+        while (it_begin != it_end)
+        {
+            this->push_back(*it_begin);
+            ++it_begin;
+        }
     }
 
     template<class T, class Alloc>
     void                                                vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
     {
         vector<T, Alloc> temp(position, this->end());
-	    this->_size -= (this->end() - position);
+        this->_size -= (this->end() - position);
 
-	    for (size_type i = 0; i < n; i++)
-		    this->push_back(val);
+        for (size_type i = 0; i < n; i++)
+            this->push_back(val);
 
-	    iterator it_begin = temp.begin();
-	    iterator it_end = temp.end();
-	    while (it_begin != it_end)
-	    {
-		    this->push_back(*it_begin);
-		    ++it_begin;
-	    }
+        iterator it_begin = temp.begin();
+        iterator it_end = temp.end();
+        while (it_begin != it_end)
+        {
+            this->push_back(*it_begin);
+            ++it_begin;
+        }
     }
 
     template<class T, class Alloc>
@@ -404,12 +406,12 @@ namespace ft
     typename vector<T, Alloc>::iterator                 vector<T, Alloc>::erase(iterator position)
     {
         for (size_type i = position - this->begin(); i < _size - 1; i++)
-			_vct[i] = _vct[i + 1];
+            _vct[i] = _vct[i + 1];
 
-		_size--;
-		_alloc.destroy(_vct + _size);
+        _size--;
+        _alloc.destroy(_vct + _size);
 
-		return (position);
+        return (position);
     }
 
     template < typename T, typename Alloc>
@@ -431,7 +433,10 @@ namespace ft
     */
 
     template < typename T, typename Alloc>
-    typename vector<T, Alloc>::allocator_type          vector<T, Alloc>::get_allocator() const { return this->_alloc;; }
+    typename vector<T, Alloc>::allocator_type          vector<T, Alloc>::get_allocator() const
+    {
+        return this->_alloc;
+    }
 
 
     /*
