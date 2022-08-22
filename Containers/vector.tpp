@@ -44,10 +44,10 @@ namespace ft
     template <class T, class Alloc>
     vector<T, Alloc>::vector(const vector& other) 
     {
-       _alloc = other._alloc;
-       _vct = 0;
-       _cap = 0;
-       _size = 0;
+       this->_alloc = other._alloc;
+       this->_size = 0;
+       this->_cap = other._cap;
+       this->_vct = _alloc.allocate(_cap);
        this->range_fill(other.begin(), other.end());
     }
 
@@ -65,7 +65,7 @@ namespace ft
                 _vct = _alloc.allocate(_cap);
             }
             
-            _size = other._size;
+            _size = 0;
             this->range_fill(other.begin(), other.end());
         }
 
