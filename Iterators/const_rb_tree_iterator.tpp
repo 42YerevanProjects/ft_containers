@@ -127,28 +127,6 @@ namespace ft
     }
     
 
-    /* Equality Check Operators*/
-
-    template<typename T>
-    bool                                            const_rb_tree_iterator<T>::operator==(const self& x) const
-    {
-        return this->_node == x._node;
-    }
-
-    template<typename T>
-    bool                                            const_rb_tree_iterator<T>::operator!=(const self& x) const
-    {
-        return this->_node != x._node;
-    }
-
-    /* Base Node */
-
-    template<typename T>
-    const typename const_rb_tree_iterator<T>::base_ptr   const_rb_tree_iterator<T>::base_node() const
-    {
-        return (this->_node);
-    }
-
     /* Non-Member Operators*/
 
     template <typename T>
@@ -163,27 +141,51 @@ namespace ft
 		return (!(lhs == rhs));
 	}
 
-    // iterator and const iterator
-	template <typename T>
-	bool	operator==(const rb_tree_iterator<T>& lhs, const const_rb_tree_iterator<T>& rhs)
-	{
-		return (lhs.base_node() == rhs.base_node());
-	}
-	
     template <typename T>
-	bool	operator==(const const_rb_tree_iterator<T>& lhs, const rb_tree_iterator<T>& rhs)
+	bool    operator==(const rb_tree_iterator<T>& lhs, const const_rb_tree_iterator<T>& rhs)
 	{
-		return (lhs.base_node() == rhs.base_node());
+		return (lhs._node == rhs._node);
 	}
 
-	template <typename T>
-	bool	operator!=(const rb_tree_iterator<T>& lhs, const const_rb_tree_iterator<T> &rhs)
+	template <class T>
+	bool	operator==(const const_rb_tree_iterator<T>& lhs, const rb_tree_iterator<T>& rhs)
+	{
+		return (lhs._node == rhs._node);
+	}
+
+    template <typename T>
+	bool    operator!=(const rb_tree_iterator<T>& lhs, const const_rb_tree_iterator<T>& rhs)
 	{
 		return (!(lhs == rhs));
 	}
 
 	template <typename T>
 	bool	operator!=(const const_rb_tree_iterator<T>& lhs, const rb_tree_iterator<T>& rhs)
+	{
+		return (!(lhs == rhs));
+	}
+
+    // For iterator and const iterator
+    template <typename U, typename V>
+	bool	operator==(const rb_tree_iterator<U>& lhs, const const_rb_tree_iterator<V>& rhs)
+	{
+		return (lhs._node == rhs._node);
+	}
+
+    template <typename U, typename V>
+	bool	operator==(const const_rb_tree_iterator<U>& lhs, const rb_tree_iterator<V>& rhs)
+	{
+		return (lhs._node == rhs._node);
+	}
+
+    template <typename U, typename V>
+	bool	operator!=(const rb_tree_iterator<U>& lhs, const const_rb_tree_iterator<V>& rhs)
+	{
+		return (!(lhs == rhs));
+	}
+
+    template <typename U, typename V>
+	bool	operator!=(const const_rb_tree_iterator<U>& lhs, const rb_tree_iterator<V>& rhs)
 	{
 		return (!(lhs == rhs));
 	}
