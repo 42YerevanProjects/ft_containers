@@ -54,15 +54,21 @@ namespace ft
     template <class T, class Alloc>
     vector<T, Alloc>& vector<T, Alloc>::operator=(const vector& other) 
     {
-        if (other == *this)
-            return (*this);
+        if (this != &other)
+        {
+            this->clear();
 
-        this->clear();
+            if (other._size > _cap)
+            {
+                _alloc.deallocate(_vct, _cap);
+                _cap = other._size;
+                _vct = _alloc.allocate(_cap);
+            }
+            
+            _size = other._size;
+            this->range_fill(other.begin(), other.end());
+        }
 
-        _alloc = other._alloc;
-        _cap = other._cap;
-
-        this->range_fill(other.begin(), other.end());
         return (*this);
     }
 
