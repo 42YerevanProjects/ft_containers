@@ -384,9 +384,10 @@ namespace ft
     template < typename T, typename Alloc >
     void                                                vector<T, Alloc>::swap(vector& x)
     {
+        ft::swap(this->_alloc, x._alloc);
         ft::swap(this->_vct, x._vct);
-        ft::swap(this->_cap, x._cap);
         ft::swap(this->_size, x._size);
+        ft::swap(this->_cap, x._cap);
     }
 
     /* Clear and Erase */
@@ -478,9 +479,7 @@ namespace ft
     template <class T, class Alloc>
     void    swap(vector<T,Alloc>& x, vector<T,Alloc>& y)
     {
-        vector<T, Alloc>    temp = x;
-        x = y;
-        y = temp;
+        x.swap(y);
     }
 
 
