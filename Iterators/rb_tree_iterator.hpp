@@ -23,19 +23,19 @@ namespace ft
 			friend class rb_tree;
 
             template <typename U>
-			friend class const_rb_tree_iterator;
+            friend class const_rb_tree_iterator;
 
             template <typename V>
             friend bool	operator==(const rb_tree_iterator<V>& lhs, const rb_tree_iterator<V>& rhs);
             template <typename V>
-			friend bool operator==(const rb_tree_iterator<V>& lhs, const const_rb_tree_iterator<V>& rhs);
-			template <typename V>
-			friend bool operator==(const const_rb_tree_iterator<V>& lhs, const rb_tree_iterator<V>& rhs);
+            friend bool operator==(const rb_tree_iterator<V>& lhs, const const_rb_tree_iterator<V>& rhs);
+            template <typename V>
+            friend bool operator==(const const_rb_tree_iterator<V>& lhs, const rb_tree_iterator<V>& rhs);
 
-			template <typename U, typename V>
-			friend bool operator==(const rb_tree_iterator<U>& lhs, const const_rb_tree_iterator<V>& rhs);
-			template <typename U, typename V>
-			friend bool operator==(const const_rb_tree_iterator<U>& lhs, const rb_tree_iterator<V>& rhs);
+            template <typename U, typename V>
+            friend bool operator==(const rb_tree_iterator<U>& lhs, const const_rb_tree_iterator<V>& rhs);
+            template <typename U, typename V>
+            friend bool operator==(const const_rb_tree_iterator<U>& lhs, const rb_tree_iterator<V>& rhs);
 
         public:
             typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type        value_type;
@@ -95,19 +95,19 @@ namespace ft
     {
         private:
             template <class K, class V, class KOV, class C, class A>
-			friend class rb_tree;
+            friend class rb_tree;
 
             template <typename V>
             friend bool operator==(const const_rb_tree_iterator<V>& lhs, const const_rb_tree_iterator<V>& rhs);
-			template <typename V>
-			friend bool operator==(const rb_tree_iterator<V>& lhs, const const_rb_tree_iterator<V>& rhs);
-			template <typename V>
-			friend bool operator==(const const_rb_tree_iterator<V>& lhs, const rb_tree_iterator<V>& rhs);
+            template <typename V>
+            friend bool operator==(const rb_tree_iterator<V>& lhs, const const_rb_tree_iterator<V>& rhs);
+            template <typename V>
+            friend bool operator==(const const_rb_tree_iterator<V>& lhs, const rb_tree_iterator<V>& rhs);
 
-			template <typename U, typename V>
-			friend bool operator==(const rb_tree_iterator<U>& lhs, const const_rb_tree_iterator<V>& rhs);
-			template <typename U, typename V>
-			friend bool operator==(const const_rb_tree_iterator<U>& lhs, const rb_tree_iterator<V>& rhs);
+            template <typename U, typename V>
+            friend bool operator==(const rb_tree_iterator<U>& lhs, const const_rb_tree_iterator<V>& rhs);
+            template <typename U, typename V>
+            friend bool operator==(const const_rb_tree_iterator<U>& lhs, const rb_tree_iterator<V>& rhs);
 
         public:
             typedef typename ft::iterator<ft::bidirectional_iterator_tag, const T>::value_type        value_type;
@@ -155,4 +155,3 @@ namespace ft
 }
 
 #include "const_rb_tree_iterator.tpp"
-
