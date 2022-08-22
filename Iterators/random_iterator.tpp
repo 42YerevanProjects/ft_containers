@@ -133,8 +133,7 @@ namespace ft
     {
         return (this->_elem != other._elem);
     }
-    
-    
+     
     template<typename T>
     bool    random_iterator<T>::operator>=(const random_iterator& other) const
     {
@@ -162,79 +161,79 @@ namespace ft
     /* Non-member operator overloads */
 
     template <typename T>
-    typename random_iterator<T>::difference_type    operator==(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    bool    operator==(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
     {
         return (lhs.base() == rhs.base());
     }
 
     // For iterator == const_iterator 
     template<typename T_L, typename T_R>
-    typename random_iterator<T_L>::difference_type  operator==(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    bool    operator==(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
     {
         return (lhs.base() == rhs.base());
     }
 
     template <typename T>
-    typename random_iterator<T>::difference_type    operator!=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    bool    operator!=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
     {
         return (lhs.base() != rhs.base());
     }
 
     // For iterator != const_iterator
     template<typename T_L, typename T_R>
-    typename random_iterator<T_L>::difference_type  operator!=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    bool    operator!=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
     {
         return (lhs.base() != rhs.base());
     }
 
     template <typename T>
-    typename random_iterator<T>::difference_type    operator<(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    bool    operator<(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
     {
         return (lhs.base() < rhs.base());
     }
 
     /* For iterator < const_iterator */
     template<typename T_L, typename T_R>
-    typename random_iterator<T_L>::difference_type  operator<(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    bool    operator<(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
     {
         return (lhs.base() < rhs.base());
     }
 
     template <typename T>
-    typename random_iterator<T>::difference_type    operator>(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    bool    operator>(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
     {
         return (lhs.base() > rhs.base());
     }
 
     // For iterator > const_iterator
     template<typename T_L, typename T_R>
-    typename random_iterator<T_L>::difference_type  operator>(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    bool    operator>(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
     {
         return (lhs.base() > rhs.base());
     }
 
     template <typename T>
-    typename random_iterator<T>::difference_type    operator<=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    bool    operator<=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
     {
         return (lhs.base() <= rhs.base());
     }
 
     // For iterator <= const_iterator 
     template<typename T_L, typename T_R>
-    typename random_iterator<T_L>::difference_type  operator<=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    bool    operator<=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
     {
         return (lhs.base() <= rhs.base());
     }
 
     template <typename T>
-    typename random_iterator<T>::difference_type    operator>=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
+    bool    operator>=(const random_iterator<T>& lhs, const random_iterator<T>& rhs)
     {
         return (lhs.base() >= rhs.base());
     }
 
     // For iterator >= const_iterator
     template<typename T_L, typename T_R>
-    typename random_iterator<T_L>::difference_type  operator>=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
+    bool    operator>=(const random_iterator<T_L>& lhs, const random_iterator<T_R>& rhs)
     {
         return (lhs.base() >= rhs.base());
     }
