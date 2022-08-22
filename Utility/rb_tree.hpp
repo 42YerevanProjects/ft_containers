@@ -1,12 +1,11 @@
 #pragma once
 
-
 #include <iostream>
 #include <memory>
 
-#include "rb_tree_node.hpp"
-#include "functional.hpp"
 #include "pair.hpp"
+#include "functional.hpp"
+#include "rb_tree_node.hpp"
 #include "../Includes/iterators.hpp"
 
 namespace ft
