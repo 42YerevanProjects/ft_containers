@@ -14,7 +14,7 @@ namespace ft
     stack<T, Container>::stack(const container_type& ctnr) : _ctnr(ctnr) {}
 
     template<class T, class Container>
-    stack<T, Container>::~stack() {}
+    stack<T, Container>::~stack() { _ctnr.clear(); }
 
     /*
     ========================== 
