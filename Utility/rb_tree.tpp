@@ -21,9 +21,10 @@ namespace ft
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     template<typename InputIt>
     rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(InputIt first, InputIt last, const key_compare& comp, const allocator_type& alloc,
-                                                                typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*) : _comp(comp), _alloc(alloc), _size(0)
+                                                                typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*) : _root(0), _comp(comp), _alloc(alloc), _size(0)
     {
         _sentinel.parent = &_sentinel;
+        update_extremum(); 
         insert(first, last);
     }
 
@@ -158,10 +159,8 @@ namespace ft
     void    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::insert(InputIterator first, InputIterator last,
                 typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        iterator hint = end();
-
-        while (first++ != last)
-            hint = hinted_insert(*first, hint._node);
+        for (iterator hint = end(); first != last; ++first)	
+					hint = insert(hint, *first);	
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
