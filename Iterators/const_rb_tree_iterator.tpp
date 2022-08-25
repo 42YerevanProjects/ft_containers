@@ -5,59 +5,9 @@ namespace ft
     /* const_rb_tree_iterator utility functions */
     
     template<typename T>
-    bool                                            const_rb_tree_iterator<T>::is_sentinel(base_ptr node)
+    bool                                            const_rb_tree_iterator<T>::is_sentinel(const base_ptr node)
     {
         return (node != 0 and node->parent == node);
-    }
-    
-    template<typename T>
-    typename const_rb_tree_iterator<T>::base_ptr    const_rb_tree_iterator<T>::inorder_increment(base_ptr node)
-    {
-        if(is_sentinel(node)) // for rend
-            return node->left;
-        if (node->right != 0 and !is_sentinel(node->right))
-        {
-            node = node->right;
-            while (node and node->left != 0 and !is_sentinel(node->left))
-                node = node->left;
-        }
-        else
-        {
-            if (node == node->parent->left)
-                node = node->parent;
-            else
-            {
-                while (node == node->parent->right)
-                    node = node->parent;
-                node = node->parent;
-            }
-        }
-        return (node);
-    }
-
-    template<typename T>
-    typename const_rb_tree_iterator<T>::base_ptr    const_rb_tree_iterator<T>::inorder_decrement(base_ptr node)
-    {
-        if(is_sentinel(node)) // for end
-            return node->right;
-        if (node->left != 0 and !is_sentinel(node->left))
-        {
-            node = node->left;
-            while (node and node->right != 0 and !is_sentinel(node->right))
-                node = node->right;
-        }
-        else
-        {
-            if (node->parent && node == node->parent->right)
-                node = node->parent;
-            else
-            {
-                while (node->parent && node == node->parent->left)
-                    node = node->parent;
-                node = node->parent;
-            }
-        }
-        return (node);
     }
 
     /* const_rb_tree_iterator main interface functions */
@@ -66,7 +16,7 @@ namespace ft
     const_rb_tree_iterator<T>::const_rb_tree_iterator() : _node() {}
 
     template<typename T>
-    const_rb_tree_iterator<T>::const_rb_tree_iterator(base_ptr x) : _node(x) {}
+    const_rb_tree_iterator<T>::const_rb_tree_iterator(const base_ptr x) : _node(x) {}
 
     template<typename T>
     const_rb_tree_iterator<T>::const_rb_tree_iterator(const iterator& _it) : _node(_it._node) {}
@@ -87,7 +37,26 @@ namespace ft
     template<typename T>
     typename const_rb_tree_iterator<T>::self&        const_rb_tree_iterator<T>::operator++()
     {
-        this->_node = inorder_increment(_node);
+        if(is_sentinel(_node)) // for rend
+            _node = _node->left;
+        else if (_node->right != 0 and !is_sentinel(_node->right))
+        {
+            _node = _node->right;
+            while (_node->left != 0 and !is_sentinel(_node->left))
+                _node = _node->left;
+        }
+        else
+        {
+            if (_node == _node->parent->left)
+                _node = _node->parent;
+            else
+            {
+                while (_node == _node->parent->right)
+                    _node = _node->parent;
+                _node = _node->parent;
+            }
+        }
+
         return (*this);
     }
     
@@ -95,14 +64,33 @@ namespace ft
     typename const_rb_tree_iterator<T>::self         const_rb_tree_iterator<T>::operator++(int)
     {
         typename const_rb_tree_iterator<T>::self temp = *this;
-        this->_node = inorder_increment(_node);
+        operator++();
         return (temp);
     }
 
     template<typename T>
     typename const_rb_tree_iterator<T>::self&        const_rb_tree_iterator<T>::operator--()
     {
-        this->_node = inorder_decrement(_node);
+        if(is_sentinel(_node)) // for end
+            _node = _node->right;
+        else if (_node->left != 0 and !is_sentinel(_node->left))
+        {
+            _node = _node->left;
+            while (_node->right != 0 and !is_sentinel(_node->right))
+                _node = _node->right;
+        }
+        else
+        {
+            if (_node == _node->parent->right)
+                _node = _node->parent;
+            else
+            {
+                while (_node == _node->parent->left)
+                    _node = _node->parent;
+                _node = _node->parent;
+            }
+        }
+
         return (*this);
     }
     
@@ -110,7 +98,7 @@ namespace ft
     typename const_rb_tree_iterator<T>::self         const_rb_tree_iterator<T>::operator--(int)
     {
         typename const_rb_tree_iterator<T>::self temp = *this;
-        this->_node = inorder_decrement(_node);
+        operator--();
         return (temp);
     }
 
