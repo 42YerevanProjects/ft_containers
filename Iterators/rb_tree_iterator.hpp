@@ -49,8 +49,6 @@ namespace ft
             typedef rb_tree_node<T>*    link_type;
 
         private:
-            base_ptr    inorder_increment(base_ptr node);
-            base_ptr    inorder_decrement(base_ptr node);
             bool        is_sentinel(base_ptr node);
 
         protected:
@@ -60,7 +58,7 @@ namespace ft
             /* Constructors and Destructor */
 
             rb_tree_iterator();
-            explicit rb_tree_iterator(base_ptr x);
+            rb_tree_iterator(base_ptr x);
             rb_tree_iterator(const self& other);
             virtual ~rb_tree_iterator();
 
