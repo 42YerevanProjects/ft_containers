@@ -124,7 +124,7 @@ namespace ft
             bool        is_sentinel(const base_ptr node);
 
         protected:
-            base_ptr    _node;
+            const ft::rb_tree_node_base    *_node;
 
         public:
             /* Constructors and Destructor */

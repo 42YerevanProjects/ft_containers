@@ -37,7 +37,7 @@ namespace ft
     template<typename T>
     typename const_rb_tree_iterator<T>::self&        const_rb_tree_iterator<T>::operator++()
     {
-        if(is_sentinel(_node)) // for rend
+        if(_node == _node->parent) // for rend
             _node = _node->left;
         else if (_node->right != 0 and !is_sentinel(_node->right))
         {
@@ -71,7 +71,7 @@ namespace ft
     template<typename T>
     typename const_rb_tree_iterator<T>::self&        const_rb_tree_iterator<T>::operator--()
     {
-        if(is_sentinel(_node)) // for end
+        if(_node == _node->parent) // for end
             _node = _node->right;
         else if (_node->left != 0 and !is_sentinel(_node->left))
         {
@@ -105,7 +105,7 @@ namespace ft
     template<typename T>
     typename const_rb_tree_iterator<T>::pointer      const_rb_tree_iterator<T>::operator->() const
     {
-        return &static_cast<link_type>(_node)->data;
+        return &(operator*());
     }
     
     template<typename T>
