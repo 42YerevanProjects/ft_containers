@@ -152,29 +152,4 @@ namespace ft
 	{
 		return (!(lhs == rhs));
 	}
-
-    // For iterator and const iterator
-    template <typename U, typename V>
-	bool	operator==(const rb_tree_iterator<U>& lhs, const const_rb_tree_iterator<V>& rhs)
-	{
-		return (lhs._node == rhs._node);
-	}
-
-    template <typename U, typename V>
-	bool	operator==(const const_rb_tree_iterator<U>& lhs, const rb_tree_iterator<V>& rhs)
-	{
-		return (lhs._node == rhs._node);
-	}
-
-    template <typename U, typename V>
-	bool	operator!=(const rb_tree_iterator<U>& lhs, const const_rb_tree_iterator<V>& rhs)
-	{
-		return (!(lhs == rhs));
-	}
-
-    template <typename U, typename V>
-	bool	operator!=(const const_rb_tree_iterator<U>& lhs, const rb_tree_iterator<V>& rhs)
-	{
-		return (!(lhs == rhs));
-	}
 }
