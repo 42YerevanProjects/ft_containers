@@ -220,7 +220,7 @@ namespace ft
         }
         else if (is_sentinel(z->right))
         {
-            x = is_external(z->right) ? &null_leaf : z->right;
+            x = is_external(z->left) ? &null_leaf : z->left;
             transplant(z, x);
         }
         else
