@@ -207,7 +207,6 @@ namespace ft
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase(iterator position)
     {
         base_ptr z = position._node;
-        base null_leaf; // to keep track of x and nullify it with sentinels
         base_ptr x;
 
         base_ptr y = z;
@@ -215,12 +214,12 @@ namespace ft
 
         if (is_external(z->left))
         {
-            x = is_external(z->right) ? &null_leaf : z->right;
+            x = z->right;
             transplant(z, x);
         }
         else if (is_sentinel(z->right))
         {
-            x = is_external(z->left) ? &null_leaf : z->left;
+            x = z->left;
             transplant(z, x);
         }
         else
@@ -228,7 +227,7 @@ namespace ft
             y = minimum(z->right); 
             y_original_color = y->color;
 
-            x = is_external(y->right) ? &null_leaf : y->right;
+            x = y->right;
             if (y->parent == z)
                 x->parent = y;
             else
@@ -242,15 +241,13 @@ namespace ft
             y->left->parent = y;
             y->color = z->color;
         }
-
-        this->_size--;
         destroy_node(z);
-        if (empty())
-            this->_root = 0;
-
         if (y_original_color == black)
             erase_fixup(x);
-        nullify(&null_leaf); 
+
+        _sentinel.parent = &_sentinel;
+        if (!(--_size))
+            this->_root = 0;
 
         update_extremum();
     }
@@ -770,18 +767,6 @@ namespace ft
         v->parent = u->parent;
     }
 
-    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::nullify(base_ptr leaf)
-    {
-        if (leaf->parent)
-        {
-            if (leaf == leaf->parent->left)
-                leaf->parent->left = &_sentinel;
-            else
-                leaf->parent->right = &_sentinel;
-        }
-    }
-
     /* Key Extraction Utility Functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -915,7 +900,7 @@ namespace ft
     /* Tree min, max utility functions */
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::minimum(base_ptr n)
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::base_ptr                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::minimum(base_ptr n)
     {
         base_ptr min = n;
         if (is_external(min))
@@ -923,11 +908,11 @@ namespace ft
 
         while (is_internal(min->left))
             min = min->left;
-        return (static_cast<link_type>(min));
+        return (min);
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::node*                   rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::maximum(base_ptr n)
+    typename rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::base_ptr                rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::maximum(base_ptr n)
     {
         base_ptr max = n;
 
@@ -936,14 +921,14 @@ namespace ft
 
         while (is_internal(max->right))
             max = max->right;
-        return (static_cast<link_type>(max));
+        return (max);
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::update_extremum()
     {
-        node* min = minimum(this->_root);
-        node* max = maximum(this->_root);
+        base_ptr min = minimum(this->_root);
+        base_ptr max = maximum(this->_root);
 
         _sentinel.left = (min != 0) ? min : &_sentinel;
         _sentinel.right = (max != 0) ? max : &_sentinel;
