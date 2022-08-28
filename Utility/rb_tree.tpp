@@ -29,14 +29,12 @@ namespace ft
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
-    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(const rb_tree& other) : _comp(other._comp), _alloc(other._alloc), _size(0)
+    rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::rb_tree(const rb_tree& other) : _root(), _comp(other._comp), _alloc(other._alloc), _size()
     {  
         _sentinel.parent = &_sentinel;
+        update_extremum();
 
-        const_iterator first = other.begin();
-        const_iterator last = other.end();
-
-        this->insert(first, last);
+        this->insert(other.begin(), other.end());
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
