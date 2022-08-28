@@ -31,9 +31,9 @@ namespace ft
             typedef ptrdiff_t                                   difference_type;
             typedef size_t                                      size_type;
 
-            typedef typename rb_tree::iterator                  iterator;
+            typedef typename rb_tree::const_iterator            iterator;
             typedef typename rb_tree::const_iterator            const_iterator;
-            typedef typename rb_tree::reverse_iterator          reverse_iterator;
+            typedef typename rb_tree::const_reverse_iterator    reverse_iterator;
             typedef typename rb_tree::const_reverse_iterator    const_reverse_iterator;
 
         protected:
