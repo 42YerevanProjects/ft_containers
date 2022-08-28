@@ -16,7 +16,10 @@ namespace ft
     template <typename InputIt>
     set<Key, Compare, Alloc>::set(InputIt first, InputIt last, const key_compare& comp, const allocator_type& alloc,
                                         typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type*)
-    : _tree(first, last, comp, alloc) {}
+    : _tree(comp, alloc)
+    {
+        this->insert(first, last);
+    }
 
     template <typename Key, typename Compare, typename Alloc>
     set<Key, Compare, Alloc>::set(const set& other) : _tree(other._tree) {}
