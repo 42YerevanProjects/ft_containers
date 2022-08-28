@@ -208,18 +208,19 @@ namespace ft
     {
         base_ptr z = position._node;
         base_ptr x;
+        base x_nil;
 
         base_ptr y = z;
         color y_original_color = y->color;
 
         if (is_external(z->left))
         {
-            x = z->right;
+            x = is_sentinel(z->right) ? &x_nil : z->right;
             transplant(z, x);
         }
         else if (is_sentinel(z->right))
         {
-            x = z->left;
+            x = is_sentinel(z->left) ? &x_nil : z->left;
             transplant(z, x);
         }
         else
@@ -227,9 +228,12 @@ namespace ft
             y = minimum(z->right); 
             y_original_color = y->color;
 
-            x = y->right;
+            x = is_sentinel(y->right) ? &x_nil : y->right;
             if (y->parent == z)
+            {
+                y->right = x;
                 x->parent = y;
+            }
             else
             {
                 transplant(y, x);
@@ -245,7 +249,8 @@ namespace ft
         if (y_original_color == black)
             erase_fixup(x);
 
-        _sentinel.parent = &_sentinel;
+        nullify(&x_nil);
+
         if (!(--_size))
             this->_root = 0;
 
@@ -262,10 +267,7 @@ namespace ft
     void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::erase(iterator first, iterator last)
     {
         while (first != last)
-        {
-
             erase(first++);
-        }
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -709,8 +711,8 @@ namespace ft
                     x = root();
                 }
             } 
-            x->color = black;
         }
+        x->color = black;
     }
 
     template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
@@ -765,6 +767,19 @@ namespace ft
         else
             u->parent->right = v;
         v->parent = u->parent;
+    }
+
+
+    template < typename Key, typename Val, typename KeyOfValue, typename Compare, typename Alloc >
+    void                                                                            rb_tree<Key, Val, KeyOfValue, Compare, Alloc>::nullify(base_ptr x)
+    {
+        if (x->parent)
+        {
+            if (x->parent->left == x)
+                x->parent->left = &this->_sentinel;
+            else if (x->parent->right == x)
+                x->parent->right = &this->_sentinel;
+        }
     }
 
     /* Key Extraction Utility Functions */
