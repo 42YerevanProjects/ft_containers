@@ -360,7 +360,7 @@ namespace ft
            else
            {
                n++;
-               x = x->left; // Case for multiset and multimap
+               x = x->right; // Case for multiset and multimap
            }
        }
 
@@ -540,7 +540,7 @@ namespace ft
                 else if (_comp(extract_key(x), extract_key(z)))
                     x = x->right;
                 else    // Case for multiset and multimap
-                    x = x->left;
+                    x = x->right;
             }
 
             z->parent = y;
