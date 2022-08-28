@@ -104,7 +104,7 @@ namespace ft
     template<typename T>
     typename rb_tree_iterator<T>::pointer      rb_tree_iterator<T>::operator->() const
     {
-        return &static_cast<link_type>(_node)->data;
+        return &(operator*());
     }
     
     template<typename T>

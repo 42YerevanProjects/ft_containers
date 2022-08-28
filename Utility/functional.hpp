@@ -57,7 +57,7 @@ namespace ft
     template <class T>
     struct select_self : unary_function<T, T>
     {
-        T&          operator()(T& x)
+        T&          operator()(T& x) 
         {
             return (x);
         }

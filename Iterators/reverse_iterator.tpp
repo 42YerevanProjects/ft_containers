@@ -27,7 +27,7 @@ namespace ft
     template<typename It>
     reverse_iterator<It>    reverse_iterator<It>::operator++(int)
     {
-        reverse_iterator<It> temp = *this;
+        reverse_iterator temp(*this);
         ++(*this);
         return temp;
     }
@@ -42,7 +42,7 @@ namespace ft
     template<typename It>
     reverse_iterator<It>    reverse_iterator<It>::operator--(int)
     {
-        reverse_iterator<It> temp = *this;
+        reverse_iterator temp(*this);
         --(*this);
         return temp;
     }
