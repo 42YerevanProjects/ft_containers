@@ -32,7 +32,7 @@ Here are the specificities of the containers implemented by me:
 - :arrow_right: **Multimap:** a sorted container using a Red Black binary tree (auto-equilibrates itself to optimize the time to find a value in the tree), in order to store the data like in a dictionnary (a key associated to its value), where key are not unique.
 - :arrow_right: **Multiset:** a sorted container using a Red Black binary tree (auto-equilibrates itself to optimize the time to find a value in the tree), in order to store set elements which are not unique.
 
-All my containers use an allocator to manage properly their memory, iterators to access their datas, and handle the same constructors / methods than the containers from the STL in C++98.
+All my containers use an allocator to manage properly their memory, iterators to access their data, and handle the same constructors / methods than the containers from the STL in C++98.
 
 
 ## Testers
