@@ -39,9 +39,9 @@ All my containers use an allocator to manage properly their memory, iterators to
 
 The testers available in the repository :
 
-- [mli's containers_test](https://github.com/mli42/containers_test) (very useful, much recommended), to which I contributed by adding the tests for deque, multimap, set and multiset (you can find them on his repo)
+- [mli's containers_test](https://github.com/mli42/containers_test) (very useful, much recommended) Tests not only the vector, stack, map, set but also the older version containers like deque, multimap, multiset and list (you can find them on his repo).
 
-- [ft_containers_unit_tests](https://github.com/divinepet/ft_containers-unit-test)
+- [ft_containers_unit_tests](https://github.com/divinepet/ft_containers-unit-test) Will show you the speed of your container functions compared to STL in millisecond.
 
 It will test all the constructors, methods and iterators, by comparating your containers with the STL containers, and making a diff if some errors occured.
 Also, you can choose which tests you want to execute, in the case you're checking specific containers / methods.
