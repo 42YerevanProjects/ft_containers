@@ -282,6 +282,7 @@ namespace ft
 
         for (size_type i = 0; i < _size; i++)
             _alloc.destroy(_vct + i);
+
         for (difference_type i = 0; i < n; i++)
             _alloc.construct(_vct + i, *first++);
         
@@ -343,48 +344,132 @@ namespace ft
     void    vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last, 
             typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*)
     {
-        vector<T, Alloc> temp(position, this->end());
-        this->_size -= (this->end() - position);
-
-        while (first != last)
+        if (position < begin() || position > end())
+            throw std::logic_error("vector::insert");
+        
+        size_type start = static_cast<size_type>(position - begin());
+        size_type n = static_cast<size_type>(ft::distance(first, last));
+        if (_size + n > _cap)
         {
-            push_back(*first);
-            ++first;
+            size_type cap = _cap * 2 >= _size + n ? _cap * 2 : _size + n;
+            pointer arr = _alloc.allocate(cap);
+            std::uninitialized_copy(begin(), position, arr);
+            try 
+            {
+                for (size_type i = 0; i < static_cast<size_type>(n); i++, first++)
+                    _alloc.construct(arr + start + i, *first);
+            } catch (...) 
+            {
+                for (size_type i = 0; i < n + start; ++i)
+                    _alloc.destroy(arr + i);
+
+                _alloc.deallocate(arr, cap);
+                throw;
+            }
+
+            std::uninitialized_copy(position, end(), (arr + start + n));
+            for (size_type i = 0; i < _size; i++)
+                _alloc.destroy(_vct + i);
+
+            _alloc.deallocate(_vct, _cap);
+            _size += n;
+            _cap = cap;
+            _vct = arr;
         }
-
-        iterator it_begin = temp.begin();
-        iterator it_end = temp.end();
-        while (it_begin != it_end)
+        else
         {
-            this->push_back(*it_begin);
-            ++it_begin;
+            for (size_type i = _size; i > static_cast<size_type>(start); i--)
+            {
+                _alloc.destroy(_vct + i + n - 1);
+                _alloc.construct(_vct + i + n - 1, *(_vct + i - 1));
+            }
+            for (size_type i = 0; i < static_cast<size_type>(n); i++, first++)
+            {
+                _alloc.destroy(_vct + i + n);
+                _alloc.construct(_vct + start + i, *first);
+            }
+            _size += n;
         }
     }
 
     template<class T, class Alloc>
     void                                                vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
     {
-        vector<T, Alloc> temp(position, this->end());
-        this->_size -= (this->end() - position);
-
-        for (size_type i = 0; i < n; i++)
-            this->push_back(val);
-
-        iterator it_begin = temp.begin();
-        iterator it_end = temp.end();
-        while (it_begin != it_end)
+        if (n == 0)
+            return ;
+        else if (max_size() - _size < n)
+            throw std::length_error("vector::insert");
+        
+        difference_type start = position - begin();
+        if (_size + n > _cap)
         {
-            this->push_back(*it_begin);
-            ++it_begin;
+            size_type cap = _cap * 2 >= _size + n ? _cap * 2 : _size + n;
+            pointer arr = _alloc.allocate(cap);
+            std::uninitialized_copy(begin(), position, arr);
+            
+            for (size_type i = 0; i < n; i++)
+                _alloc.construct(arr + start + i, val);
+
+            std::uninitialized_copy(position, end(), (arr + start + n));
+            for (size_type i = 0; i < _size; i++)
+                _alloc.destroy(_vct + i);
+            
+            _alloc.deallocate(_vct, _cap);
+            _size += n;
+            _cap = cap;
+            _vct = arr;
+        }
+        else
+        {
+            for (size_type i = _size; i > static_cast<size_type>(start); i--)
+            {
+                _alloc.destroy(_vct + i + n - 1);
+                _alloc.construct(_vct + i + n - 1, *(_vct + i - 1));
+            }
+            for (size_type i = 0; i < n; i++)
+            {
+                _alloc.destroy(_vct + i + start);
+                _alloc.construct(_vct + i + start, val);
+            }
+            _size += n;
         }
     }
 
     template<class T, class Alloc>
     typename vector<T, Alloc>::iterator                 vector<T, Alloc>::insert(iterator position, const value_type& val)
     {
-        size_type n = (position - this->begin());
-        insert(position, 1, val);
-        return (iterator(&this->_vct[n]));
+        if (position < begin() || position > end())
+            throw std::logic_error("vector::insert");
+        
+        difference_type start = position - begin();
+        if (_size == _cap)
+        {
+            _cap = _cap * 2 + (_cap == 0);
+            pointer arr = _alloc.allocate(_cap);
+            std::uninitialized_copy(begin(), position, arr);
+            _alloc.construct(arr + start, val);
+            std::uninitialized_copy(position, end(), arr + start + 1);
+            
+            for (size_type i = 0; i < _size; i++)
+                _alloc.destroy(_vct + i);
+            if (_size)
+                _alloc.deallocate(_vct, _size);
+            _size++;
+            _vct = arr;
+        }
+        else
+        {
+            for (size_type i = _size; i > static_cast<size_type >(start); i--)
+            {
+                _alloc.destroy(_vct + i);
+                _alloc.construct(_vct + i, *(_vct + i - 1));
+            }
+            _alloc.destroy(&(*position));
+            _alloc.construct(&(*position), val);
+            _size++;
+        }
+
+        return (begin() + start);
     }
 
     /* Swapping */
@@ -392,8 +477,8 @@ namespace ft
     template < typename T, typename Alloc >
     void                                                vector<T, Alloc>::swap(vector& x)
     {
-        ft::swap(this->_alloc, x._alloc);
         ft::swap(this->_vct, x._vct);
+        ft::swap(this->_alloc, x._alloc);
         ft::swap(this->_size, x._size);
         ft::swap(this->_cap, x._cap);
     }
@@ -423,12 +508,28 @@ namespace ft
     template < typename T, typename Alloc>
     typename vector<T, Alloc>::iterator                 vector<T, Alloc>::erase(iterator first, iterator last)
     {
-        size_t n = last - first;
+        difference_type left = ft::distance(begin(), first);
+        difference_type right = ft::distance(last, end());
 
-        while (n-- > 0)
-            this->erase(first);
+        for (; first != last; first++)
+            _alloc.destroy(&(*first));
+        
+        size_type i = left;
+        while (last < end())
+        {
+            if (this->_vct + left)
+                _alloc.destroy(_vct + i);
 
-        return (first);
+            _alloc.construct(_vct + i, *last);
+            i++;
+            last++;
+        }
+        
+        for (size_type i = left + right; i < _size; i++)
+            _alloc.destroy(_vct + i);
+        _size = left + right;
+        
+        return (last == end()) ? end() : iterator(_vct + left);
     }
 
 
