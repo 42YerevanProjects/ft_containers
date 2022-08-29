@@ -41,7 +41,7 @@ The testers available in the repository :
 
 - [mli's containers_test](https://github.com/mli42/containers_test) (very useful, much recommended) Tests not only the vector, stack, map, set but also the older version containers like deque, multimap, multiset and list (you can find them on his repo).
 
-- [ft_containers_unit_tests](https://github.com/divinepet/ft_containers-unit-test) Will show you the speed of your container functions compared to STL in millisecond.
+- [ft_containers_unit_tests](https://github.com/divinepet/ft_containers-unit-test) Will show you the speed of your container functions in milliseconds compared to STL.
 
 It will test all the constructors, methods and iterators, by comparating your containers with the STL containers, and making a diff if some errors occured.
 Also, you can choose which tests you want to execute, in the case you're checking specific containers / methods.
