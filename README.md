@@ -24,7 +24,6 @@ you cannot use \<iterator\> or even \<utility\>.
 Here are the specificities of the containers implemented by me:
 
 - :arrow_right: **Vector:** a dynamic array that allows insertion at the end of the container. Elements can be easily access thanks with the corresponding index, but it's not the most optimal container if a lot of insertion / deletion are needed.
-- :arrow_right: **List:** a circular linked list (with a neutral node linking beginning and end of the list). Better than vector for inserting or deleting elements.
 - :arrow_right: **Stack:** a container adaptator (LIFO, last in first out).
 - :arrow_right: **Queue:** a container adaptator (FIFO, first in first out).
 - :arrow_right: **Map:** a sorted container using a Red Black binary tree (auto-equilibrates itself to optimize the time to find a value in the tree), in order to store the data like in a dictionnary (a key associated to its value).
@@ -45,3 +44,21 @@ The testers available in the repository :
 
 It will test all the constructors, methods and iterators, by comparating your containers with the STL containers, and making a diff if some errors occured.
 Also, you can choose which tests you want to execute, in the case you're checking specific containers / methods.
+
+## Resources
+
+You can find some links and books below that might be useful during the project. Note that you do not have to read the books completly 
+but you will find a lot of useful information there.
+
+Books
+
+- [Working Draft, Standart for C++](https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2011/n3242.pdf#page=731&zoom=100,96,712)
+
+
+
+
+
+
+
+
+
