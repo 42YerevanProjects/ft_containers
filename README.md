@@ -54,6 +54,19 @@ Books
 
 - [Working Draft, Standart for C++](https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2011/n3242.pdf#page=731&zoom=100,96,712)
 
+Videos
+
+- [What Are Containers](https://youtu.be/6OoSgY6NVVk)
+- [STL by example](https://youtube.com/playlist?list=PLZ9NgFYEMxp5oH3mrr4IlFBn03rjS-gN1)
+- [Basic vector implementation](https://youtu.be/ryRf4Jh_YC0)
+- [Iterators](https://youtu.be/SgcHcbQ0RCQ)
+
+Links
+
+- [cppreference](https://en.cppreference.com/w/)
+- [cplusplus](https://cplusplus.com/)
+
+
 
 
 
